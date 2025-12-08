@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { ROUTES } from 'src/app/shared/utils/app-routes';
 
 @Component({
   selector: 'app-login',
@@ -19,5 +20,9 @@ export class LoginComponent  implements OnInit {
 
  forgetPassword() {
   this.router.navigate(['auth/forget-password']);
+}
+
+home() {
+  this.router.navigate([ROUTES.MAIN]);
 }
 }

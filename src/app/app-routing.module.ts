@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { ROUTES } from './shared/utils/app-routes';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: ROUTES.AUTH,
     pathMatch: 'full'
   },
   {
-    path: 'auth',
+    path: ROUTES.AUTH,
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
    {
-    path: 'main',
+    path: ROUTES.MAIN,
     loadChildren: () => import('./main/main.module').then(m => m.MainModule)
   },
 ];

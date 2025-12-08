@@ -3,14 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { AuthLayoutComponent } from './auth/auth-layout.component';
+import { ROUTES } from '../shared/utils/app-routes';
 const routes: Routes = [
   {
     path: '',
     component: AuthLayoutComponent,
     children: [
-      { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: 'login', component: LoginComponent },
-      { path: 'forget-password', component: ForgetPasswordComponent }
+      { path: '', redirectTo: ROUTES.LOGIN, pathMatch: 'full' },
+      { path: ROUTES.LOGIN, component: LoginComponent },
+      { path: ROUTES.FORGET_PASSWORD, component: ForgetPasswordComponent }
     ]
   }
 ];
