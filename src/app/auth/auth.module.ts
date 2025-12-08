@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { AuthRoutingModule } from './auth-routing.module';
-import { AuthLayoutComponent } from './auth/auth.component';
+import { AuthLayoutComponent } from './auth/auth-layout.component';
 
 @NgModule({
   declarations: [
