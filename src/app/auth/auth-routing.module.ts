@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { ForgetPasswordComponent } from './forget-password/forget-password.component';
-import { AuthLayoutComponent } from './auth/auth-layout.component';
+import { LoginComponent } from './components/login/login.component';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
+import { AuthLayoutComponent } from './components/auth/auth-layout.component';
 import { ROUTES } from '../shared/utils/app-routes';
 const routes: Routes = [
   {
