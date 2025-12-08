@@ -60,7 +60,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
         });
 
         return {
-          link: authLink.concat(errorLink).concat(httpLink.create({ uri: 'https://your-api.com/graphql' })),
+          link: authLink.concat(errorLink).concat(httpLink.create({ uri: 'https://api-admin-v2.uat.techbar.com/api' })),
           cache: new InMemoryCache(),
         };
       },
@@ -69,3 +69,4 @@ import { AuthService } from 'src/app/auth/services/auth.service';
   ]
 })
 export class GraphQLModule {}
+ 
