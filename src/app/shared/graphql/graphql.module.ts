@@ -67,6 +67,10 @@ import { AuthService } from 'src/app/auth/services/auth.service';
       deps: [HttpLink, Injector]
     }
   ]
+
+
+
+  
 })
 export class GraphQLModule {}
  
