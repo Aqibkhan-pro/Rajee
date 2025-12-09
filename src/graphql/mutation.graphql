@@ -1,0 +1,86 @@
+mutation loginWithEmail($email: String!, $password: String!, $deviceToken: String) {
+  loginWithEmail(email: $email, password: $password, device_token: $deviceToken) {
+    tokens {
+      access {
+        token
+        expires
+        __typename
+      }
+      refresh {
+        token
+        expires
+        __typename
+      }
+      __typename
+    }
+    user {
+      is_navigated_user
+      date_format
+      currency_format
+      currency_name
+      currency_symbol
+      do_not_disturb
+      two_fa_secret
+      is_un_restricted
+      last_working_date
+      is_sample_data
+      isOwner
+      id
+      profile_pictures {
+        dimension
+        path
+        __typename
+      }
+      business_id {
+        zip_code
+        is_24_hour_format
+        Country {
+          name
+          _id
+          __typename
+        }
+        state {
+          _id
+          state_name
+          __typename
+        }
+        city {
+          _id
+          city_name
+          __typename
+        }
+        _id
+        logo
+        business_legal_name
+        business_type
+        time_zone
+        business_package {
+          hr_module_only
+          __typename
+        }
+        __typename
+      }
+      business_status
+      business_type
+      first_name
+      last_name
+      email
+      phone
+      logo
+      avatar_location
+      user_is_super_admin
+      is_popup_closed
+      business_is_super_admin
+      __typename
+    }
+    businesses {
+      _id
+      business_email
+      business_legal_name
+      address
+      logo
+      __typename
+    }
+    __typename
+  }
+}

@@ -1,0 +1,12 @@
+query getEmployeeByEmailLogin($email: String!) {
+  getEmployeeByEmailLogin(email: $email) {
+    phone
+    email
+    first_name
+    last_name
+    is_password_set
+    is_email_verify
+    is_phone_verify
+    id
+  }
+}
