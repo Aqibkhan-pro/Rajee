@@ -4,7 +4,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { GraphQLModule } from './shared/graphql/graphql.module';
+import { GraphQLModule } from './shared/graphql/apollo.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,9 +15,9 @@ import { GraphQLModule } from './shared/graphql/graphql.module';
     GraphQLModule
   ],
   providers: [
-    { 
-      provide: RouteReuseStrategy, 
-      useClass: IonicRouteStrategy 
+    {
+      provide: RouteReuseStrategy,
+      useClass: IonicRouteStrategy
     }],
   bootstrap: [AppComponent],
 })
