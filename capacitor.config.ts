@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'Preowned-Devices',
+  appId: 'app.preowned.devices',
+  appName: 'Preowned Devices',
   webDir: 'www'
 };
 
