@@ -26,6 +26,9 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+  <key>NSCameraUsageDescription</key>
+	<string> We use the device camera to capture and update user profile pictures, and to scan device QR codes and barcodes. Camera permission is required to enable these features.</string>
+
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
