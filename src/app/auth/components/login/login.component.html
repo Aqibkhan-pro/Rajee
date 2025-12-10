@@ -1,7 +1,33 @@
-<ion-button (click)="home()">
-  login works!
-</ion-button>
+<ion-content scrollY="false">
+  <ion-list class="top-list">
+    <ion-item lines="none">
+      <div class="avatar-center">
+        <lottie-player src="../../../../assets/anim/girl_work.json" background="transparent" speed="1" loop autoplay
+          style="width: 300px; height: 300px;">
+        </lottie-player>
+      </div>
+    </ion-item>
 
-<ion-button (click)="forgetPassword()">
-  Forget Password
-</ion-button>
+    <ion-list class="input-list">
+      <ion-label>
+        <h1>Login</h1>
+        <p class="paragraph">Please Sign in to continue</p>
+      </ion-label>
+      <ion-input label="Email" label-placement="floating" type="email" fill="solid" placeholder="Enter email..."
+        mode="md"></ion-input>
+      <br>
+      <ion-input label="Password" label-placement="floating" type="password" fill="solid" placeholder="Enter password..."
+        mode="md">
+      </ion-input>
+      <br>
+      <ion-label>
+        <p class="forgot-text">Forgot Password</p>
+      </ion-label>
+      <br>
+      <ion-button expand="block" (click)="home()">Log In</ion-button>
+    </ion-list>
+  </ion-list>
+
+</ion-content>
+
+

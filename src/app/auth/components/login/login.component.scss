@@ -1,0 +1,42 @@
+.avatar-center {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+ion-avatar{
+  width: 175px;
+  height: 175px;
+  --border-radius: 0%;
+}
+
+.top-list{
+  padding: 24px;
+  margin-top: 20%;
+}
+
+
+.input-list{
+  margin-top: 5%;
+}
+
+ion-label {
+  h1{
+    font-weight: bold;
+  }
+
+  .paragraph {
+    margin: 0px 0px 20px 0px;
+    font-weight: 500;
+  }
+
+  .forgot-text{
+    text-align: end;
+    font-weight: 500;
+  }
+}
+
+ion-button{
+  color: #fff;
+}
