@@ -6,7 +6,7 @@ import { constants } from 'src/app/shared/utils/constants';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { NavController } from '@ionic/angular';
-import { ROUTES } from 'src/app/shared/utils/app-routes';
+import { APP_ROUTES } from 'src/app/shared/utils/app-routes';
 import { MediaPermissionService } from 'src/app/services/media-permission.service';
 
 @Component({
@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit {
         console.log('Login Verify User:--', response);
         this.authService.setToken(response?.tokens?.access?.token);
         localStorage.setItem(constants.RefreshToken, response?.tokens?.refresh?.token);
-        this.navCtrl.navigateForward([ROUTES.MAIN]);
+        this.navCtrl.navigateForward([APP_ROUTES.MAIN]);
       },
       (err: any) => {
         console.log('Error Verify User:--', err);
