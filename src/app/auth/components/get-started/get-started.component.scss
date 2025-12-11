@@ -1,7 +1,3 @@
-ion-content {
-  --background: #101729;
-}
-
 .avatar-center {
   width: 100%;
   height: 100%;
@@ -10,9 +6,10 @@ ion-content {
   position: relative;
 }
 
-.logo{
+.logo {
   height: 150px;
   width: 150px;
+  fill: var(--logo-color);
 }
 
 h1 {
@@ -24,11 +21,55 @@ h1 {
   text-align: center;
 }
 
-ion-button{
+p {
+  line-height: 34px;
+  letter-spacing: 0.38%;
+  text-align: center;
+  line-height: 34px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+ion-label {
+  color: var(--text-color);
+
+  h1 {
+    font-weight: bold;
+  }
+
+  .paragraph {
+    margin: 0px 0px 20px 0px;
+    font-weight: 500;
+  }
+
+  .forgot-text {
+    text-align: end;
+    font-weight: 500;
+    color: var(--text-color);
+  }
+}
+
+.text_color {
+  color: var(--text-color);
+}
+
+ion-button {
   position: absolute;
   bottom: 30px;
   width: 94%;
   margin: 0px 3%;
-  --background: linear-gradient(52.37deg, #FFA05C 9.79%, #F06500 100.17%);
-  color: white;
+}
+
+ion-content,
+ion-item,
+ion-list {
+  --background: var(--primary-color);
+  background: var(--primary-color);
+}
+
+ion-button {
+  --background: var(--button-color);
+  color: var(--btn-text-color);
 }

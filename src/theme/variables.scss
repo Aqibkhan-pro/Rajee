@@ -6,26 +6,37 @@
   --primary-color: #101729;
   --secondary-color: #1D2031;
   --text-color: #ffffff;
+  --btn-text-color: #ffffff;
+  --logo-color: #ffffff;
   --button-color: linear-gradient(52.37deg, #FFA05C 9.79%, #F06500 100.17%);
 }
 
 /* Theme 1 – Blue */
 .theme-blue {
-  --primary-color: #3880ff;
+  --primary-color: #ffffff;
   --background-color: #ffffff;
-  --text-color: #000000;
+  --text-color: #4ABCFD;
+  --btn-text-color: #ffffff;
+  --logo-color: #4ABCFD;
+  --button-color: linear-gradient(to right, #4abcfd8f, #00adf7);
 }
 
 /* Theme 2 – Dark */
 .theme-dark {
-  --primary-color: #222428;
-  --background-color: #121212;
-  --text-color: #ffffff;
+  --primary-color: #ffffff;
+  --background-color: #ffffff;
+  --text-color: #662bf9;
+  --btn-text-color: #ffffff;
+  --logo-color: #662bf9;
+  --button-color: linear-gradient(to right, #b59feee8, #3300f7);
 }
 
 /* Theme 3 – Green */
 .theme-green {
-  --primary-color: #2dd36f;
+  --primary-color: #f1fff8;
   --background-color: #f1fff8;
   --text-color: #0f5132;
+  --btn-text-color: #f1fff8;
+  --logo-color: #0f5132;
+  --button-color: linear-gradient(to right, #648b72e8, #0f5132);
 }

@@ -2,27 +2,28 @@
   <ion-list class="top-list">
     <ion-item lines="none" class="login_top_image">
       <div class="avatar-center">
-        <ion-icon src="assets/svg/logo.svg" class="logo"/>
+        <ion-icon src="assets/svg/logo.svg" class="logo" />
       </div>
     </ion-item>
 
     <form [formGroup]="loginForm" (ngSubmit)="callDetailUserApi()">
       <ion-list class="input-list">
-        <ion-label>
+        <ion-label class="ff">
           <h1 (click)="scan()">Login to your Account</h1>
+          <h3>It's so nice to see you!</h3>
         </ion-label>
 
-          <ion-input label="Email" label-placement="floating" type="email" fill="solid" placeholder="Enter email..."
-          mode="md" formControlName="email" ></ion-input>
+        <ion-input label="Email" label-placement="floating" type="email" fill="solid" placeholder="Enter email..."
+          mode="md" formControlName="email"></ion-input>
 
-        <ion-text color="danger" *ngIf="submitted && email?.errors">
+        <ion-text color="danger" *ngIf="submitted && email?.errors" class="ff">
           <p *ngIf="email?.errors?.required">Email is required</p>
           <p *ngIf="email?.errors?.email">Invalid email format</p>
         </ion-text>
         <br>
-        <ion-input label="Password" label-placement="floating" type="password" fill="solid" placeholder="Enter password..."
-        mode="md" formControlName="password" ></ion-input>
-        <ion-text color="danger" *ngIf="submitted && password?.errors">
+        <ion-input label="Password" label-placement="floating" type="password" fill="solid"
+          placeholder="Enter password..." mode="md" formControlName="password"></ion-input>
+        <ion-text color="danger" *ngIf="submitted && password?.errors" class="ff">
           <p *ngIf="password?.errors?.required">Password is required</p>
           <p *ngIf="password?.errors?.minlength">Password must be at least 6 characters</p>
         </ion-text>

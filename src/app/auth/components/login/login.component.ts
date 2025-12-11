@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private navCtrl: NavController,
     private fb: FormBuilder,
-    private authService : AuthService,
+    private authService: AuthService,
     private preownDeviceService: PreownDeviceService,
     private mediaPermissionService: MediaPermissionService
   ) { }
@@ -32,6 +32,15 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+
+
+    let theme = localStorage.getItem(constants.Theme) || ''
+    if (theme != '') {
+      this.authService.changeTheme(theme)
+    }
+
+
+
   }
 
   get email() {
@@ -46,7 +55,7 @@ export class LoginComponent implements OnInit {
     this.navCtrl.navigateForward(['auth/forget-password']);
   }
 
-  isLoading :boolean = false;
+  isLoading: boolean = false;
   callDetailUserApi() {
     this.submitted = true;
 
@@ -82,7 +91,7 @@ export class LoginComponent implements OnInit {
     this.preownDeviceService.loginWithEmailApi(data).subscribe(
       (res: any) => {
         this.isLoading = false; // stop loader
-        if(!res?.data?.loginWithEmail) {
+        if (!res?.data?.loginWithEmail) {
           return;
         }
         const response = res?.data?.loginWithEmail;
@@ -108,13 +117,13 @@ export class LoginComponent implements OnInit {
     // }
     this.count++;
     if (this.count == 1) {
-      this.changeTheme('theme-blue')
+      this.authService.changeTheme('theme-blue')
     }
     else if (this.count == 2) {
-      this.changeTheme('theme-dark')
+      this.authService.changeTheme('theme-dark')
     }
     else {
-      this.changeTheme('theme-green')
+      this.authService.changeTheme('theme-green')
       this.count = 0
     }
 
@@ -128,12 +137,7 @@ export class LoginComponent implements OnInit {
     document.body.style.setProperty('--primary-color', event.target.value);
   }
 
-  changeTheme(theme: 'theme-blue' | 'theme-dark' | 'theme-green') {
-    const body = document.body;
 
-    body.classList.remove('theme-blue', 'theme-dark', 'theme-green');
-    body.classList.add(theme);
-  }
 
 
 }

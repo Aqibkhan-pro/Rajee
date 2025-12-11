@@ -15,6 +15,7 @@ ion-input {
 .logo {
   width: 125px;
   height: 125px;
+  fill: var(--logo-color);
 }
 
 .top-list {
@@ -50,19 +51,9 @@ ion-label {
 }
 
 
-ion-text{
-  p{
+ion-text {
+  p {
     margin: 5px 0px 0px 0px;
     font-size: 13px;
   }
-}
-
-ion-content , ion-item , ion-list{
-  --background: var(--primary-color);
-  background: var(--primary-color);
-}
-
-ion-button{
-  --background: var(--button-color);
-  color: var(--text-color);
 }
