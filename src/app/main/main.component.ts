@@ -5,7 +5,7 @@ import { IonicModule } from "@ionic/angular";
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
-  imports: [IonicModule],
+  standalone:false
 })
 export class MainContainerComponent  implements OnInit {
 
