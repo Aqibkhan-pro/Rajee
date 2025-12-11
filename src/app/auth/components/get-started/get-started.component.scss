@@ -1,5 +1,5 @@
 ion-content {
-  --background: #101729;
+  --background: var(--primary-color); // #0d0d0d //#fcfcfc;
 }
 
 .avatar-center {
@@ -8,6 +8,7 @@ ion-content {
   padding: 50% 0 0 0;
   text-align: center;
   position: relative;
+  justify-items: center;
 }
 
 .logo{
@@ -17,11 +18,15 @@ ion-content {
 
 h1 {
   font-weight: 700;
-  font-style: Bold;
   font-size: 28px;
   line-height: 34px;
-  letter-spacing: 0.38%;
   text-align: center;
+  color: #fafafa; //1b1b1b
+}
+
+p{
+  color: #848484;
+  font-weight: 500;
 }
 
 ion-button{
@@ -29,6 +34,8 @@ ion-button{
   bottom: 30px;
   width: 94%;
   margin: 0px 3%;
-  --background: linear-gradient(52.37deg, #FFA05C 9.79%, #F06500 100.17%);
+  --background: #e97c00; // #0f6b42
+  --background-hover: #ff9f32;
+  --background-activated: #ff9f32;
   color: white;
 }

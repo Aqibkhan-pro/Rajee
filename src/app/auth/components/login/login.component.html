@@ -1,37 +1,56 @@
 <ion-content scrollY="false">
   <ion-list class="top-list">
-    <ion-item lines="none" class="login_top_image">
+    <ion-item lines="none">
       <div class="avatar-center">
-        <ion-icon src="assets/svg/logo.svg" class="logo"/>
+        <lottie-player src="../../../../assets/anim/data.json" background="transparent" speed="1" loop autoplay
+        style="width: 260px; height: 260px;">
+      </lottie-player>
+        <!-- <ion-icon src="assets/svg/logo.svg" class="logo" /> -->
       </div>
     </ion-item>
 
     <form [formGroup]="loginForm" (ngSubmit)="callDetailUserApi()">
-      <ion-list class="input-list">
-        <ion-label>
-          <h1 (click)="scan()">Login to your Account</h1>
+      <ion-list class="text-center mt-4">
+        <ion-label >
+          <h1 (click)="scan()">Welcome back! Let's sign in</h1>
         </ion-label>
-
-          <ion-input label="Email" label-placement="floating" type="email" fill="solid" placeholder="Enter email..."
-          mode="md" formControlName="email" ></ion-input>
+        <ion-list class="text-start mt-12">
+          <ion-label class="text-14">Email</ion-label>
+            <ion-item class="custom-input mt-8" lines="none">
+              <ion-icon slot="start" src="assets/svg/envelope.svg" class="text-20"></ion-icon>
+              <ion-input
+                type="email"
+                placeholder="Enter email..."
+                formControlName="email">
+              </ion-input>
+            </ion-item>
+        </ion-list>
 
         <ion-text color="danger" *ngIf="submitted && email?.errors">
-          <p *ngIf="email?.errors?.required">Email is required</p>
-          <p *ngIf="email?.errors?.email">Invalid email format</p>
+          <p *ngIf="email?.errors?.required" class="text-start">Email is required</p>
+          <p *ngIf="email?.errors?.email" class="text-start">Invalid email format</p>
         </ion-text>
-        <br>
-        <ion-input label="Password" label-placement="floating" type="password" fill="solid" placeholder="Enter password..."
-        mode="md" formControlName="password" ></ion-input>
+        <ion-list class="text-start">
+          <ion-label class="text-14">Password</ion-label>
+          <ion-item class="custom-input mt-8" lines="none">
+            <ion-icon slot="start" src="assets/svg/lock.svg" class="text-20"></ion-icon>
+            <ion-input
+              type="password"
+              placeholder="Enter password..."
+              formControlName="password">
+            </ion-input>
+            <ion-icon slot="end" src="assets/svg/view.svg" class="text-20"></ion-icon>
+          </ion-item>
+        </ion-list>
         <ion-text color="danger" *ngIf="submitted && password?.errors">
-          <p *ngIf="password?.errors?.required">Password is required</p>
-          <p *ngIf="password?.errors?.minlength">Password must be at least 6 characters</p>
+          <p *ngIf="password?.errors?.required" class="text-start">Password is required</p>
+          <p *ngIf="password?.errors?.minlength" class="text-start">Password must be at least 6 characters</p>
         </ion-text>
-        <br>
         <ion-label>
-          <p class="forgot-text" (click)="forgetPassword()">Forgot Password</p>
+          <p class="forgot-text text-14 mt-12" (click)="forgetPassword()"><u>Forgot Password</u></p>
         </ion-label>
-        <br>
-        <ion-button expand="block" type="submit" mode="ios" [disabled]="isLoading">
+
+        <ion-button expand="block" type="submit" mode="ios" [disabled]="isLoading" class="text-16 mt-20">
           <ng-container *ngIf="!isLoading">Log In</ng-container>
           <ng-container *ngIf="isLoading">
             <ion-spinner name="crescent" slot="start"></ion-spinner>
