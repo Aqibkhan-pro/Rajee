@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PartsRequestedComponent } from './parts-requested.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+   {  path: '',  component: PartsRequestedComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

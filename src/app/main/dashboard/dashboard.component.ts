@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NavController, PopoverController } from '@ionic/angular';
 import { APP_ROUTES } from 'src/app/shared/utils/app-routes';
 
@@ -12,6 +13,7 @@ export class DashboardComponent implements OnInit {
   routes = APP_ROUTES
   constructor(
     private navCtrl : NavController,
+    private router: Router,
     private popOverCtrl : PopoverController) { }
 
   ngOnInit() {
@@ -25,6 +27,6 @@ export class DashboardComponent implements OnInit {
     this.navCtrl.navigateBack('auth/login');
   }
   goTo(path: string) {
-  this.navCtrl.navigateForward([APP_ROUTES.MAIN+'/'+path]);
+  this.router.navigate([APP_ROUTES.MAIN+'/'+path]);
 }
 }
