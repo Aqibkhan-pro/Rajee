@@ -1,18 +1,15 @@
 <ion-content scrollY="false">
   <ion-list class="top-list">
-    <ion-item lines="none">
+    <ion-item lines="none" class="login_top_image">
       <div class="avatar-center">
-        <lottie-player src="../../../../assets/anim/girl_work.json" background="transparent" speed="1" loop autoplay
-          style="width: 260px; height: 260px;">
-        </lottie-player>
+        <ion-icon src="assets/svg/logo.svg" class="logo"/>
       </div>
     </ion-item>
 
     <form [formGroup]="loginForm" (ngSubmit)="callDetailUserApi()">
       <ion-list class="input-list">
         <ion-label>
-          <h1>Login</h1>
-          <p class="paragraph">Please Sign in to continue</p>
+          <h1 (click)="scan()">Login to your Account</h1>
         </ion-label>
 
           <ion-input label="Email" label-placement="floating" type="email" fill="solid" placeholder="Enter email..."

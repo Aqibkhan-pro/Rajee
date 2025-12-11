@@ -4,9 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { MainRoutingModule } from './main-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ScannerComponent } from './scanner/scanner.component';
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,ScannerComponent
   ],
   imports: [
     CommonModule,
@@ -16,4 +17,4 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MainRoutingModule
   ]
 })
-export class MainModule {}
+export class MainModule { }

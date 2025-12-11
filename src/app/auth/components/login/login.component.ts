@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { AuthService } from '../../services/auth.service';
 import { NavController } from '@ionic/angular';
 import { ROUTES } from 'src/app/shared/utils/app-routes';
+import { MediaPermissionService } from 'src/app/services/media-permission.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
     private navCtrl: NavController,
     private fb: FormBuilder,
     private authService : AuthService,
-    private preownDeviceService: PreownDeviceService
+    private preownDeviceService: PreownDeviceService,
+    private mediaPermissionService: MediaPermissionService
   ) { }
 
   ngOnInit() {
@@ -95,5 +97,43 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
+  count = 1
+  async scan() {
+    // if (await this.mediaPermissionService.scannerPermission()) {
+    //   this.navCtrl.navigateForward(['main/scan']);
+    // }
+    // else {
+    //   console.log('Camera permission is required to access the scanner.');
+    // }
+    this.count++;
+    if (this.count == 1) {
+      this.changeTheme('theme-blue')
+    }
+    else if (this.count == 2) {
+      this.changeTheme('theme-dark')
+    }
+    else {
+      this.changeTheme('theme-green')
+      this.count = 0
+    }
+
+
+  }
+
+  selectedColor = '#3880ff';
+
+  onColorChange(event: any) {
+    console.log('Selected color:', event.target.value);
+    document.body.style.setProperty('--primary-color', event.target.value);
+  }
+
+  changeTheme(theme: 'theme-blue' | 'theme-dark' | 'theme-green') {
+    const body = document.body;
+
+    body.classList.remove('theme-blue', 'theme-dark', 'theme-green');
+    body.classList.add(theme);
+  }
+
 
 }

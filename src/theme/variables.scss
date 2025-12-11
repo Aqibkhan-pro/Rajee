@@ -1,2 +1,31 @@
 // For information on how to create your own theme, please refer to:
 // https://ionicframework.com/docs/theming/
+
+:root {
+  /* Default Theme */
+  --primary-color: #101729;
+  --secondary-color: #1D2031;
+  --text-color: #ffffff;
+  --button-color: linear-gradient(52.37deg, #FFA05C 9.79%, #F06500 100.17%);
+}
+
+/* Theme 1 – Blue */
+.theme-blue {
+  --primary-color: #3880ff;
+  --background-color: #ffffff;
+  --text-color: #000000;
+}
+
+/* Theme 2 – Dark */
+.theme-dark {
+  --primary-color: #222428;
+  --background-color: #121212;
+  --text-color: #ffffff;
+}
+
+/* Theme 3 – Green */
+.theme-green {
+  --primary-color: #2dd36f;
+  --background-color: #f1fff8;
+  --text-color: #0f5132;
+}
