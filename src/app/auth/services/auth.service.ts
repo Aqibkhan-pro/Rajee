@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { constants } from 'src/app/shared/utils/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -8,15 +9,15 @@ export class AuthService {
   constructor() {}
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return localStorage.getItem(constants.Token);
   }
 
   setToken(token: string) {
-    localStorage.setItem('token', token);
+    localStorage.setItem(constants.Token, token);
   }
 
   clearToken() {
-    localStorage.removeItem('token');
+    localStorage.removeItem(constants.Token);
   }
 
   isLoggedIn(): boolean {

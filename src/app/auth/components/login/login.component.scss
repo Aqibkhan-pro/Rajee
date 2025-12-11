@@ -12,10 +12,9 @@ ion-avatar{
 }
 
 .top-list{
-  padding: 24px;
-  margin-top: 20%;
+  padding: 16px;
+  margin-top: 10%;
 }
-
 
 .input-list{
   margin-top: 5%;
@@ -23,6 +22,7 @@ ion-avatar{
 
 ion-label {
   h1{
+    color: #fff;
     font-weight: bold;
   }
 
@@ -34,9 +34,26 @@ ion-label {
   .forgot-text{
     text-align: end;
     font-weight: 500;
+    color: #fff;
   }
 }
 
 ion-button{
   color: #fff;
+}
+
+ion-text{
+  p{
+    margin: 5px 0px 0px 0px;
+    font-size: 13px;
+  }
+}
+
+ion-content , ion-item , ion-list{
+  --background: #101729;
+  background: #101729;
+}
+
+ion-button{
+  --background: linear-gradient(52.37deg, #FFA05C 9.79%, #F06500 100.17%);
 }
