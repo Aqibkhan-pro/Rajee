@@ -6,7 +6,7 @@ import { constants } from 'src/app/shared/utils/constants';
 })
 export class AuthService {
 
-  constructor() {}
+  constructor() { }
 
   getToken(): string | null {
     return localStorage.getItem(constants.Token);
@@ -22,5 +22,14 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!this.getToken();
+  }
+
+  changeTheme(theme: string) {
+    const body = document.body;
+
+    body.classList.remove('theme-blue', 'theme-dark', 'theme-green');
+    body.classList.add(theme);
+
+    localStorage.setItem(constants.Theme, theme);
   }
 }

@@ -12,10 +12,10 @@
     <form [formGroup]="loginForm" (ngSubmit)="callDetailUserApi()">
       <ion-list class="text-center mt-4">
         <ion-label >
-          <h1 (click)="scan()">Welcome back! Let's sign in</h1>
+          <h2 (click)="scan()" class="text-20">Welcome back! Let's sign in</h2>
         </ion-label>
         <ion-list class="text-start mt-12">
-          <ion-label class="text-14">Email</ion-label>
+          <!-- <ion-label class="text-14">Email</ion-label> -->
             <ion-item class="custom-input mt-8" lines="none">
               <ion-icon slot="start" src="assets/svg/envelope.svg" class="text-20"></ion-icon>
               <ion-input
@@ -31,7 +31,7 @@
           <p *ngIf="email?.errors?.email" class="text-start">Invalid email format</p>
         </ion-text>
         <ion-list class="text-start">
-          <ion-label class="text-14">Password</ion-label>
+          <!-- <ion-label class="text-14">Password</ion-label> -->
           <ion-item class="custom-input mt-8" lines="none">
             <ion-icon slot="start" src="assets/svg/lock.svg" class="text-20"></ion-icon>
             <ion-input
