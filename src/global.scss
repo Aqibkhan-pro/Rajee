@@ -36,6 +36,10 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
 
+@font-face {
+  font-family: "Poppins";
+  src: url("/assets/fonts/Poppins-Regular.ttf") format("truetype");
+}
 
 dark-theme.scanner-active {
   background: transparent !important;
@@ -52,4 +56,36 @@ ion-content.scanner-active {
   --background: transparent !important;
   background: transparent !important;
   color: rgb(255, 29, 29) !important;
+}
+
+ion-content,
+ion-item,
+ion-list {
+  --background: var(--primary-color) !important;
+  background: var(--primary-color) !important;
+}
+
+ion-button {
+  --background: var(--button-color);
+  color: var(--btn-text-color);
+}
+
+.ff {
+  font-family: "Poppins", sans-serif !important;
+}
+
+.fw400 {
+  font-weight: 400;
+}
+
+.txt-color {
+  color: var(--text-color);
+}
+
+.btn_background {
+  --background: var(--button-color);
+}
+
+.btn_text {
+  color: var(--btn-text-color);
 }
