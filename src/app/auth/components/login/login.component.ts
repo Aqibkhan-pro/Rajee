@@ -53,6 +53,8 @@ export class LoginComponent implements OnInit {
 
   isLoading: boolean = false;
   callDetailUserApi() {
+    this.navCtrl.navigateForward([APP_ROUTES.MAIN]);
+    return;
     this.submitted = true;
 
     if (this.loginForm.invalid) {
@@ -124,8 +126,6 @@ export class LoginComponent implements OnInit {
       this.authService.changeTheme('theme-light')
       this.count = 0
     }
-
-
   }
 
   selectedColor = '#3880ff';
@@ -134,8 +134,4 @@ export class LoginComponent implements OnInit {
     console.log('Selected color:', event.target.value);
     document.body.style.setProperty('--primary-color', event.target.value);
   }
-
-
-
-
 }
