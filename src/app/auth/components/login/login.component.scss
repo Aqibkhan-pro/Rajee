@@ -1,15 +1,7 @@
-ion-item,
-ion-input {
-  --background: transparent !important;
-  color: var(--text-color);
-
-}
-
 .avatar-center {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 20px 0;
 }
 
 .logo {
@@ -19,22 +11,15 @@ ion-input {
 }
 
 .top-list {
-  padding: 24px;
-}
-
-.login_top_image {
-  margin-top: 20%;
-}
-
-.input-list {
-  margin-top: 5%;
-  text-align: center;
+  padding: 12px 24px 24px;
+  height: 100%;
+  align-content: center;
 }
 
 ion-label {
   color: var(--text-color);
 
-  h1 {
+  h2 {
     font-weight: bold;
   }
 
@@ -50,10 +35,36 @@ ion-label {
   }
 }
 
-
-ion-text {
-  p {
-    margin: 5px 0px 0px 0px;
-    font-size: 13px;
+ion-text{
+  p{
+    margin: 0px;
+    font-size: 12px;
   }
+}
+
+ion-content , ion-item , ion-list{
+  --background: var(--primary-color);
+  background: var(--primary-color);
+}
+
+ion-button{
+  color: var(--text-color);
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  --background: var(--button-color); // #0f6b42
+  --background-hover: var(--button-press-color);
+  --background-activated: var(--button-press-color);
+}
+
+.custom-input{
+  --background: var(--secondary-color) !important;
+  --color: var(--text-color) !important;
+  --placeholder-color: #ddd;
+  --placeholder-opacity: 0.8;
+  --padding-bottom: 2px;
+  --padding-end: 0px;
+  --padding-start: 12px;
+  --padding-top: 2px;
+  --border-radius: 6px;
+
 }
