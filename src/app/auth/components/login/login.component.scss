@@ -1,16 +1,3 @@
-ion-content {
-  --background: var(--background-color);
-}
-
-ion-list {
-  background: var(--background-color);
-}
-
-ion-button {
-  --background: var(--primary-color);
-  color: var(--text-color);
-}
-
 ion-item,
 ion-input {
   --background: transparent !important;
@@ -25,24 +12,22 @@ ion-input {
   padding: 20px 0;
 }
 
-ion-avatar {
-  width: 175px;
-  height: 175px;
-  --border-radius: 0%;
+.logo {
+  width: 125px;
+  height: 125px;
 }
 
 .top-list {
   padding: 24px;
-
 }
 
 .login_top_image {
   margin-top: 20%;
 }
 
-
 .input-list {
   margin-top: 5%;
+  text-align: center;
 }
 
 ion-label {
@@ -60,5 +45,24 @@ ion-label {
   .forgot-text {
     text-align: end;
     font-weight: 500;
+    color: var(--text-color);
   }
+}
+
+
+ion-text{
+  p{
+    margin: 5px 0px 0px 0px;
+    font-size: 13px;
+  }
+}
+
+ion-content , ion-item , ion-list{
+  --background: var(--primary-color);
+  background: var(--primary-color);
+}
+
+ion-button{
+  --background: var(--button-color);
+  color: var(--text-color);
 }

@@ -7,12 +7,14 @@ import { LoginComponent } from './components/login/login.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { GraphQLModule } from '../shared/graphql/apollo.module';
 import { AuthLayoutComponent } from './components/auth/auth-layout.component';
+import { GetStartedComponent } from './components/get-started/get-started.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     ForgetPasswordComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    GetStartedComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { AuthLayoutComponent } from './components/auth/auth-layout.component';
     ReactiveFormsModule,
     IonicModule,
     AuthRoutingModule,
-    GraphQLModule
+    GraphQLModule,
+    ReactiveFormsModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 import { PreownDeviceService } from './../../../services/preown-device.service';
 import { Application_Type } from 'src/graphql/generated';
 import { constants } from 'src/app/shared/utils/constants';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { NavController } from '@ionic/angular';
+import { ROUTES } from 'src/app/shared/utils/app-routes';
 import { MediaPermissionService } from 'src/app/services/media-permission.service';
 
 @Component({
@@ -12,26 +16,46 @@ import { MediaPermissionService } from 'src/app/services/media-permission.servic
   standalone: false
 })
 export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
+  submitted = false;
 
   constructor(
-    private router: Router,
+    private navCtrl: NavController,
+    private fb: FormBuilder,
+    private authService : AuthService,
     private preownDeviceService: PreownDeviceService,
-    private mediaPermissionService: MediaPermissionService,
+    private mediaPermissionService: MediaPermissionService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
+
+  get email() {
+    return this.loginForm.get('email') as FormControl;
+  }
+
+  get password() {
+    return this.loginForm.get('password') as FormControl;
+  }
 
   forgetPassword() {
-    this.router.navigate(['auth/forget-password']);
+    this.navCtrl.navigateForward(['auth/forget-password']);
   }
 
-  home() {
-    this.callDetailUserApi();
-    // this.router.navigate([ROUTES.MAIN]);
-  }
-
+  isLoading :boolean = false;
   callDetailUserApi() {
-    const emaildata = { email: 'aqib@4iisolutions.com' };
+    this.submitted = true;
+
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    this.isLoading = true; // start loader
+    const emaildata = { email: this.loginForm.value.email };
     this.preownDeviceService.getEmployeeByEmailApi(emaildata).subscribe(
       res => {
         console.log('Response Verify User:--', res);
@@ -39,14 +63,15 @@ export class LoginComponent implements OnInit {
       },
       (error: any) => {
         console.log('Error Verify User:--', error);
+        this.isLoading = false; // stop loader on error
       }
     );
   }
 
   logInUserApi() {
-    let data = {
-      email: "aqib@4iisolutions.com",
-      password: "Test@123",
+    const data = {
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password,
       deviceToken: '',
       deviceId: null,
       lat: 0.0,
@@ -55,14 +80,20 @@ export class LoginComponent implements OnInit {
     };
 
     this.preownDeviceService.loginWithEmailApi(data).subscribe(
-      async (res: any) => {
-        let response = res?.data?.loginWithEmail
-        console.log('Login Verify User:--', res);
-        localStorage.setItem(constants.Token, response?.tokens?.access?.token);
+      (res: any) => {
+        this.isLoading = false; // stop loader
+        if(!res?.data?.loginWithEmail) {
+          return;
+        }
+        const response = res?.data?.loginWithEmail;
+        console.log('Login Verify User:--', response);
+        this.authService.setToken(response?.tokens?.access?.token);
         localStorage.setItem(constants.RefreshToken, response?.tokens?.refresh?.token);
+        this.navCtrl.navigateForward([ROUTES.MAIN]);
       },
       (err: any) => {
         console.log('Error Verify User:--', err);
+        this.isLoading = false; // stop loader on error
       }
     );
   }
@@ -70,7 +101,7 @@ export class LoginComponent implements OnInit {
   count = 1
   async scan() {
     // if (await this.mediaPermissionService.scannerPermission()) {
-    //   this.router.navigate(['main/scan']);
+    //   this.navCtrl.navigateForward(['main/scan']);
     // }
     // else {
     //   console.log('Camera permission is required to access the scanner.');
