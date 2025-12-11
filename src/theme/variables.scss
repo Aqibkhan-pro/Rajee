@@ -11,16 +11,18 @@
   // --button-color: linear-gradient(52.37deg, #FFA05C 9.79%, #F06500 100.17%);
   --button-color: #e97c00;
   --button-press-color: #ff9f32;
+
 }
 
 /* Theme 1 – Blue */
 .theme-blue {
-  --primary-color: #ffffff;
-  --background-color: #ffffff;
-  --text-color: #4ABCFD;
+  --secondary-color: #ebf0ef;
+  --primary-color: #f1fff8;
+  --background-color: #f1fff8;
+  --text-color: #000000;
   --btn-text-color: #ffffff;
   --logo-color: #4ABCFD;
-  --button-color: linear-gradient(to right, #4abcfd8f, #00adf7);
+  --button-color: #26b5fc
 }
 
 /* Theme 2 – Dark */
