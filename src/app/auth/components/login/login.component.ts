@@ -34,10 +34,6 @@ export class LoginComponent implements OnInit {
     });
 
 
-    let theme = localStorage.getItem(constants.Theme) || ''
-    if (theme != '') {
-      this.authService.changeTheme(theme)
-    }
 
 
 
@@ -121,9 +117,11 @@ export class LoginComponent implements OnInit {
     }
     else if (this.count == 2) {
       this.authService.changeTheme('theme-dark')
+    } else if(this.count ==3){
+      this.authService.changeTheme('theme-darkblue')
     }
     else {
-      this.authService.changeTheme('theme-green')
+      this.authService.changeTheme('theme-light')
       this.count = 0
     }
 

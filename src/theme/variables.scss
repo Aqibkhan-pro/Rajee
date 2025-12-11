@@ -8,7 +8,6 @@
   --text-color: #ffffff;
   --btn-text-color: #ffffff;
   --logo-color: #ffffff;
-  // --button-color: linear-gradient(52.37deg, #FFA05C 9.79%, #F06500 100.17%);
   --button-color: #e97c00;
   --button-press-color: #ff9f32;
 }
@@ -24,7 +23,7 @@
 }
 
 /* Theme 2 – Dark */
-.theme-dark {
+.theme-black {
   --primary-color: #ffffff;
   --background-color: #ffffff;
   --text-color: #662bf9;
@@ -41,4 +40,33 @@
   --btn-text-color: #f1fff8;
   --logo-color: #0f5132;
   --button-color: linear-gradient(to right, #648b72e8, #0f5132);
+}
+
+.theme-dark{
+  --primary-color: #121212;
+  --secondary-color: #1e1e1e;
+  --background-color: #101729;
+  --text-color: #ffffff;
+  --btn-text-color: #ffffff;
+  --logo-color: #ffffff;
+  --button-color: #e97c00;
+  --button-press-color: #ff9f32;
+}
+
+.theme-light{
+  --primary-color: #fafafa;
+    --secondary-color: #efefef;
+    --text-color: #545454;
+    --logo-color: #ffffff;
+    --button-color: #0f6b42;
+    --button-press-color: #38a876;
+}
+
+.theme-darkblue{
+  --primary-color: #fafafa;
+  --secondary-color: #efefef;
+  --text-color: #545454;
+  --logo-color: #ffffff;
+  --button-color: #2c48a7;
+  --button-press-color: #678afb;
 }
