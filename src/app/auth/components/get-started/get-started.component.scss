@@ -25,8 +25,8 @@ h1 {
   color: #fafafa; //1b1b1b
 }
 
-p{
-  color: #848484;
+p {
+  color: var(--sub-title-color);
   font-weight: 500;
 }
 

@@ -98,6 +98,26 @@ ion-content.scanner-active {
   margin-top: 32px !important;
 }
 
+.mb-8 {
+  margin-bottom: 8px !important;
+}
+
+.ml-10 {
+  margin-left: 10px !important;
+}
+
+.mr-15 {
+  margin-right: 15px;
+}
+
+.text-10 {
+  font-size: 10px;
+}
+
+.text-12 {
+  font-size: 12px;
+}
+
 .text-14 {
   font-size: 14px;
 }
@@ -108,6 +128,10 @@ ion-content.scanner-active {
 
 .text-20 {
   font-size: 20px;
+}
+
+.text-22 {
+  font-size: 22px;
 }
 
 ion-content,
@@ -134,8 +158,18 @@ ion-button {
   font-weight: 500;
 }
 
+.fw600 {
+  font-weight: 600;
+}
+
+
+
 .txt-color {
-  color: var(--text-color);
+  color: var(--text-color) !important;
+}
+
+.sub_title_color {
+  color: var(--sub-title-color);
 }
 
 .btn_background {
@@ -146,6 +180,14 @@ ion-button {
   color: var(--btn-text-color);
 }
 
+.theme_text_color {
+  color: var(--theme-text-color);
+}
+
 .fill-color {
   fill: var(--logo-color);
+}
+
+.w100per {
+  width: 100% !important;
 }

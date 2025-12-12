@@ -1,4 +1,6 @@
+import { AuthService } from './auth/services/auth.service';
 import { Component } from '@angular/core';
+import { constants } from './shared/utils/constants';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -15,5 +17,10 @@ export class AppComponent {
   //   { title: 'Spam', url: '/folder/spam', icon: 'warning' },
   // ];
   // public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {}
+  constructor(private authService: AuthService) {
+    let theme = localStorage.getItem(constants.Theme) || ''
+    if (theme != '') {
+      this.authService.changeTheme(theme)
+    }
+  }
 }
