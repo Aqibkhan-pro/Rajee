@@ -1,9 +1,8 @@
 <app-global-header [showBack]="true" title="Received Devices"></app-global-header>
 
 <ion-content>
-  <ion-searchbar placeholder="Search for activity" show-cancel-button="never" animated="true">
-  </ion-searchbar>
-
+  <app-global-search placeholder="Search for activity" (searchChange)="onSearchValue($event)">
+  </app-global-search>
   <ion-grid>
     <ion-row>
       <ion-col size="4">

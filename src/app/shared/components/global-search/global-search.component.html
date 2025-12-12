@@ -1,2 +1,2 @@
-<ion-searchbar placeholder="Search for activity" show-cancel-button="never" animated="true">
+<ion-searchbar [placeholder]="placeholder" show-cancel-button="never" animated="true" (ionInput)="onSearch($event)">
 </ion-searchbar>
