@@ -1,0 +1,44 @@
+ion-content , ion-item , ion-list , ion-header , ion-toolbar{
+  --background: var(--primary-color);
+  background: var(--primary-color);
+}
+
+ion-toolbar{
+  padding: 8px 8px 0px !important;
+}
+
+h2{
+  color: var(--text-color);
+  font-size: 18px;
+  margin: 0;
+}
+
+.menu {
+  --background: var(--primary-color) !important;
+  ion-icon{
+    color: var(--button-color);
+  }
+}
+
+
+.slide-img{
+  margin: 12px 0px;
+    border-radius: 12px;
+    height: 150px;
+    width: 100%;
+    object-fit: cover;
+}
+
+
+.tabs{
+  --border-radius: 32px;
+}
+
+
+.uncheck-button{
+  --background: var(--primary-color);
+    // box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 32px;
+    color: var(--text-color);
+}
