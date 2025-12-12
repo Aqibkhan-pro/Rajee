@@ -9,4 +9,6 @@ export const APP_ROUTES = {
   RECEIVED_DEVICES: 'received-devices', 
   PARTS_REQUESTED : 'parts-requested',
   REPAIRS: 'repairs',
+  DEVICES_LIST: 'devices_list',
+
 };

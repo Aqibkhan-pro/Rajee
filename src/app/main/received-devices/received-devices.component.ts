@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { APP_ROUTES } from 'src/app/shared/utils/app-routes';
 
 @Component({
   selector: 'app-received-devices',
@@ -24,11 +26,16 @@ export class ReceivedDevicesComponent  implements OnInit {
   ];
 
 
-  constructor() { }
+  constructor(private router: Router,
+     private route: ActivatedRoute) { }
 
   ngOnInit() {}
 
   goTo(path: string) {
+  }
+
+  openDevicesDetails(){
+  this.router.navigate([APP_ROUTES.DEVICES_LIST], { relativeTo: this.route });
   }
 
 }
