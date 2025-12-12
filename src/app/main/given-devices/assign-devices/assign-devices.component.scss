@@ -13,7 +13,7 @@ ion-toolbar {
 .stats-card {
   background: var(--secondary-color);
   /* Dark card background */
-  border-radius: 24px;
+  border-radius: 12px;
   padding: 0;
   box-shadow: none;
   border: 1px solid var(--card-border-color);
@@ -58,6 +58,12 @@ ion-toolbar {
   align-items: center;
 }
 
+.list-wrap {
+  margin-top: 0px;
+  padding-top: 0px;
+  --padding-top: var(--ion-padding, 0px);
+}
+
 ion-chip {
   background: var(--background-color);
   color: var(--button-color);
@@ -81,7 +87,7 @@ ion-chip {
 .device-icon-left {
   width: 40px;
   height: 40px;
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 8px;
   background: var(--button-color);
   fill: var(--btn-text-color);

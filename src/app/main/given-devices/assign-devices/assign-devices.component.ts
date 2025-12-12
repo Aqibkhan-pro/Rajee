@@ -12,4 +12,8 @@ export class AssignDevicesComponent implements OnInit {
 
   ngOnInit() { }
 
+  onSearchValue(value: string) {
+    console.log('Search value:', value);
+  }
+
 }

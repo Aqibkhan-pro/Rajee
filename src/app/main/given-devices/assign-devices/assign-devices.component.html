@@ -1,19 +1,10 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-buttons slot="start" class="ml-10 mr-15">
-      <ion-icon name="chevron-back-outline" class="arrow-icon"></ion-icon>
-    </ion-buttons>
-    <ion-title class="text-16 ff txt-color fw600 title_container">Devices</ion-title>
-    <ion-buttons slot="end">
-      <ion-label class="assign_border btn_text text-12  ff fw600"><span class="p8px">Assign</span></ion-label>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-global-header [showBack]="true" title="Devices" rightIcon="checkmark-circle-outline"></app-global-header>
 
-<ion-content class="ion-padding" [scrollY]="false">
+<ion-content [scrollY]="false">
+  <app-global-search placeholder="Search for devices" (searchChange)="onSearchValue($event)">
+  </app-global-search>
 
-
-  <ion-list lines="none">
+  <ion-list lines="none" class="list-wrap ion-padding">
     <ion-item lines="none" class="item_padding mb-8">
       <ion-card class="stats-card w100per card_padidng">
         <ion-card-content class="card_content">
@@ -21,17 +12,17 @@
             <ion-row class="stats-row">
               <ion-col class="stat-box">
                 <div class="ff fw600 text-22  txt-color">08</div>
-                <div class="ff fw400 text-10 sub_title_color">TOTAL</div>
+                <div class="ff fw400 text-10 sub_title_color">Total</div>
               </ion-col>
 
               <ion-col class="stat-box">
                 <div class="ff fw600 text-22  txt-color">06</div>
-                <div class="ff fw400 text-10 sub_title_color">ACTIVE</div>
+                <div class="ff fw400 text-10 sub_title_color">Devices</div>
               </ion-col>
 
               <ion-col class="stat-box">
                 <div class="ff fw600 text-22  txt-color">02</div>
-                <div class="ff fw400 text-10 sub_title_color">INACTIVE</div>
+                <div class="ff fw400 text-10 sub_title_color">Parts</div>
               </ion-col>
             </ion-row>
           </ion-grid>
