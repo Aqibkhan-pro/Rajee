@@ -1,14 +1,12 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
 import { APP_ROUTES } from 'src/app/shared/utils/app-routes';
 
 @Component({
   selector: 'app-received-devices',
   templateUrl: './received-devices.component.html',
   styleUrls: ['./received-devices.component.scss'],
-    imports: [IonicModule,CommonModule],
+  standalone:false
 })
 export class ReceivedDevicesComponent  implements OnInit {
 
@@ -37,5 +35,9 @@ export class ReceivedDevicesComponent  implements OnInit {
   openDevicesDetails(){
   this.router.navigate([APP_ROUTES.DEVICES_LIST], { relativeTo: this.route });
   }
+
+ onSearchValue(value: string) {
+  console.log('Search value:', value);
+}
 
 }

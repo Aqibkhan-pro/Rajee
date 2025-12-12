@@ -43,9 +43,10 @@ h2 {
 
 .check-button{
   --background: var(--button-color);
+  --background-activated: var(--button-color);
   box-shadow: var(--border-effect) 0px 2px 8px 0px;
   border-radius: 32px;
-  color: var(--text-color);
+  color: #ffffff;
 }
 
 ion-card {

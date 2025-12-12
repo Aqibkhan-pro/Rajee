@@ -1,18 +1,3 @@
-.toolbar-dark {
-    --background: var(--primary-color) !important;
-    background: var(--primary-color) !important;
-}
-
-ion-searchbar {
-    --background: var(--secondary-color);
-    --box-shadow: none;
-    --border-radius: 12px;
-    --placeholder-color: #9399a7;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    min-height: 25px;
-}
-
 ion-card.no-padding {
     margin: 4px;
 }
