@@ -1,5 +1,5 @@
 ion-searchbar {
-    --background: rgba(255, 255, 255, 0.03);
+    --background: var(--secondary-color);
     --box-shadow: none;
     --border-radius: 12px;
     --placeholder-color: #9399a7;

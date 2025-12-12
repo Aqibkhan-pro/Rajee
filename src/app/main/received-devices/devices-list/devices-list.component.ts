@@ -60,6 +60,14 @@ export class DevicesListComponent  implements OnInit {
   onSearchValue(value: string) {
   console.log('Search value:', value);
   }
+
+   getStatusIcon(status: string): string {
+    return status === 'completed' ? 'checkmark-circle-outline' : 'time-outline';
+  }
+
+  getStatusClass(status: string): string {
+    return status === 'completed' ? 'status-text completed' : 'status-text pending';
+  }
 }
 
 interface Device {
