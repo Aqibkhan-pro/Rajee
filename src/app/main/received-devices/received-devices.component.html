@@ -48,7 +48,7 @@
   </ion-grid>
 
 
-  <div class="list-wrap ion-padding">
+  <div class="list-wrap ion-padding" (click)="openDevicesDetails()">
     <div *ngFor="let user of users" class="user-card">
       <div class="user-left">
         <img [src]="user.avatar" class="avatar" />
