@@ -41,11 +41,13 @@
 
   <ion-grid>
     <ion-row>
-
-      <!-- Given Devices -->
-      <ion-col size="6">
-        <ion-button expand="block" (click)="goTo(routes.GIVEN_DEVICES+'/'+routes.ASSIGN_DEVICES)">
-          Given Devices
+      <!-- Repair -->
+      <ion-col size="4">
+        <ion-button expand="block" class="text-12 tabs"
+          [ngClass]="segment == SegmentEnum.REPAIR ? 'check-button' : 'uncheck-button'"
+          (click)="selectSegment(SegmentEnum.REPAIR)">
+          <ion-icon name="construct" slot="start"></ion-icon>
+          Repair
         </ion-button>
       </ion-col>
 
@@ -74,7 +76,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size="6">
-        <ion-card (click)="goTo(routes.GIVEN_DEVICES)" mode="ios">
+        <ion-card (click)="goTo(routes.GIVEN_DEVICES+'/'+routes.ASSIGN_DEVICES)" mode="ios">
           <img alt="Silhouette of mountains"
             src="https://images.unsplash.com/photo-1644782983300-6e26b6a6bbaf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
           <ion-card-header>
