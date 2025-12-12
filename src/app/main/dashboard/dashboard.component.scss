@@ -7,9 +7,6 @@ ion-toolbar {
   background: var(--primary-color);
 }
 
-ion-toolbar {
-  padding: 8px 8px 0px !important;
-}
 
 h2 {
   color: var(--text-color);
@@ -26,7 +23,7 @@ h2 {
 }
 
 .slide-img {
-  margin: 12px 0px;
+  margin: 16px 0px;
   border-radius: 12px;
   height: 150px;
   width: 100%;
@@ -39,6 +36,13 @@ h2 {
 
 .uncheck-button {
   --background: var(--primary-color);
+  box-shadow: var(--border-effect) 0px 2px 8px 0px;
+  border-radius: 32px;
+  color: var(--text-color);
+}
+
+.check-button{
+  --background: var(--button-color);
   box-shadow: var(--border-effect) 0px 2px 8px 0px;
   border-radius: 32px;
   color: var(--text-color);

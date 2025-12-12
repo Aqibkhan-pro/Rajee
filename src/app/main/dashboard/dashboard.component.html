@@ -1,14 +1,14 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <!-- User Image on Left -->
-    <ion-buttons slot="start">
-      <ion-avatar>
+    <ion-buttons slot="start" style="margin-left: 16px;">
+      <ion-avatar style="width: 50px; height: 50px;">
         <img
           src="https://images.unsplash.com/photo-1644782983300-6e26b6a6bbaf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
       </ion-avatar>
     </ion-buttons>
 
-    <ion-title style="color: var(--text-color);">Dashboard</ion-title>
+    <ion-title style="color: var(--text-color); text-align: center;">Dashboard</ion-title>
 
     <!-- More Menu -->
     <ion-buttons slot="primary">
@@ -41,10 +41,10 @@
 
   <ion-grid>
     <ion-row>
-
       <!-- Repair -->
       <ion-col size="4">
-        <ion-button expand="block" class="text-12 tabs">
+        <ion-button expand="block" class="text-12 tabs" [ngClass]="segment == SegmentEnum.REPAIR ? 'check-button' : 'uncheck-button'"
+        (click)="selectSegment(SegmentEnum.REPAIR)">
           <ion-icon name="construct" slot="start"></ion-icon>
           Repair
         </ion-button>
@@ -52,7 +52,8 @@
 
       <!-- QC -->
       <ion-col size="4">
-        <ion-button expand="block" class="text-12 tabs uncheck-button">
+        <ion-button expand="block" class="text-12 tabs" [ngClass]="segment == SegmentEnum.QC ? 'check-button' : 'uncheck-button'"
+        (click)="selectSegment(SegmentEnum.QC)">
           <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
           QC
         </ion-button>
@@ -60,43 +61,36 @@
 
       <!-- Parts -->
       <ion-col size="4">
-        <ion-button expand="block" class="text-12 tabs uncheck-button">
+        <ion-button expand="block" class="text-12 tabs" [ngClass]="segment == SegmentEnum.PARTS ? 'check-button' : 'uncheck-button'"
+        (click)="selectSegment(SegmentEnum.PARTS)">
           <ion-icon name="cube-outline" slot="start"></ion-icon>
           Parts
         </ion-button>
       </ion-col>
-
     </ion-row>
   </ion-grid>
 
   <ion-grid>
     <ion-row>
-
       <ion-col size="6">
         <ion-card (click)="goTo(routes.GIVEN_DEVICES)" mode="ios">
-
-
             <img alt="Silhouette of mountains"
               src="https://images.unsplash.com/photo-1644782983300-6e26b6a6bbaf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
               <ion-card-header>
               <ion-card-subtitle>Given Devices</ion-card-subtitle>
           </ion-card-header>
         </ion-card>
-
       </ion-col>
 
       <ion-col size="6">
         <ion-card (click)="goTo(routes.PARTS_REQUESTED)" mode="ios">
           <img alt="Silhouette of mountains"
             src="https://images.unsplash.com/photo-1644782983300-6e26b6a6bbaf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
-
           <ion-card-header>
             <ion-card-subtitle>Request Parts</ion-card-subtitle>
           </ion-card-header>
         </ion-card>
-
       </ion-col>
-
     </ion-row>
 
     <ion-row>
@@ -104,7 +98,6 @@
         <ion-card (click)="goTo(routes.REPAIRS)" mode="ios">
           <img alt="Silhouette of mountains"
             src="https://images.unsplash.com/photo-1644782983300-6e26b6a6bbaf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
-
           <ion-card-header>
             <ion-card-subtitle>Repairs</ion-card-subtitle>
           </ion-card-header>
@@ -112,14 +105,12 @@
             <p>33</p>
           </ion-card-content>
         </ion-card>
-
       </ion-col>
 
       <ion-col size="6">
         <ion-card (click)="goTo(routes.RECEIVED_DEVICES)" mode="ios">
           <img alt="Silhouette of mountains"
             src="https://images.unsplash.com/photo-1644782983300-6e26b6a6bbaf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
-
           <ion-card-header>
             <ion-card-subtitle>Received Devices</ion-card-subtitle>
           </ion-card-header>
@@ -128,7 +119,6 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
-
     </ion-row>
   </ion-grid>
 </ion-content>

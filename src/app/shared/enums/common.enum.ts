@@ -1,3 +1,4 @@
+import { Range } from './../../../graphql/generated';
 export enum ToastType {
   SUCCESS = 'success',
   WARNING = 'warning',
@@ -7,4 +8,10 @@ export enum ToastType {
 export enum ToastPosition {
   TOP = 'top',
   BOTTOM = 'bottom',
+}
+
+export enum Segment {
+  REPAIR = 'Repair',
+  QC = 'QC',
+  PARTS = 'Parts'
 }
