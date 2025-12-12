@@ -1,5 +1,84 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar class="toolbar-dark">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Received Devices</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
-  <p>
-    received-devices works!
-  </p>
+  <ion-searchbar placeholder="Search for activity" show-cancel-button="never" animated="true">
+  </ion-searchbar>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4">
+        <ion-card class="stat-card no-padding">
+          <ion-card-content class="stat-body">
+            <ion-icon name="cube-outline" class="stat-icon" aria-hidden="true"></ion-icon>
+            <div class="stat-number">48</div>
+            <div class="stat-label">Total</div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="4">
+        <ion-card class="stat-card stat-done no-padding">
+          <ion-card-content class="stat-body">
+            <ion-icon name="checkmark-outline" class="stat-icon" aria-hidden="true"></ion-icon>
+            <div class="stat-number">32</div>
+            <div class="stat-label">Done</div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="4">
+        <ion-card class="stat-card stat-return no-padding">
+          <ion-card-content class="stat-body">
+            <ion-icon name="refresh-outline" class="stat-icon" aria-hidden="true"></ion-icon>
+            <div class="stat-number">16</div>
+            <div class="stat-label">Return</div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <div class="list-wrap ion-padding">
+    <div *ngFor="let user of users" class="user-card">
+      <div class="user-left">
+        <img [src]="user.avatar" class="avatar" />
+        <div class="user-info">
+          <div class="name-row">
+            <div class="name">{{ user.name }}</div>
+            <div class="status" [ngClass]="{'online': user.online, 'offline': !user.online}">
+              {{ user.online ? 'Online' : 'Offline' }}
+            </div>
+          </div>
+
+          <div class="counts">
+            <span class="count">{{ user.total }}</span>
+            <span class="sep">Total</span>
+            <span class="count green">{{ user.done }}</span>
+            <span class="sep">Done</span>
+            <span class="count purple">{{ user.return }}</span>
+            <span class="sep">Return</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="user-right">
+        <div class="progress-circle" [style.--percent]="user.progress + '%'">
+          <div class="progress-inner">
+            <div class="percent">{{ user.progress }}%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </ion-content>
