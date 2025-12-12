@@ -1,7 +1,8 @@
 <app-global-header [showBack]="true" title="Devices List" rightIcon="add-outline"></app-global-header>
 <ion-content [fullscreen]="true">
   <div class="main-content">
-    <app-global-search></app-global-search>
+    <app-global-search placeholder="Search for devices" (searchChange)="onSearchValue($event)">
+    </app-global-search>
     <div class="devices-list">
       <ion-card *ngFor="let device of devices" button (click)="openDevice(device)">
         <ion-card-content>

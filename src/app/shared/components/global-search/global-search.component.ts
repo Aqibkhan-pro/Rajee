@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { cleanSearchValue } from '../../utils/constants';
 
 @Component({
   selector: 'app-global-search',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
   standalone:false
 })
 export class GlobalSearchComponent  implements OnInit {
+  @Input() placeholder: string = '';
+  @Output() searchChange = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit() {}
 
+  onSearch(event: any) {
+  const value = cleanSearchValue(event.target.value);
+  if (value) { 
+    this.searchChange.emit(value);
+  }
+  }
 }

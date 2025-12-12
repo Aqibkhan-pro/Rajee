@@ -56,6 +56,10 @@ export class DevicesListComponent  implements OnInit {
   openDevice(device: Device) {
     console.log('Opening device:', device);
   }
+  
+  onSearchValue(value: string) {
+  console.log('Search value:', value);
+  }
 }
 
 interface Device {

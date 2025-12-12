@@ -36,4 +36,8 @@ export class ReceivedDevicesComponent  implements OnInit {
   this.router.navigate([APP_ROUTES.DEVICES_LIST], { relativeTo: this.route });
   }
 
+ onSearchValue(value: string) {
+  console.log('Search value:', value);
+}
+
 }
