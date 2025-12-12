@@ -17,16 +17,28 @@ ion-card-content {
     margin: 4px 0;
 }
 
-.imei-section {
-    margin-bottom: 12px;
+.icon-wrapper {
+    width: 40px;
+    height: 60px;
+    border-radius: 10px;
+    background-color: var(--button-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ion-icon {
+        color: #fff;
+    }
 }
 
-.imei-text {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--ion-color-primary);
-    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
-    letter-spacing: 0.5px;
+.imei-section .imei-text {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.title-section .title-line {
+    font-size: 16px;
+    margin-top: 2px;
 }
 
 .title-section {
@@ -46,8 +58,8 @@ ion-card-content {
 
 .status-section {
     display: flex;
-    align-items: center;
-    gap: 24px;
+    justify-content: center;
+    gap: 30px;
 }
 
 .status-item {

@@ -4,17 +4,17 @@
     <!-- Left Back Button -->
     <ion-buttons slot="start" *ngIf="showBack">
       <ion-button fill="clear" (click)="goBack()" class="header-btn">
-        <ion-icon name="arrow-back-outline" style="color: var(--text-color)"></ion-icon>
+        <ion-icon name="arrow-back-outline" class="text-color"></ion-icon>
       </ion-button>
     </ion-buttons>
 
     <!-- Center Title -->
-    <ion-title class="header-title">{{ title }}</ion-title>
+    <ion-title class="text-color">{{ title }}</ion-title>
 
     <!-- Right Icon Button -->
     <ion-buttons slot="end" *ngIf="rightIcon">
       <ion-button fill="clear" (click)="onRightIconClick()" class="header-btn">
-        <ion-icon [name]="rightIcon" style="color: var(--text-color)"></ion-icon>
+        <ion-icon [name]="rightIcon" class="text-color"></ion-icon>
       </ion-button>
     </ion-buttons>
 
