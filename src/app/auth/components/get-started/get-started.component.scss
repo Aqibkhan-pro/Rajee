@@ -17,20 +17,8 @@ ion-content {
   fill: var(--logo-color);
 }
 
-h1 {
-  font-weight: 700;
-  font-size: 28px;
-  line-height: 34px;
-  text-align: center;
-  color: #fafafa; //1b1b1b
-}
-
 p{
   color: #848484;
-  font-weight: 500;
-}
-
-p {
   text-align: center;
   padding-left: 20px;
   padding-right: 20px;
@@ -38,24 +26,11 @@ p {
   font-weight: 400;
 }
 
-ion-label {
+h2 {
+  font-weight: bold;
   color: var(--text-color);
-
-  h1 {
-    font-weight: bold;
-  }
-
-  .paragraph {
-    margin: 0px 0px 20px 0px;
-    font-weight: 500;
-  }
-
-  .forgot-text {
-    text-align: end;
-    font-weight: 500;
-    color: var(--text-color);
-  }
 }
+
 
 .text_color {
   color: var(--text-color);

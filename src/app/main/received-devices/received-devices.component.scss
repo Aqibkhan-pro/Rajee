@@ -1,8 +1,6 @@
-/* Remove default card padding */
 ion-card.no-padding {
     margin: 4px;
 }
-
 
 .stat-card {
     --background: rgba(255, 255, 255, 0.03);
@@ -13,7 +11,6 @@ ion-card.no-padding {
     padding: 14px;
 }
 
-/* icon / number / label */
 .stat-icon {
     font-size: 24px;
     opacity: 0.9;
@@ -23,7 +20,7 @@ ion-card.no-padding {
 .stat-number {
     font-size: 22px;
     font-weight: 700;
-    color: #fff;
+    color: var(--text-color);
 }
 
 .stat-label {
@@ -41,21 +38,21 @@ ion-card.no-padding {
 }
 
 .list-wrap {
-    margin-top: 18px;
+    margin-top: 0px;
+    padding-top:  0px;
+    --padding-top: var(--ion-padding, 0px);
 }
 
 .user-card {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--secondary-color);
     border-radius: 12px;
     padding: 10px 12px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
 }
 
-/* left */
 .user-left {
     display: flex;
     align-items: center;
@@ -67,7 +64,7 @@ ion-card.no-padding {
     border-radius: 10px;
     object-fit: cover;
     margin-right: 12px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 6px 18px #0000001c;
 }
 
 .user-info {
@@ -83,6 +80,7 @@ ion-card.no-padding {
 .name {
     font-weight: 600;
     font-size: 16px;
+    color: var(--text-color);
 }
 
 .status {
@@ -94,13 +92,13 @@ ion-card.no-padding {
 }
 
 .status.online {
-    background: rgba(45, 212, 191, 0.12);
-    color: #9ff0df;
+    background: rgb(45 212 191 / 63%);
+    color: #ffffff;
 }
 
 .status.offline {
-    background: rgba(116, 113, 113, 0.02);
-    color: #9aa3b2;
+    background: rgba(112, 112, 112, 0.793);
+    color: #ffffff;
 }
 
 .counts {
@@ -115,25 +113,28 @@ ion-card.no-padding {
 
 .count {
     font-weight: 700;
-    color: #fff;
+    color: var(--text-color);
     margin-right: 4px;
 }
 
-.count.green {
-    color: #9ff0df;
+.theme{
+  color: var(--button-color);
 }
 
-.count.purple {
-    color: #c6a7ff;
+.green {
+    color: #00eb4e;
+}
+
+.purple {
+    color: #ff4949;
 }
 
 .sep {
-    color: var(--muted);
+    color: #c8c8c8;
     font-weight: 400;
     font-size: 12px;
 }
 
-/* right progress circle */
 .user-right {
     margin-left: 12px;
     display: flex;
@@ -141,18 +142,24 @@ ion-card.no-padding {
     justify-content: center;
 }
 
-/* CSS circular progress using conic-gradient
-   set --percent to e.g. 67% inline via style binding
-*/
 .progress-circle {
+    // width: 56px;
+    // height: 56px;
+    // border-radius: 50%;
+    // display: grid;
+    // place-items: center;
+    // background: conic-gradient(var(--button-color) var(--percent, 0%), rgba(255, 255, 255, 0.08) 0%);
+    // box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+    // position: relative;
     width: 56px;
     height: 56px;
     border-radius: 50%;
     display: grid;
     place-items: center;
-    background: conic-gradient(var(--button-color) var(--percent, 0%), rgba(255, 255, 255, 0.08) 0%);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+    background: conic-gradient(var(--button-color) var(--percent, 0%), #8c8c8c 0%);
+    /* box-shadow: 0 6px 18px #00000000; */
     position: relative;
+
 }
 
 .progress-circle::before {

@@ -6,7 +6,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size="4">
-        <ion-card class="stat-card no-padding">
+        <ion-card class="stat-card no-padding" mode="ios">
           <ion-card-content class="stat-body">
             <ion-icon name="cube-outline" class="stat-icon" aria-hidden="true"></ion-icon>
             <div class="stat-number">48</div>
@@ -16,7 +16,7 @@
       </ion-col>
 
       <ion-col size="4">
-        <ion-card class="stat-card stat-done no-padding">
+        <ion-card class="stat-card stat-done no-padding" mode="ios">
           <ion-card-content class="stat-body">
             <ion-icon name="checkmark-outline" class="stat-icon" aria-hidden="true"></ion-icon>
             <div class="stat-number">32</div>
@@ -26,7 +26,7 @@
       </ion-col>
 
       <ion-col size="4">
-        <ion-card class="stat-card stat-return no-padding">
+        <ion-card class="stat-card stat-return no-padding" mode="ios">
           <ion-card-content class="stat-body">
             <ion-icon name="refresh-outline" class="stat-icon" aria-hidden="true"></ion-icon>
             <div class="stat-number">16</div>
@@ -51,12 +51,9 @@
           </div>
 
           <div class="counts">
-            <span class="count">{{ user.total }}</span>
-            <span class="sep">Total</span>
-            <span class="count green">{{ user.done }}</span>
-            <span class="sep">Done</span>
-            <span class="count purple">{{ user.return }}</span>
-            <span class="sep">Return</span>
+            <span class="sep">Total: <span class="theme">{{ user.total }}</span></span>
+            <span class="sep">Done: <span class="green">{{ user.done }}</span></span>
+            <span class="sep">Return: <span class="purple">{{ user.return }}</span></span>
           </div>
         </div>
       </div>
