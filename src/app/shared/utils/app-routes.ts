@@ -1,5 +1,5 @@
 export const APP_ROUTES = {
-  STARTED: 'stated',
+  STARTED: 'started',
   AUTH: 'auth',
   LOGIN: 'login',
   FORGET_PASSWORD: 'forget-password',

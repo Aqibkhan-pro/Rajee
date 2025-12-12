@@ -5,19 +5,26 @@
 
   <ion-card *ngFor="let device of devices">
     <ion-card-content>
-      <!-- IMEI -->
-      <div class="imei-section">
-        <ion-text class="imei-text">{{device.imei}}</ion-text>
-      </div>
+      <ion-row class="device-row" align-items-center>
 
-      <!-- Title -->
-      <div class="title-section">
-        <ion-text class="title-line">{{device.title}}</ion-text>
-      </div>
+        <ion-col size="2">
+          <div class="icon-wrapper">
+            <ion-icon name="phone-portrait-outline" size="large"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="10">
+          <div class="imei-section">
+            <ion-text class="imei-text text-color">{{ device.imei }}</ion-text>
+          </div>
+          <div class="title-section">
+            <ion-text class="title-line text-color">{{ device.title }}</ion-text>
+          </div>
+        </ion-col>
+      </ion-row>
+
 
       <div class="divider-1px"></div>
 
-      <!-- Status and Time -->
       <div class="status-section">
         <div class="status-item">
           <ion-icon [name]="getStatusIcon(device.status)" class="status-icon"></ion-icon>
