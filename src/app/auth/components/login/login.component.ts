@@ -34,10 +34,6 @@ export class LoginComponent implements OnInit {
     });
 
 
-    let theme = localStorage.getItem(constants.Theme) || ''
-    if (theme != '') {
-      this.authService.changeTheme(theme)
-    }
 
 
 
@@ -57,6 +53,8 @@ export class LoginComponent implements OnInit {
 
   isLoading: boolean = false;
   callDetailUserApi() {
+    this.navCtrl.navigateForward([APP_ROUTES.MAIN]);
+    return;
     this.submitted = true;
 
     if (this.loginForm.invalid) {
@@ -121,13 +119,13 @@ export class LoginComponent implements OnInit {
     }
     else if (this.count == 2) {
       this.authService.changeTheme('theme-dark')
+    } else if(this.count ==3){
+      this.authService.changeTheme('theme-darkblue')
     }
     else {
-      this.authService.changeTheme('theme-green')
+      this.authService.changeTheme('theme-light')
       this.count = 0
     }
-
-
   }
 
   selectedColor = '#3880ff';
@@ -136,8 +134,4 @@ export class LoginComponent implements OnInit {
     console.log('Selected color:', event.target.value);
     document.body.style.setProperty('--primary-color', event.target.value);
   }
-
-
-
-
 }

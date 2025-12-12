@@ -2,21 +2,18 @@
 // https://ionicframework.com/docs/theming/
 
 :root {
-  /* Default Theme */
   --primary-color: #101729;
   --secondary-color: #1D2031;
   --text-color: #ffffff;
   --btn-text-color: #ffffff;
   --logo-color: #ffffff;
-  // --button-color: linear-gradient(52.37deg, #FFA05C 9.79%, #F06500 100.17%);
   --button-color: #e97c00;
   --button-press-color: #ff9f32;
+  --border-effect: #000000;
   --sub-title-color: #848484;
   --card-border-color: #cfd3d2;
-
 }
 
-/* Theme 1 – Blue */
 .theme-blue {
   --secondary-color: #ebf0ef;
   --primary-color: #f1fff8;
@@ -24,27 +21,41 @@
   --text-color: #000000;
   --btn-text-color: #ffffff;
   --logo-color: #4ABCFD;
+  --button-color: #26b5fc;
+  --border-effect: #cbcbcb;
   --theme-text-color: #4ABCFD;
   --button-color: #26b5fc;
   --card-border-color: #cfd3d2;
 }
 
-/* Theme 2 – Dark */
 .theme-dark {
-  --primary-color: #ffffff;
-  --background-color: #ffffff;
-  --text-color: #662bf9;
+  --primary-color: #121212;
+  --secondary-color: #1e1e1e;
+  --background-color: #101729;
+  --text-color: #ffffff;
   --btn-text-color: #ffffff;
-  --logo-color: #662bf9;
-  --button-color: linear-gradient(to right, #b59feee8, #3300f7);
+  --logo-color: #ffffff;
+  --button-color: #e97c00; //ff9f32
+  --button-press-color: #ff9f32;
+  --border-effect: #000000;
 }
 
-/* Theme 3 – Green */
-.theme-green {
-  --primary-color: #f1fff8;
-  --background-color: #f1fff8;
-  --text-color: #0f5132;
-  --btn-text-color: #f1fff8;
-  --logo-color: #0f5132;
-  --button-color: linear-gradient(to right, #648b72e8, #0f5132);
+.theme-light {
+  --primary-color: #fafafa;
+  --secondary-color: #efefef;
+  --text-color: #545454;
+  --logo-color: #ffffff;
+  --button-color: #0f6b42;
+  --button-press-color: #38a876;
+  --border-effect: #cbcbcb;
+}
+
+.theme-darkblue {
+  --primary-color: #fafafa;
+  --secondary-color: #efefef;
+  --text-color: #545454;
+  --logo-color: #ffffff;
+  --button-color: #2c48a7;
+  --button-press-color: #678afb;
+  --border-effect: #cbcbcb;
 }

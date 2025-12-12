@@ -1,0 +1,34 @@
+<app-global-header [showBack]="true" title="Devices List" rightIcon="add-outline"></app-global-header>
+<ion-content [fullscreen]="true">
+  <app-global-search placeholder="Search for devices" (searchChange)="onSearchValue($event)">
+  </app-global-search>
+
+  <ion-card *ngFor="let device of devices">
+    <ion-card-content>
+      <!-- IMEI -->
+      <div class="imei-section">
+        <ion-text class="imei-text">{{device.imei}}</ion-text>
+      </div>
+
+      <!-- Title -->
+      <div class="title-section">
+        <ion-text class="title-line">{{device.title}}</ion-text>
+      </div>
+
+      <div class="divider-1px"></div>
+
+      <!-- Status and Time -->
+      <div class="status-section">
+        <div class="status-item">
+          <ion-icon [name]="getStatusIcon(device.status)" class="status-icon"></ion-icon>
+          <ion-text [class]="getStatusClass(device.status)">{{device.status | titlecase}}</ion-text>
+        </div>
+        <div class="status-item">
+          <ion-icon name="time-outline" class="status-icon"></ion-icon>
+          <ion-text class="time-text">{{device.time}}</ion-text>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

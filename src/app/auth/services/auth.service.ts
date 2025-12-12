@@ -27,8 +27,10 @@ export class AuthService {
   changeTheme(theme: string) {
     const body = document.body;
 
-    body.classList.remove('theme-blue', 'theme-dark', 'theme-green');
-    body.classList.add(theme);
+    body.classList.remove('theme-blue', 'theme-dark','theme-light','theme-darkblue');
+    if(theme){
+       body.classList.add(theme);
+    }
 
     localStorage.setItem(constants.Theme, theme);
   }

@@ -10,4 +10,5 @@ export const APP_ROUTES = {
   PARTS_REQUESTED: 'parts-requested',
   REPAIRS: 'repairs',
   ASSIGN_DEVICES: 'assign-devices',
+  DEVICES_LIST: 'devices-list',
 };
