@@ -10,6 +10,7 @@
   --button-color: #e97c00;
   --button-press-color: #ff9f32;
   --border-effect: #000000;
+  --background-progress: #333333;
 }
 
 .theme-blue {
@@ -21,6 +22,7 @@
   --logo-color: #4ABCFD;
   --button-color: #26b5fc;
   --border-effect: #cbcbcb;
+  --background-progress: #c8c8c8;
 }
 
 .theme-dark{
@@ -33,6 +35,7 @@
   --button-color: #e97c00; //ff9f32
   --button-press-color: #ff9f32;
   --border-effect: #000000;
+  --background-progress: #333333;
 }
 
 .theme-light{
@@ -42,7 +45,7 @@
     --logo-color: #ffffff;
     --button-color: #0f6b42;
     --button-press-color: #38a876;
-    --border-effect: #cbcbcb;
+    --border-effect: #cbcbcb; --background-progress: #c8c8c8;
 }
 
 .theme-darkblue{
@@ -52,5 +55,5 @@
   --logo-color: #ffffff;
   --button-color: #2c48a7;
   --button-press-color: #678afb;
-  --border-effect: #cbcbcb;
+  --border-effect: #cbcbcb; --background-progress: #c8c8c8;
 }
