@@ -1,9 +1,10 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <!-- User Image on Left -->
-    <ion-buttons slot="start" >
+    <ion-buttons slot="start">
       <ion-avatar>
-        <img src="https://images.unsplash.com/photo-1644782983300-6e26b6a6bbaf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+        <img
+          src="https://images.unsplash.com/photo-1644782983300-6e26b6a6bbaf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
       </ion-avatar>
     </ion-buttons>
 
@@ -36,47 +37,49 @@
   <img alt="rhino standing near grass" class="slide-img"
     src="https://images.unsplash.com/photo-1569908420024-c8f709b75700?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
 
-    <h2>Categories</h2>
+  <h2>Categories</h2>
 
-    <ion-grid>
-        <ion-row>
+  <ion-grid>
+    <ion-row>
 
-          <!-- Repair -->
-          <ion-col size="4">
-            <ion-button expand="block"  class="text-12 tabs">
-              <ion-icon name="construct" slot="start"></ion-icon>
-              Repair
-            </ion-button>
-          </ion-col>
+      <!-- Repair -->
+      <ion-col size="4">
+        <ion-button expand="block" class="text-12 tabs">
+          <ion-icon name="construct" slot="start"></ion-icon>
+          Repair
+        </ion-button>
+      </ion-col>
 
-          <!-- QC -->
-          <ion-col size="4">
-            <ion-button expand="block" class="text-12 tabs uncheck-button">
-              <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
-              QC
-            </ion-button>
-          </ion-col>
+      <!-- QC -->
+      <ion-col size="4">
+        <ion-button expand="block" class="text-12 tabs uncheck-button">
+          <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
+          QC
+        </ion-button>
+      </ion-col>
 
-          <!-- Parts -->
-          <ion-col size="4">
-            <ion-button expand="block" class="text-12 tabs uncheck-button">
-              <ion-icon name="cube-outline" slot="start"></ion-icon>
-              Parts
-            </ion-button>
-          </ion-col>
+      <!-- Parts -->
+      <ion-col size="4">
+        <ion-button expand="block" class="text-12 tabs uncheck-button">
+          <ion-icon name="cube-outline" slot="start"></ion-icon>
+          Parts
+        </ion-button>
+      </ion-col>
 
-        </ion-row>
-</ion-grid>
+    </ion-row>
+  </ion-grid>
 
-   <ion-grid>
+  <ion-grid>
     <ion-row>
 
       <ion-col size="6">
         <ion-card (click)="goTo(routes.GIVEN_DEVICES)" mode="ios">
-          <ion-card-header>
-            <ion-card-title>Given
-              Devices</ion-card-title>
-            <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+
+
+            <img alt="Silhouette of mountains"
+              src="https://images.unsplash.com/photo-1644782983300-6e26b6a6bbaf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+              <ion-card-header>
+              <ion-card-subtitle>Given Devices</ion-card-subtitle>
           </ion-card-header>
         </ion-card>
 
@@ -84,9 +87,11 @@
 
       <ion-col size="6">
         <ion-card (click)="goTo(routes.PARTS_REQUESTED)" mode="ios">
+          <img alt="Silhouette of mountains"
+            src="https://images.unsplash.com/photo-1644782983300-6e26b6a6bbaf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+
           <ion-card-header>
-            <ion-card-title>Request Parts</ion-card-title>
-            <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+            <ion-card-subtitle>Request Parts</ion-card-subtitle>
           </ion-card-header>
         </ion-card>
 
@@ -97,22 +102,30 @@
     <ion-row>
       <ion-col size="6">
         <ion-card (click)="goTo(routes.REPAIRS)" mode="ios">
+          <img alt="Silhouette of mountains"
+            src="https://images.unsplash.com/photo-1644782983300-6e26b6a6bbaf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+
           <ion-card-header>
-            <ion-card-title>Repairs
-              </ion-card-title>
-            <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+            <ion-card-subtitle>Repairs</ion-card-subtitle>
           </ion-card-header>
+          <ion-card-content>
+            <p>33</p>
+          </ion-card-content>
         </ion-card>
 
       </ion-col>
 
       <ion-col size="6">
         <ion-card (click)="goTo(routes.RECEIVED_DEVICES)" mode="ios">
+          <img alt="Silhouette of mountains"
+            src="https://images.unsplash.com/photo-1644782983300-6e26b6a6bbaf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+
           <ion-card-header>
-            <ion-card-title>Received Devices
-              </ion-card-title>
-            <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+            <ion-card-subtitle>Received Devices</ion-card-subtitle>
           </ion-card-header>
+          <ion-card-content>
+            <p>54</p>
+          </ion-card-content>
         </ion-card>
       </ion-col>
 

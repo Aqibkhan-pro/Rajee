@@ -2,7 +2,6 @@
 // https://ionicframework.com/docs/theming/
 
 :root {
-  /* Default Theme */
   --primary-color: #101729;
   --secondary-color: #1D2031;
   --text-color: #ffffff;
@@ -10,10 +9,9 @@
   --logo-color: #ffffff;
   --button-color: #e97c00;
   --button-press-color: #ff9f32;
-
+  --border-effect: #000000;
 }
 
-/* Theme 1 – Blue */
 .theme-blue {
   --secondary-color: #ebf0ef;
   --primary-color: #f1fff8;
@@ -22,18 +20,8 @@
   --btn-text-color: #ffffff;
   --logo-color: #4ABCFD;
   --button-color: #26b5fc;
+  --border-effect: #cbcbcb;
 }
-
-/* Theme 2 – Dark */
-// .theme-black {
-//   --primary-color: #ffffff;
-//   --background-color: #ffffff;
-//   --text-color: #662bf9;
-//   --btn-text-color: #ffffff;
-//   --logo-color: #662bf9;
-//   --button-color: linear-gradient(to right, #b59feee8, #3300f7);
-// }
-
 
 .theme-dark{
   --primary-color: #121212;
@@ -44,6 +32,7 @@
   --logo-color: #ffffff;
   --button-color: #e97c00; //ff9f32
   --button-press-color: #ff9f32;
+  --border-effect: #000000;
 }
 
 .theme-light{
@@ -53,6 +42,7 @@
     --logo-color: #ffffff;
     --button-color: #0f6b42;
     --button-press-color: #38a876;
+    --border-effect: #cbcbcb;
 }
 
 .theme-darkblue{
@@ -62,4 +52,5 @@
   --logo-color: #ffffff;
   --button-color: #2c48a7;
   --button-press-color: #678afb;
+  --border-effect: #cbcbcb;
 }

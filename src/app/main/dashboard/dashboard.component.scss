@@ -1,13 +1,17 @@
-ion-content , ion-item , ion-list , ion-header , ion-toolbar{
+ion-content,
+ion-item,
+ion-list,
+ion-header,
+ion-toolbar {
   --background: var(--primary-color);
   background: var(--primary-color);
 }
 
-ion-toolbar{
+ion-toolbar {
   padding: 8px 8px 0px !important;
 }
 
-h2{
+h2 {
   color: var(--text-color);
   font-size: 18px;
   margin: 0;
@@ -15,30 +19,59 @@ h2{
 
 .menu {
   --background: var(--primary-color) !important;
-  ion-icon{
+
+  ion-icon {
     color: var(--button-color);
   }
 }
 
-
-.slide-img{
+.slide-img {
   margin: 12px 0px;
-    border-radius: 12px;
-    height: 150px;
-    width: 100%;
-    object-fit: cover;
+  border-radius: 12px;
+  height: 150px;
+  width: 100%;
+  object-fit: cover;
 }
 
-
-.tabs{
+.tabs {
   --border-radius: 32px;
 }
 
-
-.uncheck-button{
+.uncheck-button {
   --background: var(--primary-color);
-    // box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    border-radius: 32px;
-    color: var(--text-color);
+  box-shadow: var(--border-effect) 0px 2px 8px 0px;
+  border-radius: 32px;
+  color: var(--text-color);
+}
+
+ion-card {
+  --background: var(--primary-color);
+  margin: 0;
+  min-height: 150px;
+  box-shadow: var(--border-effect) 0px 2px 8px 0px;
+}
+
+ion-card-subtitle {
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+ion-card-header {
+  padding: 8px 8px 0px;
+}
+
+p {
+  color: #848484;
+  text-align: start;
+  padding-left: 0;
+  padding-right: 20px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+ion-card-content {
+  padding-left: 8px;
+  padding-bottom: 8px;
 }
