@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicModule } from "@ionic/angular";
-
+import { register } from 'swiper/element/bundle';
+register();
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
-  standalone:false
+  standalone: false
 })
-export class MainContainerComponent  implements OnInit {
+export class MainContainerComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
 }

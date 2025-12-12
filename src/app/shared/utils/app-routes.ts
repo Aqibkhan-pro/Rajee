@@ -6,8 +6,9 @@ export const APP_ROUTES = {
   DASHBOARD: 'dashboard',
   MAIN: 'main',
   GIVEN_DEVICES: 'given-devices',
-  RECEIVED_DEVICES: 'received-devices', 
-  PARTS_REQUESTED : 'parts-requested',
+  RECEIVED_DEVICES: 'received-devices',
+  PARTS_REQUESTED: 'parts-requested',
   REPAIRS: 'repairs',
+  ASSIGN_DEVICES: 'assign-devices',
   DEVICES_LIST: 'devices-list',
 };

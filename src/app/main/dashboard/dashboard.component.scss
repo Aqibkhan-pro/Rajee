@@ -7,6 +7,10 @@ ion-toolbar {
   background: var(--primary-color);
 }
 
+swiper-container {
+  border-radius: 16px; // your desired radius
+  overflow: hidden;
+}
 
 h2 {
   color: var(--text-color);
@@ -22,10 +26,12 @@ h2 {
   }
 }
 
-.slide-img {
-  margin: 16px 0px;
-  border-radius: 12px;
+swiper-slide {
   height: 150px;
+}
+
+.slide-img {
+  height: 100%;
   width: 100%;
   object-fit: cover;
 }
@@ -41,7 +47,7 @@ h2 {
   color: var(--text-color);
 }
 
-.check-button{
+.check-button {
   --background: var(--button-color);
   --background-activated: var(--button-color);
   box-shadow: var(--border-effect) 0px 2px 8px 0px;
