@@ -45,7 +45,7 @@
       <ion-col size="4">
         <ion-button expand="block" class="text-12 tabs" [ngClass]="segment == SegmentEnum.REPAIR ? 'check-button' : 'uncheck-button'"
         (click)="selectSegment(SegmentEnum.REPAIR)">
-          <ion-icon name="construct" slot="start"></ion-icon>
+          <ion-icon [name]="segment == SegmentEnum.REPAIR  ? 'construct' : 'construct-outline'" slot="start"></ion-icon>
           Repair
         </ion-button>
       </ion-col>
@@ -54,7 +54,7 @@
       <ion-col size="4">
         <ion-button expand="block" class="text-12 tabs" [ngClass]="segment == SegmentEnum.QC ? 'check-button' : 'uncheck-button'"
         (click)="selectSegment(SegmentEnum.QC)">
-          <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
+          <ion-icon [name]=" segment == SegmentEnum.QC  ?'shield-checkmark': 'shield-checkmark-outline'" slot="start"></ion-icon>
           QC
         </ion-button>
       </ion-col>
@@ -63,7 +63,7 @@
       <ion-col size="4">
         <ion-button expand="block" class="text-12 tabs" [ngClass]="segment == SegmentEnum.PARTS ? 'check-button' : 'uncheck-button'"
         (click)="selectSegment(SegmentEnum.PARTS)">
-          <ion-icon name="cube-outline" slot="start"></ion-icon>
+          <ion-icon [name]="segment == SegmentEnum.PARTS  ?'cube':'cube-outline'" slot="start"></ion-icon>
           Parts
         </ion-button>
       </ion-col>
