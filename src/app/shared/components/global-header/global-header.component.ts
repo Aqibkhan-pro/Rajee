@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class GlobalHeaderComponent {
 
   @Input() showBack: boolean = false;
+  @Input() showFilter: boolean = false;
   @Input() title: string = '';
   @Input() rightIcon: string | null = null;
 
