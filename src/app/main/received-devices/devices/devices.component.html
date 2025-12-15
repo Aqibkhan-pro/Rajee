@@ -1,5 +1,7 @@
 <app-global-header [showBack]="true" title="Devices List" rightIcon="ellipsis-vertical"
-  (rightIconClick)="onHeaderMenuClick()"></app-global-header>
+  (rightIconClick)="onHeaderMenuClick()">
+</app-global-header>
+
 <ion-content [fullscreen]="true">
   <app-global-search placeholder="Search for devices" (searchChange)="onSearchValue($event)">
   </app-global-search>
@@ -7,39 +9,9 @@
   <app-global-segment [segments]="['Devices', 'Parts']" (segmentChanged)="filterData($event)">
   </app-global-segment>
 
-  <ion-card *ngFor="let device of devices">
-    <ion-card-content>
-      <ion-row class="device-row" align-items-center>
+  <!-- Show Devices List only if segment is 'Devices' -->
+  <app-devices-list *ngIf="selectedSegment === 'Devices'"></app-devices-list>
 
-        <ion-col size="2">
-          <div class="icon-wrapper">
-            <ion-icon name="phone-portrait-outline" size="large"></ion-icon>
-          </div>
-        </ion-col>
-        <ion-col size="10">
-          <div class="imei-section">
-            <ion-text class="imei-text text-color">{{ device.imei }}</ion-text>
-          </div>
-          <div class="title-section">
-            <ion-text class="title-line text-color">{{ device.title }}</ion-text>
-          </div>
-        </ion-col>
-      </ion-row>
-
-
-      <div class="divider-1px"></div>
-
-      <div class="status-section">
-        <ion-chip [class]="getStatusClass(device.status)">
-          <ion-icon [name]="getStatusIcon(device.status)"></ion-icon>
-          <ion-label>{{ device.status | titlecase }}</ion-label>
-        </ion-chip>
-        <div class="status-item">
-          <ion-icon name="time-outline" class="status-icon"></ion-icon>
-          <ion-text class="time-text">{{device.time}}</ion-text>
-        </div>
-      </div>
-    </ion-card-content>
-  </ion-card>
-
+  <!-- Show Parts List only if segment is 'Parts' -->
+  <app-parts-list *ngIf="selectedSegment === 'Parts'"></app-parts-list>
 </ion-content>

@@ -1,7 +1,4 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
-import { SharedModule } from 'src/app/shared/shared-module';
 
 @Component({
   selector: 'app-devices',
@@ -10,71 +7,11 @@ import { SharedModule } from 'src/app/shared/shared-module';
   standalone:false
 })
 export class DevicesComponent  implements OnInit {
-
-  devices: Device[] = [
-    {
-      imei: '343434788348343XXX',
-      title: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
-      description: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
-      status: 'completed',
-      time: '2 hrs ago'
-    },
-    {
-      imei: '343434788348343XXX',
-      title: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
-      description: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
-      status: 'pending',
-      time: '4 hrs ago'
-    },
-    {
-      imei: '343434788348343XXX',
-      title: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
-      description: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
-      status: 'completed',
-      time: '1 day ago'
-    },
-    {
-      imei: '343434788348343XXX',
-      title: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
-      description: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
-      status: 'completed',
-      time: '2 days ago'
-    },
-    {
-      imei: '343434788348343XXX',
-      title: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
-      description: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
-      status: 'pending',
-      time: '4 hrs ago'
-    },
-     {
-      imei: '343434788348343XXX',
-      title: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
-      description: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
-      status: 'completed',
-      time: '2 days ago'
-    },
-    {
-      imei: '343434788348343XXX',
-      title: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
-      description: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
-      status: 'returned',
-      time: '4 hrs ago'
-    },
-    {
-      imei: '343434788348343XXX',
-      title: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
-      description: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
-      status: 'returned',
-      time: '4 hrs ago'
-    }
-  ];
-
   constructor() { }
 
   ngOnInit() {}
 
-  openDevice(device: Device) {
+  openDevice(device: any) {
     console.log('Opening device:', device);
   }
   
@@ -82,35 +19,16 @@ export class DevicesComponent  implements OnInit {
   console.log('Search value:', value);
   }
 
-   getStatusIcon(status: string): string {
-    return status === 'completed' ? 'checkmark-circle-outline' : 'time-outline';
-  }
 
-  getStatusClass(status: string): string {
-    switch (status) {
-      case 'completed':
-        return 'chip-completed';
-      case 'returned':
-        return 'chip-returned';
-      default:
-        return 'chip-pending';
-    }
-  }
-    filterData(seg: string) {
-    console.log('Selected segment:', seg);
+  selectedSegment: string = 'Devices';
+  filterData(segment: string) {
+    this.selectedSegment = segment;
+    console.log('Segment changed:', segment);
   }
 
   onHeaderMenuClick() {
     console.log('Header right icon clicked');
   }
 
-}
-
-interface Device {
-  imei: string;
-  title: string;
-  description: string;
-  status: 'completed' | 'pending'| 'returned';
-  time: string;
 }
 
