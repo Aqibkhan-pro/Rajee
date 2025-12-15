@@ -251,3 +251,14 @@ ion-button {
 .justify-center {
   justify-content: center;
 }
+
+.theme-chip {
+  --background: color-mix(in srgb, var(--button-color) 10%, transparent);
+  color: var(--button-color);
+  border-radius: 8px;
+
+  .chip-size {
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
