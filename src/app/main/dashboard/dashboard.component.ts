@@ -60,7 +60,9 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  selectSegment(segment: Segment) {
+  filterData(segment: Segment) {
     this.segment = segment;
   }
+
+
 }
