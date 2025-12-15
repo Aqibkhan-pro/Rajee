@@ -25,10 +25,10 @@ swiper-container {
 .menu {
   background: var(--secondary-color);
   border-radius: 12px !important;
-  padding: 4px;
+  border-radius: 8px !important;
+  padding: 6px;
   border: 1px solid var(--card-border-color);
   fill: var(--text-color);
-
 }
 
 .menu-button {
@@ -53,15 +53,17 @@ swiper-slide {
   border-radius: 18px;
   padding: 16px;
   height: 150px;
+  margin: 0;
+  box-shadow: none;
   border: 1px solid var(--card-border-color);
 }
 
-ion-card {
-  --background: var(--primary-color);
-  margin: 0;
-  min-height: 150px;
-  box-shadow: var(--border-effect) 0px 2px 8px 0px;
-}
+// ion-card {
+//   --background: var(--primary-color);
+//   margin: 0;
+//   min-height: 150px;
+//   box-shadow: var(--border-effect) 0px 2px 8px 0px;
+// }
 
 .card-top {
   display: flex;
@@ -97,5 +99,16 @@ ion-card {
   h2 {
     margin: 0;
   }
+}
 
+.mt-0{
+  margin-top: 0px;
+}
+
+.swiper{
+  margin: 16px 12px;
+}
+
+.text-margin{
+  margin: 12px;
 }
