@@ -1,4 +1,18 @@
-<app-global-header [showBack]="true" title="Received Devices" [rightIcon]="'options-outline'"></app-global-header>
+<app-global-header [showBack]="true" title="Received Devices" [rightIcon]="'options-outline'" [showPopOver]="true"
+  (rightIconClick)="onHeaderMenuClick()"></app-global-header>
+
+
+<ion-popover trigger="receiver-trigger" triggerAction="click" mode="md">
+  <ng-template>
+    <ion-content scrollY="false">
+      <ion-list>
+        <ion-item (click)="changeTheme()" class="text-color">First Name</ion-item>
+        <ion-item lines="none" (click)="logout()" class="text-color">Last Name</ion-item>
+        <ion-item lines="none" (click)="logout()" class="text-color">Most Done</ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-popover>
 
 <ion-content>
   <app-global-search placeholder="Search for activity" (searchChange)="onSearchValue($event)">

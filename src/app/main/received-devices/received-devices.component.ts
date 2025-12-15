@@ -33,11 +33,15 @@ export class ReceivedDevicesComponent  implements OnInit {
   }
 
   openDevicesDetails(){
-  this.router.navigate([APP_ROUTES.DEVICES_LIST], { relativeTo: this.route });
+  this.router.navigate([APP_ROUTES.DEVICES], { relativeTo: this.route });
   }
 
- onSearchValue(value: string) {
-  console.log('Search value:', value);
-}
+  onSearchValue(value: string) {
+    console.log('Search value:', value);
+  }
+
+  onHeaderMenuClick() {
+    console.log('Header right icon clicked');
+  }
 
 }

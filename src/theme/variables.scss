@@ -15,7 +15,7 @@
   --background-progress: #333333;
 }
 
-.theme-default{
+.theme-default {
   --primary-color: #101729;
   --secondary-color: #1D2031;
   --text-color: #ffffff;
@@ -25,6 +25,9 @@
   --button-press-color: #ff9f32;
   --border-effect: #000000;
   --background-progress: #333333;
+  --completed-color: #22c55e;
+  --pending-color: #f59e0b;
+  --returned-color: #8b5cf6;
 }
 
 .theme-blue {
@@ -40,6 +43,9 @@
   --button-color: #26b5fc;
   --card-border-color: #cfd3d2;
   --background-progress: #c8c8c8;
+  --completed-color: #22c55e;
+  --pending-color: #f59e0b;
+  --returned-color: #8b5cf6;
 }
 
 .theme-dark {
@@ -53,6 +59,9 @@
   --button-press-color: #ff9f32;
   --border-effect: #000000;
   --background-progress: #333333;
+  --completed-color: #22c55e;
+  --pending-color: #f59e0b;
+  --returned-color: #8b5cf6;
 }
 
 .theme-light {
@@ -64,6 +73,9 @@
   --button-press-color: #38a876;
   --border-effect: #cbcbcb;
   --background-progress: #c8c8c8;
+  --completed-color: #22c55e;
+  --pending-color: #f59e0b;
+  --returned-color: #8b5cf6;
 }
 
 .theme-darkblue {
@@ -75,4 +87,7 @@
   --button-press-color: #678afb;
   --border-effect: #cbcbcb;
   --background-progress: #c8c8c8;
+  --completed-color: #22c55e;
+  --pending-color: #f59e0b;
+  --returned-color: #8b5cf6;
 }
