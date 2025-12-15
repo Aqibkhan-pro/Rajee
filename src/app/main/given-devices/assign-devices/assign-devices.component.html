@@ -4,71 +4,56 @@
   <app-global-search placeholder="Search for devices" (searchChange)="onSearchValue($event)">
   </app-global-search>
 
-  <ion-list lines="none" class="list-wrap ion-padding">
-    <ion-item lines="none" class="item_padding mb-8">
-      <ion-card class="stats-card w100per card_padidng">
-        <ion-card-content class="card_content">
-          <ion-grid>
-            <ion-row class="stats-row">
-              <ion-col class="stat-box">
-                <div class="ff fw600 text-22  text-color">08</div>
-                <div class="ff fw400 text-10 sub_title_color">Total</div>
-              </ion-col>
+  <ion-card class="theme-card">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row class="stats-row">
+          <ion-col class="stat-box">
+            <div class="ff fw600 text-22  text-color">08</div>
+            <div class="ff fw400 text-10 sub_title_color">Total</div>
+          </ion-col>
 
-              <ion-col class="stat-box">
-                <div class="ff fw600 text-22  text-color">06</div>
-                <div class="ff fw400 text-10 sub_title_color">Devices</div>
-              </ion-col>
+          <ion-col class="stat-box">
+            <div class="ff fw600 text-22  text-color">06</div>
+            <div class="ff fw400 text-10 sub_title_color">Devices</div>
+          </ion-col>
 
-              <ion-col class="stat-box">
-                <div class="ff fw600 text-22  text-color">02</div>
-                <div class="ff fw400 text-10 sub_title_color">Parts</div>
-              </ion-col>
+          <ion-col class="stat-box">
+            <div class="ff fw600 text-22  text-color">02</div>
+            <div class="ff fw400 text-10 sub_title_color">Parts</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="theme-card" *ngFor="let device of [1,2,3,4]">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row class="device-row">
+
+          <!-- LEFT ICON -->
+          <ion-col class="left-col">
+            <ion-icon src="assets/svg/phone_icon.svg" class="device-icon-left"></ion-icon>
+          </ion-col>
+
+          <!-- MIDDLE CONTENT -->
+          <ion-col class="middle-col">
+            <div class="ff fw600 text-16 text-color">343434788348343XXX</div>
+            <ion-row>
+              <ion-chip class="theme-chip"><ion-label>iPhone 7</ion-label>
+              </ion-chip>
+              <ion-chip class="theme-chip"><ion-label>Grade B </ion-label></ion-chip>
             </ion-row>
-          </ion-grid>
-        </ion-card-content>
-      </ion-card>
-    </ion-item>
+            <div class="ff fw500 text-14 sub_title_color">Unlocked</div>
+          </ion-col>
 
-    <ion-item lines="none" class="item_padding" *ngFor="let device of [1,2,3,4]">
-      <ion-card class="stats-card w100per card_padidng">
-        <ion-card-content class="card_content">
-
-          <ion-grid>
-            <ion-row class="device-row">
-
-              <!-- LEFT ICON -->
-              <ion-col class="left-col">
-                <ion-icon src="assets/svg/phone_icon.svg" class="device-icon-left"></ion-icon>
-              </ion-col>
-
-              <!-- MIDDLE CONTENT -->
-              <ion-col class="middle-col">
-                <div class="ff fw600 text-16 text-color">343434788348343XXX</div>
-
-                <ion-row class="chip-row">
-                  <ion-chip class="theme-chip"><ion-label>iPhone 7</ion-label>
-                  </ion-chip>
-                  <ion-chip class="theme-chip"><ion-label>Grade B </ion-label></ion-chip>
-                </ion-row>
-
-                <div class="ff fw500 text-14 sub_title_color">Unlocked</div>
-              </ion-col>
-
-              <!-- RIGHT ARROW ICON -->
-              <ion-col class="right-col ion-text-end">
-                <ion-icon name="chevron-forward" class="arrow-icon"></ion-icon>
-              </ion-col>
-
-            </ion-row>
-          </ion-grid>
-
-        </ion-card-content>
-      </ion-card>
-    </ion-item>
-
-
-  </ion-list>
-
-
+          <!-- RIGHT ARROW ICON -->
+          <ion-col class="right-col ion-text-end">
+            <ion-icon name="chevron-forward" class="arrow-icon"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
