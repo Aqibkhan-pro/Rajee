@@ -7,8 +7,8 @@
             src="https://images.unsplash.com/photo-1644782983300-6e26b6a6bbaf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
         </ion-avatar>
         <ion-list class="pl-7">
-          <div class="ff fw600 text-14 text-color">Jhon Doe</div>
-          <div class="ff fw400 text-8 sub_title_color">Reapir Manager</div>
+          <div class="ff fw600 text-16 text-color">Jhon Doe</div>
+          <div class="ff fw400 text-10 sub_title_color">Repair Manager</div>
         </ion-list>
       </ion-item>
     </ion-buttons>
@@ -43,11 +43,23 @@
 
   <h2 class="mt-0 ff fw500 text-color text-14 text-margin" (click)="openModal()">{{ greeting }}! Have A Good Time</h2>
 
-  <swiper-container [loop]="true" autoplay delay="500" class="swiper" pagination="true">
-    <swiper-slide *ngFor="let slide of images">
-      <img alt="rhino standing near grass" class="slide-img" [src]="slide" />
-    </swiper-slide>
-  </swiper-container>
+  <swiper-container
+  #swiperEl
+  [loop]="false"
+  [pagination]="{ clickable: true }"
+  [speed]="1000"
+  [autoplay]="{
+    delay: 2500,
+    disableOnInteraction: false
+  }"
+  class="swiper"
+>
+  <swiper-slide *ngFor="let slide of images">
+    <img class="slide-img" [src]="slide" />
+  </swiper-slide>
+</swiper-container>
+
+
 
   <app-global-segment [segments]="['Repair', 'Quality Control', 'Clean']" (segmentChanged)="filterData($event)">
   </app-global-segment>

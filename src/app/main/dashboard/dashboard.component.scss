@@ -25,10 +25,10 @@ swiper-container {
 .menu {
   background: var(--secondary-color);
   border-radius: 12px !important;
-  padding: 4px;
+  border-radius: 8px !important;
+  padding: 6px;
   border: 1px solid var(--card-border-color);
   fill: var(--text-color);
-
 }
 
 .menu-button {

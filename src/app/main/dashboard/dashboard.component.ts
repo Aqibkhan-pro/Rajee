@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, NavController, PopoverController } from '@ionic/angular';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Segment } from 'src/app/shared/enums/common.enum';
 import { APP_ROUTES } from 'src/app/shared/utils/app-routes';
 import { TimeInProgressComponent } from '../modals/time-in-progress/time-in-progress.component';
+import { SwiperOptions } from 'swiper/types/swiper-options';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,11 +19,12 @@ export class DashboardComponent implements OnInit {
   SegmentEnum = Segment;
 
   images = [
-    '../../../assets/image/slide.jpg',
-    '../../../assets/image/slide-two.jpg',
-    '../../../assets/image/slide-three.jpg',
-    '../../../assets/image/slide-four.jpg'
+    'assets/image/one.jpg',
+    'assets/image/two.jpg',
+    'assets/image/three.jpg',
+    'assets/image/four.jpg'
   ];
+
   constructor(
     private router: Router,
     private navCtrl: NavController,
@@ -32,6 +34,15 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit() {
+  }
+
+  @ViewChild('swiperEl', { static: false }) swiperEl!: ElementRef;
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      const swiper = this.swiperEl.nativeElement.swiper;
+      swiper?.autoplay?.start();
+    }, 0);
   }
 
   logout() {
