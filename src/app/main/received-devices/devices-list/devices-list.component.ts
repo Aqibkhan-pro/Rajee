@@ -86,19 +86,24 @@ export class DevicesListComponent  implements OnInit {
     return status === 'completed' ? 'checkmark-circle-outline' : 'time-outline';
   }
 
- getStatusClass(status: string): string {
-  switch (status) {
-    case 'completed':
-      return 'chip-completed';
-    case 'returned':
-      return 'chip-returned';
-    default:
-      return 'chip-pending';
+  getStatusClass(status: string): string {
+    switch (status) {
+      case 'completed':
+        return 'chip-completed';
+      case 'returned':
+        return 'chip-returned';
+      default:
+        return 'chip-pending';
+    }
   }
-}
-  filterData(seg: string) {
-  console.log('Selected segment:', seg);
-}
+    filterData(seg: string) {
+    console.log('Selected segment:', seg);
+  }
+
+  onHeaderMenuClick() {
+    console.log('Header right icon clicked');
+  }
+
 }
 
 interface Device {

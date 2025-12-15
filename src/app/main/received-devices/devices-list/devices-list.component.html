@@ -1,9 +1,10 @@
-<app-global-header [showBack]="true" title="Devices List" rightIcon="add-outline"></app-global-header>
+<app-global-header [showBack]="true" title="Devices List" rightIcon="ellipsis-vertical"
+  (rightIconClick)="onHeaderMenuClick()"></app-global-header>
 <ion-content [fullscreen]="true">
   <app-global-search placeholder="Search for devices" (searchChange)="onSearchValue($event)">
   </app-global-search>
 
-  <app-global-segment [segments]="['Pending', 'Completed', 'Returned']" (segmentChanged)="filterData($event)">
+  <app-global-segment [segments]="['Devices', 'Parts']" (segmentChanged)="filterData($event)">
   </app-global-segment>
 
   <ion-card *ngFor="let device of devices">
