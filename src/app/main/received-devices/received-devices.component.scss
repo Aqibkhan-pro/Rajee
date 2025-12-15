@@ -144,23 +144,13 @@ ion-card.no-padding {
 }
 
 .progress-circle {
-    // width: 56px;
-    // height: 56px;
-    // border-radius: 50%;
-    // display: grid;
-    // place-items: center;
-    // background: conic-gradient(var(--button-color) var(--percent, 0%), rgba(255, 255, 255, 0.08) 0%);
-    // box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
-    // position: relative;
     width: 56px;
     height: 56px;
     border-radius: 50%;
     display: grid;
     place-items: center;
     background: conic-gradient(var(--button-color) var(--percent, 0%), #8c8c8c 0%);
-    /* box-shadow: 0 6px 18px #00000000; */
     position: relative;
-
 }
 
 .progress-circle::before {
