@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController, PopoverController } from '@ionic/angular';
+import { ModalController, NavController, PopoverController } from '@ionic/angular';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Segment } from 'src/app/shared/enums/common.enum';
 import { APP_ROUTES } from 'src/app/shared/utils/app-routes';
+import { TimeInProgressComponent } from '../modals/time-in-progress/time-in-progress.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,9 +20,12 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private navCtrl: NavController,
     private authService: AuthService,
+    private modalCtrl: ModalController,
     private popOverCtrl: PopoverController) { }
 
+
   ngOnInit() {
+    this.openModal();
   }
 
   logout() {
@@ -57,4 +61,27 @@ export class DashboardComponent implements OnInit {
   selectSegment(segment: Segment) {
     this.segment = segment;
   }
+
+  greeting = 'Good Morning';
+  ionViewWillEnter() {
+    const hour = new Date().getHours();
+    this.greeting =
+      hour > 4 && hour < 12 ? 'Good Morning' :
+      hour > 12 && hour < 17 ? 'Good Afternoon' :
+      hour > 17 && hour < 21 ? 'Good Evening' :
+      'Good Night';
+  }
+
+  async openModal() {
+    const modal = await this.modalCtrl.create({
+      component: TimeInProgressComponent,
+      backdropDismiss: true,
+      breakpoints: [0, 0.6, 1],
+      initialBreakpoint: 0.6
+    });
+
+    await modal.present();
+  }
+
+
 }
