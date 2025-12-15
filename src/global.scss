@@ -70,8 +70,16 @@ ion-content.scanner-active {
   text-align: center;
 }
 
+.align-content-center {
+  align-content: center;
+}
+
 .mt-4 {
   margin-top: 4px !important;
+}
+
+.mt-6 {
+  margin-top: 6px !important;
 }
 
 .mt-8 {
@@ -102,14 +110,30 @@ ion-content.scanner-active {
   margin-bottom: 8px !important;
 }
 
+.mb-16 {
+  margin-bottom: 16px !important;
+}
+
 .ml-10 {
   margin-left: 10px !important;
+}
+
+.ml-15 {
+  margin-left: 15px;
 }
 
 .mr-15 {
   margin-right: 15px;
 }
 
+//padding classes
+.pl-7 {
+  padding-left: 7px;
+}
+
+.text-8 {
+  font-size: 8px;
+}
 
 .text-10 {
   font-size: 10px;
@@ -166,7 +190,7 @@ ion-button {
 
 
 
-.txt-color {
+.text-color {
   color: var(--text-color) !important;
 }
 
@@ -196,4 +220,24 @@ ion-button {
 
 .w100per {
   width: 100% !important;
+}
+
+.w90per {
+  width: 90% !important;
+}
+
+.w80per {
+  width: 80% !important;
+}
+
+.w20per {
+  width: 20% !important;
+}
+
+.w10per {
+  width: 10% !important;
+}
+
+.display-flex {
+  display: flex !important;
 }
