@@ -17,13 +17,14 @@
         <ion-icon [name]="rightIcon" class="text-color"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-popover trigger="receiver-trigger" triggerAction="click" mode="md">
+
+    <ion-popover trigger="receiver-trigger" triggerAction="click" mode="md" *ngIf="showPopOver">
       <ng-template>
         <ion-content scrollY="false">
           <ion-list>
-            <ion-item (click)="changeTheme()" class="text-color">First Name</ion-item>
-            <ion-item lines="none" (click)="logout()" class="text-color">Last Name</ion-item>
-            <ion-item lines="none" (click)="logout()" class="text-color">Most Done</ion-item>
+            <ion-item lines="none" class="text-color">First Name</ion-item>
+            <ion-item lines="none" class="text-color">Last Name</ion-item>
+            <ion-item lines="none" class="text-color">Most Done</ion-item>
           </ion-list>
         </ion-content>
       </ng-template>
