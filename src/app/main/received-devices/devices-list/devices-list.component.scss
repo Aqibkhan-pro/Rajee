@@ -5,6 +5,13 @@ ion-card {
     margin-bottom: 5px;
     border: 1px solid var(--border-color);
     margin-top: 10px;
+
+    ion-card-content {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-inline-start: 10px;
+        padding-inline-end: 10px;
+    }
 }
 
 
@@ -40,7 +47,7 @@ ion-card {
 }
 
 .title-section {
-    margin-bottom: 20px;
+    margin-bottom: 4px;
 }
 
 .title-line {
@@ -57,7 +64,7 @@ ion-card {
 .status-section {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 8px;
 }
 
 .status-item {

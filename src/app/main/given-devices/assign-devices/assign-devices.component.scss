@@ -64,14 +64,6 @@ ion-toolbar {
   --padding-top: var(--ion-padding, 0px);
 }
 
-ion-chip {
-  background: var(--background-color);
-  color: var(--button-color);
-  margin-inline-start: 0px;
-  -webkit-margin-end: 4px;
-  margin-inline-end: 4px;
-  margin-top: 0px;
-}
 
 .device-row {
   align-items: center; // Vertically center all columns

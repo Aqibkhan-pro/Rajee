@@ -2,24 +2,24 @@
   <ion-card-content>
     <ion-row class="device-row" align-items-center>
 
-      <ion-col size="1">
+      <ion-col size="2">
         <div class="icon-wrapper">
           <ion-icon name="phone-portrait-outline" size="large"></ion-icon>
         </div>
       </ion-col>
-      <ion-col size="8" class="ml-20">
+      <ion-col size="8">
         <div class="imei-section">
           <ion-text class="imei-text text-color">{{ device.imei }}</ion-text>
         </div>
-        <ion-chip>
+        <ion-chip class="theme-chip">
           <ion-label class="chip-size">{{ device.title }}</ion-label>
         </ion-chip>
-        <ion-chip>
+        <ion-chip class="theme-chip">
           <ion-label class="chip-size">{{ device.description }}</ion-label>
         </ion-chip>
       </ion-col>
 
-      <ion-col size=" 2" class="ion-text-center ion-align-items-center d-flex">
+      <ion-col size="2" class="ion-text-center ion-align-items-center d-flex">
         <ion-text class="secondary">Unlocked</ion-text>
       </ion-col>
     </ion-row>

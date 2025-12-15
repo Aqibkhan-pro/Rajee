@@ -226,9 +226,7 @@ ion-button {
   width: 100% !important;
 }
 
-.d-flex {
-  display: flex;
-}
+
 
 .w90per {
   width: 90% !important;
@@ -246,6 +244,21 @@ ion-button {
   width: 10% !important;
 }
 
-.display-flex {
-  display: flex !important;
+.d-flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.theme-chip {
+  --background: color-mix(in srgb, var(--button-color) 10%, transparent);
+  color: var(--button-color);
+  border-radius: 8px;
+
+  .chip-size {
+    font-size: 12px;
+    font-weight: 500;
+  }
 }
