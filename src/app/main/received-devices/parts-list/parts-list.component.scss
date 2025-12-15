@@ -1,0 +1,53 @@
+ion-card {
+    --background: var(--secondary-color);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 5px;
+    border: 1px solid var(--border-color);
+    margin-top: 10px;
+}
+
+
+.icon-wrapper {
+    width: 40px;
+    height: 60px;
+    border-radius: 10px;
+    background-color: var(--button-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ion-icon {
+        color: #fff;
+    }
+}
+
+.imei-section .imei-text {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.title-section {
+    margin-bottom: 20px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.secondary {
+    color: var(--text-secondary);
+}
+
+ion-chip {
+    --background: color-mix(in srgb, var(--button-color) 15%, transparent);
+    color: var(--button-color);
+    border-radius: 8px;
+}
+
+.chip-size {
+    font-size: 12px;
+    font-weight: 500;
+}
