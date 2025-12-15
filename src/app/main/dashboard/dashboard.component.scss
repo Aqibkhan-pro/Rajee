@@ -12,22 +12,33 @@ swiper-container {
   overflow: hidden;
 }
 
-h2 {
-  color: var(--text-color);
-  font-size: 18px;
-  margin: 0;
+.profile_item {
+  --padding-start: 0px;
+  --inner-padding-end: 0px;
+}
+
+.profile_avtar {
+  width: 36px;
+  height: 36px;
 }
 
 .menu {
-  --background: var(--primary-color) !important;
+  background: var(--secondary-color);
+  border-radius: 12px !important;
+  padding: 4px;
+  border: 1px solid var(--card-border-color);
+  fill: var(--text-color);
 
-  ion-icon {
-    color: var(--button-color);
-  }
+}
+
+.menu-button {
+  --padding-start: 0px;
+  --padding-end: 0px;
+  --background: transparent;
 }
 
 swiper-slide {
-  height: 150px;
+  height: 200px;
 }
 
 .slide-img {
@@ -36,23 +47,13 @@ swiper-slide {
   object-fit: cover;
 }
 
-.tabs {
-  --border-radius: 32px;
-}
 
-.uncheck-button {
-  --background: var(--primary-color);
-  box-shadow: var(--border-effect) 0px 2px 8px 0px;
-  border-radius: 32px;
-  color: var(--text-color);
-}
-
-.check-button {
-  --background: var(--button-color);
-  --background-activated: var(--button-color);
-  box-shadow: var(--border-effect) 0px 2px 8px 0px;
-  border-radius: 32px;
-  color: #ffffff;
+.stat-card {
+  background: var(--secondary-color);
+  border-radius: 18px;
+  padding: 16px;
+  height: 150px;
+  border: 1px solid var(--card-border-color);
 }
 
 ion-card {
@@ -62,27 +63,39 @@ ion-card {
   box-shadow: var(--border-effect) 0px 2px 8px 0px;
 }
 
-ion-card-subtitle {
-  color: var(--text-color);
-  font-weight: 600;
-  font-size: 14px;
-  text-transform: capitalize;
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-ion-card-header {
-  padding: 8px 8px 0px;
+.icon-box {
+  background: var(--button-color);
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ion-icon {
+    color: var(--btn-text-color);
+    font-size: 22px;
+  }
 }
 
-p {
-  color: #848484;
-  text-align: start;
-  padding-left: 0;
-  padding-right: 20px;
-  font-size: 14px;
-  font-weight: 400;
+.arrow-icon {
+  color: var(--button-color);
+  fill: var(--button-color);
+  stroke: var(--button-color);
+  font-size: 25px;
 }
 
-ion-card-content {
-  padding-left: 8px;
-  padding-bottom: 8px;
+.card-body {
+  margin-top: 20px;
+
+  h2 {
+    margin: 0;
+  }
+
 }

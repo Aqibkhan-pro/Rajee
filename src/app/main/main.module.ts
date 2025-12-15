@@ -6,6 +6,7 @@ import { MainRoutingModule } from './main-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ScannerComponent } from './scanner/scanner.component';
 import { MainContainerComponent } from './main.component';
+import { SharedModule } from '../shared/shared-module';
 @NgModule({
   declarations: [
     MainContainerComponent,
@@ -16,6 +17,7 @@ import { MainContainerComponent } from './main.component';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
+    SharedModule,
     MainRoutingModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
