@@ -82,6 +82,10 @@ export class DevicesListComponent  implements OnInit {
   getStatusClass(status: string): string {
     return status === 'completed' ? 'status-text completed' : 'status-text pending';
   }
+
+  filterData(seg: string) {
+  console.log('Selected segment:', seg);
+}
 }
 
 interface Device {

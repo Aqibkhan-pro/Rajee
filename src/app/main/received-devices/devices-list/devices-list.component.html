@@ -3,6 +3,9 @@
   <app-global-search placeholder="Search for devices" (searchChange)="onSearchValue($event)">
   </app-global-search>
 
+  <app-global-segment [segments]="['Pending', 'Completed', 'Returned']" (segmentChanged)="filterData($event)">
+  </app-global-segment>
+
   <ion-card *ngFor="let device of devices">
     <ion-card-content>
       <ion-row class="device-row" align-items-center>
