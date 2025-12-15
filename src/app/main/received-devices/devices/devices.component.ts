@@ -4,12 +4,12 @@ import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared/shared-module';
 
 @Component({
-  selector: 'app-devices-list',
-  templateUrl: './devices-list.component.html',
-  styleUrls: ['./devices-list.component.scss'],
+  selector: 'app-devices',
+  templateUrl: './devices.component.html',
+  styleUrls: ['./devices.component.scss'],
   standalone:false
 })
-export class DevicesListComponent  implements OnInit {
+export class DevicesComponent  implements OnInit {
 
   devices: Device[] = [
     {

@@ -5,11 +5,11 @@ import { ReceivedDevicesRoutingModule } from './received-devices-routing.module'
 import { SharedModule } from 'src/app/shared/shared-module';
 import { IonicModule } from '@ionic/angular';
 import { ReceivedDevicesComponent } from './received-devices.component';
-import { DevicesListComponent } from './devices-list/devices-list.component';
+import { DevicesComponent } from './devices/devices.component';
 
 
 @NgModule({
-  declarations: [ReceivedDevicesComponent, DevicesListComponent],
+  declarations: [ReceivedDevicesComponent, DevicesComponent],
   imports: [
     CommonModule,
     ReceivedDevicesRoutingModule,

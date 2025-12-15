@@ -13,6 +13,7 @@ export class GlobalHeaderComponent {
   @Input() showFilter: boolean = false;
   @Input() title: string = '';
   @Input() rightIcon: string | null = null;
+  @Input() showPopOver: boolean = false;
 
   @Output() rightIconClick = new EventEmitter<void>();
 
