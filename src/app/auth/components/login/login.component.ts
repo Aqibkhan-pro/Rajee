@@ -121,6 +121,8 @@ export class LoginComponent implements OnInit {
       this.authService.changeTheme('theme-dark')
     } else if(this.count ==3){
       this.authService.changeTheme('theme-darkblue')
+    } else if (this.count == 4) {
+      this.authService.changeTheme('theme-default')
     }
     else {
       this.authService.changeTheme('theme-light')

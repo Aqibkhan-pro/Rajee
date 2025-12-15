@@ -17,7 +17,7 @@
       </ion-button>
     </ion-buttons>
 
-    <ion-popover trigger="click-trigger" triggerAction="click">
+    <ion-popover trigger="click-trigger" triggerAction="click" mode="md">
       <ng-template>
         <ion-content scrollY="false">
           <ion-list>
@@ -34,8 +34,12 @@
 <ion-content [fullscreen]="true" class="ion-padding" scrollY="false">
   <h2>Good Morning, Anees Ahmed</h2>
 
-  <img alt="rhino standing near grass" class="slide-img"
-    src="https://images.unsplash.com/photo-1569908420024-c8f709b75700?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+
+  <swiper-container [loop]="true" autoplay delay="500">
+    <swiper-slide *ngFor="let slide of images" style="border-radius: 12px; background: #000;">
+      <img alt="rhino standing near grass" class="slide-img" [src]="slide" />
+    </swiper-slide>
+  </swiper-container>
 
   <h2>Categories</h2>
 
@@ -43,8 +47,9 @@
     <ion-row>
       <!-- Repair -->
       <ion-col size="4">
-        <ion-button expand="block" class="text-12 tabs" [ngClass]="segment == SegmentEnum.REPAIR ? 'check-button' : 'uncheck-button'"
-        (click)="selectSegment(SegmentEnum.REPAIR)">
+        <ion-button expand="block" class="text-12 tabs"
+          [ngClass]="segment == SegmentEnum.REPAIR ? 'check-button' : 'uncheck-button'"
+          (click)="selectSegment(SegmentEnum.REPAIR)">
           <ion-icon [name]="segment == SegmentEnum.REPAIR  ? 'construct' : 'construct-outline'" slot="start"></ion-icon>
           Repair
         </ion-button>
@@ -52,17 +57,20 @@
 
       <!-- QC -->
       <ion-col size="4">
-        <ion-button expand="block" class="text-12 tabs" [ngClass]="segment == SegmentEnum.QC ? 'check-button' : 'uncheck-button'"
-        (click)="selectSegment(SegmentEnum.QC)">
-          <ion-icon [name]=" segment == SegmentEnum.QC  ?'shield-checkmark': 'shield-checkmark-outline'" slot="start"></ion-icon>
+        <ion-button expand="block" class="text-12 tabs"
+          [ngClass]="segment == SegmentEnum.QC ? 'check-button' : 'uncheck-button'"
+          (click)="selectSegment(SegmentEnum.QC)">
+          <ion-icon [name]=" segment == SegmentEnum.QC  ?'shield-checkmark': 'shield-checkmark-outline'"
+            slot="start"></ion-icon>
           QC
         </ion-button>
       </ion-col>
 
       <!-- Parts -->
       <ion-col size="4">
-        <ion-button expand="block" class="text-12 tabs" [ngClass]="segment == SegmentEnum.PARTS ? 'check-button' : 'uncheck-button'"
-        (click)="selectSegment(SegmentEnum.PARTS)">
+        <ion-button expand="block" class="text-12 tabs"
+          [ngClass]="segment == SegmentEnum.PARTS ? 'check-button' : 'uncheck-button'"
+          (click)="selectSegment(SegmentEnum.PARTS)">
           <ion-icon [name]="segment == SegmentEnum.PARTS  ?'cube':'cube-outline'" slot="start"></ion-icon>
           Parts
         </ion-button>
@@ -73,11 +81,11 @@
   <ion-grid>
     <ion-row>
       <ion-col size="6">
-        <ion-card (click)="goTo(routes.GIVEN_DEVICES)" mode="ios">
-            <img alt="Silhouette of mountains"
-              src="https://plus.unsplash.com/premium_photo-1661696366447-f805ed09b9b6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
-              <ion-card-header>
-              <ion-card-subtitle>Given Devices</ion-card-subtitle>
+        <ion-card (click)="goTo(routes.GIVEN_DEVICES+'/'+routes.ASSIGN_DEVICES)" mode="ios">
+          <img alt="Silhouette of mountains"
+            src="https://plus.unsplash.com/premium_photo-1661696366447-f805ed09b9b6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+          <ion-card-header>
+            <ion-card-subtitle>Given Devices</ion-card-subtitle>
           </ion-card-header>
         </ion-card>
       </ion-col>

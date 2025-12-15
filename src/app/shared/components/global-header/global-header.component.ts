@@ -10,6 +10,7 @@ import { NavController } from '@ionic/angular';
 export class GlobalHeaderComponent {
 
   @Input() showBack: boolean = false;
+  @Input() showFilter: boolean = false;
   @Input() title: string = '';
   @Input() rightIcon: string | null = null;
 

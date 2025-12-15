@@ -8,8 +8,8 @@
     <ion-item lines="none">
       <div class="avatar-center">
         <lottie-player src="../../../../assets/anim/data.json" background="transparent" speed="1" loop autoplay
-        style="width: 260px; height: 260px;">
-      </lottie-player>
+          style="width: 260px; height: 260px;">
+        </lottie-player>
       </div>
     </ion-item>
 
@@ -20,14 +20,11 @@
         </ion-label>
         <ion-list class="text-start mt-12">
           <!-- <ion-label class="text-14">Email</ion-label> -->
-            <ion-item class="custom-input mt-8" lines="none">
-              <ion-icon slot="start" src="assets/svg/envelope.svg" class="text-20"></ion-icon>
-              <ion-input
-                type="email"
-                placeholder="Enter email..."
-                formControlName="email">
-              </ion-input>
-            </ion-item>
+          <ion-item class="custom-input mt-8 input-item" lines="none">
+            <ion-icon slot="start" src="assets/svg/envelope.svg" class="text-20"></ion-icon>
+            <ion-input type="email" placeholder="Enter email..." formControlName="email">
+            </ion-input>
+          </ion-item>
         </ion-list>
 
         <ion-text color="danger" *ngIf="submitted && email?.errors">
@@ -36,12 +33,9 @@
         </ion-text>
         <ion-list class="text-start">
           <!-- <ion-label class="text-14">Password</ion-label> -->
-          <ion-item class="custom-input mt-8" lines="none">
+          <ion-item class="custom-input mt-8 input-item" lines="none">
             <ion-icon slot="start" src="assets/svg/lock.svg" class="text-20"></ion-icon>
-            <ion-input
-              type="password"
-              placeholder="Enter password..."
-              formControlName="password">
+            <ion-input type="password" placeholder="Enter password..." formControlName="password">
             </ion-input>
             <ion-icon slot="end" src="assets/svg/view.svg" class="text-20"></ion-icon>
           </ion-item>

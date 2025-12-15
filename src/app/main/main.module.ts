@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -9,7 +9,7 @@ import { MainContainerComponent } from './main.component';
 @NgModule({
   declarations: [
     MainContainerComponent,
-    DashboardComponent,ScannerComponent
+    DashboardComponent, ScannerComponent
   ],
   imports: [
     CommonModule,
@@ -17,6 +17,7 @@ import { MainContainerComponent } from './main.component';
     ReactiveFormsModule,
     IonicModule,
     MainRoutingModule
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class MainModule { }
