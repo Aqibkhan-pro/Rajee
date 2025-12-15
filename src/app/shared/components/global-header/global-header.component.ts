@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-global-header',
@@ -13,14 +13,15 @@ export class GlobalHeaderComponent {
   @Input() showFilter: boolean = false;
   @Input() title: string = '';
   @Input() rightIcon: string | null = null;
+  @Input() showPopOver: boolean = false;
 
   @Output() rightIconClick = new EventEmitter<void>();
 
-  constructor(private router: Router) {}
+  constructor(private navCtrl: NavController) {}
 
-  goBack() {
-    this.router.navigateByUrl('/'); // or use history.back()
-  }
+ goBack() {
+  this.navCtrl.back();
+}
 
   onRightIconClick() {
     this.rightIconClick.emit();

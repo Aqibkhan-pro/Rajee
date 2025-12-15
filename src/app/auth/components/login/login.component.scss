@@ -44,13 +44,22 @@ ion-text {
   }
 }
 
-ion-content , ion-item , ion-list , ion-header , ion-toolbar{
+ion-content,
+ion-item,
+ion-list,
+ion-header,
+ion-toolbar {
   --background: var(--primary-color);
   background: var(--primary-color);
 }
 
-ion-button{
-  color: var( --btn-text-color);
+.input-item {
+  border: 1px solid var(--card-border-color);
+  border-radius: 12px;
+}
+
+ion-button {
+  color: var(--btn-text-color);
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   --background: var(--button-color); // #0f6b42

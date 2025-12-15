@@ -73,13 +73,14 @@ ion-card {
 }
 
 .issue-list {
-  padding: 8px;
+  padding: 4px 16px;
 }
 
 .issue-item {
   border: 1px solid #7c7c7c;
   border-radius: 10px;
   padding: 4px 0;
+  margin-bottom: 8px;
 }
 
 .issue-avatar {
@@ -113,4 +114,5 @@ ion-label {
 
 .icon-color{
   color: var(--button-color);
+  margin-right: 8px;
 }

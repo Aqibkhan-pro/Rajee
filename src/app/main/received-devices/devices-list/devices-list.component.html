@@ -1,41 +1,34 @@
-<app-global-header [showBack]="true" title="Devices List" rightIcon="add-outline"></app-global-header>
-<ion-content [fullscreen]="true">
-  <app-global-search placeholder="Search for devices" (searchChange)="onSearchValue($event)">
-  </app-global-search>
+<ion-card *ngFor="let device of devices">
+  <ion-card-content>
+    <ion-row class="device-row" align-items-center>
 
-  <ion-card *ngFor="let device of devices">
-    <ion-card-content>
-      <ion-row class="device-row" align-items-center>
-
-        <ion-col size="2">
-          <div class="icon-wrapper">
-            <ion-icon name="phone-portrait-outline" size="large"></ion-icon>
-          </div>
-        </ion-col>
-        <ion-col size="10">
-          <div class="imei-section">
-            <ion-text class="imei-text text-color">{{ device.imei }}</ion-text>
-          </div>
-          <div class="title-section">
-            <ion-text class="title-line text-color">{{ device.title }}</ion-text>
-          </div>
-        </ion-col>
-      </ion-row>
-
-
-      <div class="divider-1px"></div>
-
-      <div class="status-section">
-        <div class="status-item">
-          <ion-icon [name]="getStatusIcon(device.status)" class="status-icon"></ion-icon>
-          <ion-text [class]="getStatusClass(device.status)">{{device.status | titlecase}}</ion-text>
+      <ion-col size="2">
+        <div class="icon-wrapper">
+          <ion-icon name="phone-portrait-outline" size="large"></ion-icon>
         </div>
-        <div class="status-item">
-          <ion-icon name="time-outline" class="status-icon"></ion-icon>
-          <ion-text class="time-text">{{device.time}}</ion-text>
+      </ion-col>
+      <ion-col size="10">
+        <div class="imei-section">
+          <ion-text class="imei-text text-color">{{ device.imei }}</ion-text>
         </div>
+        <div class="title-section">
+          <ion-text class="title-line text-color">{{ device.title }}</ion-text>
+        </div>
+      </ion-col>
+    </ion-row>
+
+
+    <div class="divider-1px"></div>
+
+    <div class="status-section">
+      <ion-chip [class]="getStatusClass(device.status)">
+        <ion-icon [name]="getStatusIcon(device.status)"></ion-icon>
+        <ion-label>{{ device.status | titlecase }}</ion-label>
+      </ion-chip>
+      <div class="status-item">
+        <ion-icon name="time-outline" class="status-icon"></ion-icon>
+        <ion-text class="time-text">{{device.time}}</ion-text>
       </div>
-    </ion-card-content>
-  </ion-card>
-
-</ion-content>
+    </div>
+  </ion-card-content>
+</ion-card>

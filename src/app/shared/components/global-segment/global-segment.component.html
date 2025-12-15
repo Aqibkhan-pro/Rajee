@@ -1,0 +1,5 @@
+<ion-segment mode="ios" [(ngModel)]="selected" (ionChange)="onSegmentSelect($event)">
+  <ion-segment-button *ngFor="let seg of segments" [value]="seg">
+    <ion-label>{{ seg }}</ion-label>
+  </ion-segment-button>
+</ion-segment>

@@ -2,13 +2,11 @@ ion-card {
     --background: var(--secondary-color);
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    margin-bottom: 16px;
+    margin-bottom: 5px;
     border: 1px solid var(--border-color);
+    margin-top: 10px;
 }
 
-ion-card-content {
-    padding: 20px;
-}
 
 .divider-1px {
     height: 1px;
@@ -73,20 +71,33 @@ ion-card-content {
     color: var(--text-secondary);
 }
 
-.status-text {
-    font-size: 14px;
-    font-weight: 500;
-
-    &.completed {
-        color: var(--completed-color);
-    }
-
-    &.pending {
-        color: var(--pending-color);
-    }
-}
 
 .time-text {
     font-size: 14px;
     color: var(--text-secondary);
+}
+
+ion-chip {
+    height: 28px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.chip-completed {
+    color: var(--completed-color);
+    --background: color-mix(in srgb, var(--completed-color) 15%, transparent);
+}
+
+.chip-pending {
+    color: var(--pending-color);
+    --background: color-mix(in srgb, var(--pending-color) 15%, transparent);
+}
+
+.chip-returned {
+    color: var(--returned-color);
+    --background: color-mix(in srgb, var(--returned-color) 15%, transparent);
+}
+
+ion-chip ion-icon {
+    color: inherit;
 }

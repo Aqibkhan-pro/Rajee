@@ -16,6 +16,13 @@ export class DashboardComponent implements OnInit {
   routes = APP_ROUTES;
   segment: Segment = Segment.REPAIR;
   SegmentEnum = Segment;
+
+  images = [
+    '../../../assets/image/slide.jpg',
+    '../../../assets/image/slide-two.jpg',
+    '../../../assets/image/slide-three.jpg',
+    '../../../assets/image/slide-four.jpg'
+  ];
   constructor(
     private router: Router,
     private navCtrl: NavController,
@@ -25,7 +32,6 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit() {
-    this.openModal();
   }
 
   logout() {
@@ -58,7 +64,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  selectSegment(segment: Segment) {
+  filterData(segment: Segment) {
     this.segment = segment;
   }
 

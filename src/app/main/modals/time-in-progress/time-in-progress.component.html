@@ -53,7 +53,7 @@
 
     <!-- Issue item -->
     <ion-list class="issue-list">
-      <ion-item lines="none" class="issue-item">
+      <ion-item lines="none" class="issue-item" *ngFor="let issue of [0,1,2,3]">
 
         <ion-avatar slot="start" class="issue-avatar">
           <ion-img src="../../../../assets/svg/phonelink.svg"></ion-img>
@@ -61,7 +61,7 @@
 
         <ion-label>
           <p class="text-color">Touchscreen Problem</p>
-          <p class="text-grey-code">878787878787</p>
+          <p class="text-grey-code">{{issue}}878787878787</p>
         </ion-label>
 
       </ion-item>
