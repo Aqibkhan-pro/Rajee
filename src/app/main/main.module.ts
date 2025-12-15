@@ -7,10 +7,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ScannerComponent } from './scanner/scanner.component';
 import { MainContainerComponent } from './main.component';
 import { SharedModule } from '../shared/shared-module';
+import { TimeInProgressComponent } from './modals/time-in-progress/time-in-progress.component';
 @NgModule({
   declarations: [
     MainContainerComponent,
-    DashboardComponent, ScannerComponent
+    DashboardComponent,
+    ScannerComponent,
+    TimeInProgressComponent
   ],
   imports: [
     CommonModule,

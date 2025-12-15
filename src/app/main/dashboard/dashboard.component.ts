@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController, PopoverController } from '@ionic/angular';
+import { ModalController, NavController, PopoverController } from '@ionic/angular';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Segment } from 'src/app/shared/enums/common.enum';
 import { APP_ROUTES } from 'src/app/shared/utils/app-routes';
+import { TimeInProgressComponent } from '../modals/time-in-progress/time-in-progress.component';
+import { SwiperOptions } from 'swiper/types/swiper-options';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,17 +19,30 @@ export class DashboardComponent implements OnInit {
   SegmentEnum = Segment;
 
   images = [
-    'https://images.unsplash.com/photo-1569908420024-c8f709b75700?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1569908420024-c8f709b75700?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1569908420024-c8f709b75700?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    'assets/image/one.jpg',
+    'assets/image/two.jpg',
+    'assets/image/three.jpg',
+    'assets/image/four.jpg'
   ];
+
   constructor(
     private router: Router,
     private navCtrl: NavController,
     private authService: AuthService,
+    private modalCtrl: ModalController,
     private popOverCtrl: PopoverController) { }
 
+
   ngOnInit() {
+  }
+
+  @ViewChild('swiperEl', { static: false }) swiperEl!: ElementRef;
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      const swiper = this.swiperEl.nativeElement.swiper;
+      swiper?.autoplay?.start();
+    }, 0);
   }
 
   logout() {
@@ -62,6 +77,27 @@ export class DashboardComponent implements OnInit {
 
   filterData(segment: Segment) {
     this.segment = segment;
+  }
+
+  greeting = 'Good Morning';
+  ionViewWillEnter() {
+    const hour = new Date().getHours();
+    this.greeting =
+      hour > 4 && hour < 12 ? 'Good Morning' :
+      hour > 12 && hour < 17 ? 'Good Afternoon' :
+      hour > 17 && hour < 21 ? 'Good Evening' :
+      'Good Night';
+  }
+
+  async openModal() {
+    const modal = await this.modalCtrl.create({
+      component: TimeInProgressComponent,
+      backdropDismiss: true,
+      breakpoints: [0, 0.6, 1],
+      initialBreakpoint: 0.6
+    });
+
+    await modal.present();
   }
 
 
