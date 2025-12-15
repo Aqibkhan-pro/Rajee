@@ -46,6 +46,20 @@ export class DevicesListComponent  implements OnInit {
       description: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
       status: 'pending',
       time: '4 hrs ago'
+    },
+     {
+      imei: '343434788348343XXX',
+      title: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
+      description: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
+      status: 'completed',
+      time: '2 days ago'
+    },
+    {
+      imei: '343434788348343XXX',
+      title: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
+      description: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
+      status: 'pending',
+      time: '4 hrs ago'
     }
   ];
 
@@ -68,6 +82,10 @@ export class DevicesListComponent  implements OnInit {
   getStatusClass(status: string): string {
     return status === 'completed' ? 'status-text completed' : 'status-text pending';
   }
+
+  filterData(seg: string) {
+  console.log('Selected segment:', seg);
+}
 }
 
 interface Device {
