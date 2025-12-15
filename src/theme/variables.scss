@@ -11,6 +11,9 @@
   --button-press-color: #ff9f32;
   --border-effect: #000000;
   --background-progress: #333333;
+  --completed-color: #22c55e;
+  --pending-color: #f59e0b;
+  --returned-color: #8b5cf6;
 }
 
 .theme-blue {
@@ -23,9 +26,12 @@
   --button-color: #26b5fc;
   --border-effect: #cbcbcb;
   --background-progress: #c8c8c8;
+  --completed-color: #22c55e;
+  --pending-color: #f59e0b;
+  --returned-color: #8b5cf6;
 }
 
-.theme-dark{
+.theme-dark {
   --primary-color: #121212;
   --secondary-color: #1e1e1e;
   --background-color: #101729;
@@ -36,24 +42,35 @@
   --button-press-color: #ff9f32;
   --border-effect: #000000;
   --background-progress: #333333;
+  --completed-color: #22c55e;
+  --pending-color: #f59e0b;
+  --returned-color: #8b5cf6;
 }
 
-.theme-light{
+.theme-light {
   --primary-color: #fafafa;
-    --secondary-color: #efefef;
-    --text-color: #545454;
-    --logo-color: #ffffff;
-    --button-color: #0f6b42;
-    --button-press-color: #38a876;
-    --border-effect: #cbcbcb; --background-progress: #c8c8c8;
+  --secondary-color: #efefef;
+  --text-color: #545454;
+  --logo-color: #ffffff;
+  --button-color: #0f6b42;
+  --button-press-color: #38a876;
+  --border-effect: #cbcbcb;
+  --background-progress: #c8c8c8;
+  --completed-color: #22c55e;
+  --pending-color: #f59e0b;
+  --returned-color: #8b5cf6;
 }
 
-.theme-darkblue{
+.theme-darkblue {
   --primary-color: #fafafa;
   --secondary-color: #efefef;
   --text-color: #545454;
   --logo-color: #ffffff;
   --button-color: #2c48a7;
   --button-press-color: #678afb;
-  --border-effect: #cbcbcb; --background-progress: #c8c8c8;
+  --border-effect: #cbcbcb;
+  --background-progress: #c8c8c8;
+  --completed-color: #22c55e;
+  --pending-color: #f59e0b;
+  --returned-color: #8b5cf6;
 }

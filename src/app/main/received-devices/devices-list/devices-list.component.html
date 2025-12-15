@@ -29,10 +29,10 @@
       <div class="divider-1px"></div>
 
       <div class="status-section">
-        <div class="status-item">
-          <ion-icon [name]="getStatusIcon(device.status)" class="status-icon"></ion-icon>
-          <ion-text [class]="getStatusClass(device.status)">{{device.status | titlecase}}</ion-text>
-        </div>
+        <ion-chip [class]="getStatusClass(device.status)">
+          <ion-icon [name]="getStatusIcon(device.status)"></ion-icon>
+          <ion-label>{{ device.status | titlecase }}</ion-label>
+        </ion-chip>
         <div class="status-item">
           <ion-icon name="time-outline" class="status-icon"></ion-icon>
           <ion-text class="time-text">{{device.time}}</ion-text>

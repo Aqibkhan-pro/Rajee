@@ -70,20 +70,33 @@ ion-card {
     color: var(--text-secondary);
 }
 
-.status-text {
-    font-size: 14px;
-    font-weight: 500;
-
-    &.completed {
-        color: var(--completed-color);
-    }
-
-    &.pending {
-        color: var(--pending-color);
-    }
-}
 
 .time-text {
     font-size: 14px;
     color: var(--text-secondary);
+}
+
+ion-chip {
+    height: 28px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.chip-completed {
+    color: var(--completed-color);
+    --background: color-mix(in srgb, var(--completed-color) 15%, transparent);
+}
+
+.chip-pending {
+    color: var(--pending-color);
+    --background: color-mix(in srgb, var(--pending-color) 15%, transparent);
+}
+
+.chip-returned {
+    color: var(--returned-color);
+    --background: color-mix(in srgb, var(--returned-color) 15%, transparent);
+}
+
+ion-chip ion-icon {
+    color: inherit;
 }

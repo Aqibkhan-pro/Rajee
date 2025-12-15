@@ -58,7 +58,14 @@ export class DevicesListComponent  implements OnInit {
       imei: '343434788348343XXX',
       title: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
       description: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
-      status: 'pending',
+      status: 'returned',
+      time: '4 hrs ago'
+    },
+    {
+      imei: '343434788348343XXX',
+      title: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
+      description: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
+      status: 'returned',
       time: '4 hrs ago'
     }
   ];
@@ -79,10 +86,16 @@ export class DevicesListComponent  implements OnInit {
     return status === 'completed' ? 'checkmark-circle-outline' : 'time-outline';
   }
 
-  getStatusClass(status: string): string {
-    return status === 'completed' ? 'status-text completed' : 'status-text pending';
+ getStatusClass(status: string): string {
+  switch (status) {
+    case 'completed':
+      return 'chip-completed';
+    case 'returned':
+      return 'chip-returned';
+    default:
+      return 'chip-pending';
   }
-
+}
   filterData(seg: string) {
   console.log('Selected segment:', seg);
 }
@@ -92,7 +105,7 @@ interface Device {
   imei: string;
   title: string;
   description: string;
-  status: 'completed' | 'pending';
+  status: 'completed' | 'pending'| 'returned';
   time: string;
 }
 
