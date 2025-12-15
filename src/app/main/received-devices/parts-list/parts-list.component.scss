@@ -5,6 +5,13 @@ ion-card {
     margin-bottom: 5px;
     border: 1px solid var(--border-color);
     margin-top: 10px;
+
+    ion-card-content {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-inline-start: 10px;
+        padding-inline-end: 20px;
+    }
 }
 
 
@@ -42,7 +49,7 @@ ion-card {
 }
 
 ion-chip {
-    --background: color-mix(in srgb, var(--button-color) 15%, transparent);
+    --background: color-mix(in srgb, var(--button-color) 10%, transparent);
     color: var(--button-color);
     border-radius: 8px;
 }
