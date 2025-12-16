@@ -1,0 +1,35 @@
+@use '../received-devices.component.scss' as *;
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInAnim 1s forwards;
+}
+
+@keyframes fadeInAnim {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.icon-wrapper {
+    width: 40px;
+    height: 60px;
+    border-radius: 10px;
+    background-color: var(--button-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ion-icon {
+        color: #fff;
+        font-size: 24px !important;
+    }
+}
+
+.theme-chip {
+    ion-icon {
+        color: var(--button-color);
+    }
+}

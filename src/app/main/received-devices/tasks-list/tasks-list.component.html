@@ -1,28 +1,18 @@
-<app-global-header [showBack]="true" title="Received Devices" [rightIcon]="'options-outline'" [showPopOver]="true"
-  (rightIconClick)="onHeaderMenuClick()"></app-global-header>
-
-
-<ion-popover trigger="receiver-trigger" triggerAction="click" mode="md">
-  <ng-template>
-    <ion-content scrollY="false">
-      <ion-list>
-        <ion-item (click)="changeTheme()" class="text-color">First Name</ion-item>
-        <ion-item lines="none" (click)="logout()" class="text-color">Last Name</ion-item>
-        <ion-item lines="none" (click)="logout()" class="text-color">Most Done</ion-item>
-      </ion-list>
-    </ion-content>
-  </ng-template>
-</ion-popover>
+<app-global-header [showBack]="true" title="Task Devices" [rightIcon]="'options-outline'" [showPopOver]="true"
+  (rightIconClick)="onHeaderMenuClick()" [showSecondButton]="'analytics-outline'"
+  (onFirstIconClick)="analyticsReports()">
+</app-global-header>
 
 <ion-content>
-  <app-global-search placeholder="Search for activity" (searchChange)="onSearchValue($event)">
+  <app-global-search placeholder="Search Task" (searchChange)="onSearchValue($event)">
   </app-global-search>
-  <ion-grid>
+
+  <ion-grid *ngIf="analyticsReport" class="fade-in">
     <ion-row>
       <ion-col size="4">
         <ion-card class="stat-card no-padding theme-card" mode="ios">
           <ion-card-content class="stat-body">
-            <ion-icon name="cube-outline" class="stat-icon" aria-hidden="true"></ion-icon>
+            <ion-icon name="cube-outline" class="stat-icon"></ion-icon>
             <div class="stat-number">48</div>
             <div class="stat-label">Total</div>
           </ion-card-content>
@@ -32,7 +22,7 @@
       <ion-col size="4">
         <ion-card class="stat-card stat-done no-padding" mode="ios">
           <ion-card-content class="stat-body">
-            <ion-icon name="checkmark-outline" class="stat-icon" aria-hidden="true"></ion-icon>
+            <ion-icon name="checkmark-outline" class="stat-icon"></ion-icon>
             <div class="stat-number">32</div>
             <div class="stat-label">Done</div>
           </ion-card-content>
@@ -42,7 +32,7 @@
       <ion-col size="4">
         <ion-card class="stat-card stat-return no-padding" mode="ios">
           <ion-card-content class="stat-body">
-            <ion-icon name="refresh-outline" class="stat-icon" aria-hidden="true"></ion-icon>
+            <ion-icon name="refresh-outline" class="stat-icon"></ion-icon>
             <div class="stat-number">16</div>
             <div class="stat-label">Return</div>
           </ion-card-content>
@@ -52,16 +42,27 @@
   </ion-grid>
 
 
-  <div class="list-wrap ion-padding" (click)="openDevicesDetails()">
-    <div *ngFor="let user of users" class="user-card theme-card">
+
+  <ion-card *ngFor="let user of users; let first = first;" class="user-card theme-card" (click)="openDevicesDetails()">
+    <ion-col size="2">
+      <div class="icon-wrapper">
+        <ion-icon src="../../../../assets/svg/devices-repo.svg">
+        </ion-icon>
+      </div>
+    </ion-col>
+    <ion-col size="7">
       <div class="user-left">
-        <img [src]="user.avatar" class="avatar" />
+        <!-- <img [src]="user.avatar" class="avatar" /> -->
+
         <div class="user-info">
           <div class="name-row">
-            <div class="name">{{ user.name }}</div>
-            <div class="status" [ngClass]="{'online': user.online, 'offline': !user.online}">
-              {{ user.online ? 'Online' : 'Offline' }}
-            </div>
+            <div class="name">{{ user.date }}</div>
+            <ion-chip *ngIf="first" class="theme-chip">
+              <ion-icon name="sync" size="small"></ion-icon>
+              <ion-label>
+                current
+              </ion-label>
+            </ion-chip>
           </div>
 
           <div class="counts">
@@ -71,7 +72,9 @@
           </div>
         </div>
       </div>
+    </ion-col>
 
+    <ion-col size="3">
       <div class="user-right">
         <div class="progress-circle" [style.--percent]="user.progress + '%'">
           <div class="progress-inner">
@@ -79,7 +82,7 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </ion-col>
+  </ion-card>
 
 </ion-content>

@@ -8,6 +8,15 @@
   --background: : transparent !important;
 }
 
+
+ion-button.filled {
+  --background: var(--button-color);
+}
+
+ion-button.not-filled {
+  --background: transparent;
+}
+
 .menu {
   background: var(--secondary-color);
   border-radius: 12px !important;
