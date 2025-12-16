@@ -6,6 +6,7 @@ import { Segment } from 'src/app/shared/enums/common.enum';
 import { APP_ROUTES } from 'src/app/shared/utils/app-routes';
 import { TimeInProgressComponent } from '../modals/time-in-progress/time-in-progress.component';
 import { SwiperOptions } from 'swiper/types/swiper-options';
+import { DeviceDetailsComponent } from '../modals/device-details/device-details.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,8 +33,8 @@ export class DashboardComponent implements OnInit {
     private modalCtrl: ModalController,
     private popOverCtrl: PopoverController) { }
 
-
   ngOnInit() {
+    this.openModal();
   }
 
   @ViewChild('swiperEl', { static: false }) swiperEl!: ElementRef;
@@ -91,7 +92,7 @@ export class DashboardComponent implements OnInit {
 
   async openModal() {
     const modal = await this.modalCtrl.create({
-      component: TimeInProgressComponent,
+      component: DeviceDetailsComponent,
       backdropDismiss: true,
       breakpoints: [0, 0.6, 1],
       initialBreakpoint: 0.6

@@ -1,3 +1,4 @@
+import { DeviceDetailsComponent } from './modals/device-details/device-details.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,7 +14,8 @@ import { TimeInProgressComponent } from './modals/time-in-progress/time-in-progr
     MainContainerComponent,
     DashboardComponent,
     ScannerComponent,
-    TimeInProgressComponent
+    TimeInProgressComponent,
+    DeviceDetailsComponent
   ],
   imports: [
     CommonModule,

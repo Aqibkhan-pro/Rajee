@@ -1,0 +1,115 @@
+/* Backgrounds */
+ion-content,
+ion-item,
+ion-list,
+ion-header,
+ion-toolbar {
+  --background: var(--primary-color);
+  background: var(--primary-color);
+  padding-top: 0px !important;
+}
+
+/* Header buttons */
+.done-button {
+  --background: var(--primary-color);
+  --color: var(--button-color);
+  text-transform: capitalize;
+}
+
+.close-button {
+  --background: var(--primary-color);
+  --color: #7c7c7c;
+  text-transform: capitalize;
+}
+
+/* Timer */
+.timer-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.timer-value {
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--button-color);
+  min-width: 52px;
+  text-align: center;
+}
+
+.timer-separator {
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--button-color);
+}
+
+.timer-label-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 400;
+  padding-left: 10px;
+}
+
+.timer-label-row span {
+  min-width: 35px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Issues section */
+.issue-header {
+  margin-top: 8px;
+}
+
+.icon-small {
+  width: 24px;
+  height: 24px;
+}
+
+.issue-list {
+  padding: 4px 16px;
+}
+
+.issue-item {
+  border: 1px solid #7c7c7c;
+  border-radius: 10px;
+  padding: 4px 0;
+  margin-bottom: 8px;
+}
+
+.issue-avatar {
+  width: 40px;
+  height: 40px;
+  background: var(--button-color);
+  border-radius: 12px;
+  padding: 5px;
+}
+
+/* Text styles */
+ion-label {
+  .text-color {
+    font-size: 16px;
+    color: var(--text-color);
+    font-weight: bold;
+  }
+
+  .text-grey {
+    color: #7c7c7c;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .text-grey-code {
+    color: #7c7c7c;
+    font-weight: 400;
+    font-size: 14px;
+  }
+}
+
+.icon-color{
+  color: var(--button-color);
+  margin-right: 8px;
+}
