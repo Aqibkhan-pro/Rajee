@@ -8,15 +8,17 @@
       </ion-button>
     </ion-buttons>
 
-    <!-- Center Title -->
     <ion-title class="text-color">{{ title }}</ion-title>
 
-    <!-- Right Icon Button -->
     <ion-buttons slot="end" *ngIf="rightIcon">
-      <ion-button fill="clear" (click)="onRightIconClick()" class="header-btn" id="receiver-trigger"
-        *ngIf="!showRightButton">
-        <ion-icon [name]="rightIcon" class="text-color menu" *ngIf="!iconFromAssets"></ion-icon>
-        <ion-icon [src]="iconFromAssets" class="text-color menu" *ngIf="iconFromAssets"></ion-icon>
+
+      <ion-button (click)="onFirstRightIconClick()"
+        [ngClass]="{ 'filled': isFirstButtonFilled, 'not-filled': !isFirstButtonFilled }" *ngIf="showSecondButton">
+        <ion-icon [name]="showSecondButton" class="text-color "></ion-icon>
+      </ion-button>
+
+      <ion-button fill="clear" (click)="onRightIconClick()" class="header-btn " *ngIf="!showRightButton">
+        <ion-icon [name]="rightIcon" class="text-color "></ion-icon>
       </ion-button>
 
       <ion-button (click)="onRightIconClick()" class="btn_background text-btn-border" *ngIf="showRightButton">

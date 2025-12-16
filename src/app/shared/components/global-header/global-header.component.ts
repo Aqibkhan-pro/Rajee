@@ -10,15 +10,16 @@ import { NavController } from '@ionic/angular';
 export class GlobalHeaderComponent {
 
   @Input() showBack: boolean = false;
-  @Input() showFilter: boolean = false;
   @Input() title: string = '';
   @Input() rightIcon: string | null = null;
   @Input() showPopOver: boolean = false;
   @Input() iconFromAssets: any
   @Input() showRightButton: boolean = false;
   @Input() buttonText: string = '';
+  @Input() showSecondButton: string | null = null;
 
   @Output() rightIconClick = new EventEmitter<void>();
+  @Output() onFirstIconClick = new EventEmitter<void>();
 
   constructor(private navCtrl: NavController) { }
 
@@ -28,5 +29,12 @@ export class GlobalHeaderComponent {
 
   onRightIconClick() {
     this.rightIconClick.emit();
+  }
+
+  isFirstButtonFilled = false;
+
+  onFirstRightIconClick(){
+    this.isFirstButtonFilled = !this.isFirstButtonFilled;
+    this.onFirstIconClick.emit();
   }
 }
