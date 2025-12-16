@@ -17,11 +17,11 @@
     <ion-buttons slot="end">
 
       <ion-button class="menu-button">
-        <ion-icon src="../../../assets/svg/logout.svg" class="menu"></ion-icon>
+        <ion-icon src="assets/svg/logout.svg" class="menu"></ion-icon>
       </ion-button>
 
       <ion-button id="click-trigger" class="menu-button">
-        <ion-icon src="../../../assets/svg/more_menu.svg" class="menu"></ion-icon>
+        <ion-icon name="ellipsis-vertical" class="menu"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -43,24 +43,14 @@
 
   <h2 class="mt-0 ff fw500 text-color text-14 text-margin" (click)="openModal()">{{ greeting }}! Have A Good Time</h2>
 
-  <swiper-container
-  #swiperEl
-  [loop]="false"
-  [pagination]="{ clickable: true }"
-  [speed]="1000"
-  [autoplay]="{
+  <swiper-container #swiperEl [loop]="false" [pagination]="{ clickable: true }" [speed]="1000" [autoplay]="{
     delay: 2500,
     disableOnInteraction: false
-  }"
-  class="swiper"
->
-  <swiper-slide *ngFor="let slide of images">
-    <img class="slide-img" [src]="slide" />
-  </swiper-slide>
-</swiper-container>
-
-  <h2 class="mt-8 ff fw500 text-color text-14 d-flex justify-center" (click)="openModal()">{{ greeting }}! Have A Good Time</h2>
-
+  }" class="swiper">
+    <swiper-slide *ngFor="let slide of images">
+      <img class="slide-img" [src]="slide" />
+    </swiper-slide>
+  </swiper-container>
 
   <app-global-segment [segments]="['Repair', 'Quality Control', 'Clean']" (segmentChanged)="filterData($event)">
   </app-global-segment>
@@ -69,7 +59,7 @@
     <ion-row>
       <!-- Given Devices -->
       <ion-col size="6">
-        <ion-card class="stat-card" (click)="goTo(routes.GIVEN_DEVICES+'/'+routes.ASSIGN_DEVICES)">
+        <ion-card class="stat-card" (click)="goTo(routes.GIVEN_DEVICES+'/'+routes.TECHNICIANS)">
           <div class="card-top">
             <div class="icon-box">
               <ion-icon name="phone-portrait-outline"></ion-icon>
