@@ -1,5 +1,5 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar >
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="modalCtrl.dismiss()" class="close-button">Close</ion-button>
     </ion-buttons>
@@ -15,33 +15,96 @@
 <ion-content>
   <ion-list>
 
-    <!-- Issues header -->
-    <ion-item lines="none" class="issue-header">
-      <ion-icon  slot="start" name="alert-circle-outline" class="icon-color"></ion-icon>
-      <ion-label>
-        <p class="text-color">Issues</p>
-      </ion-label>
-
-      <ion-label slot="end">
-        <p class="text-grey">04 Total</p>
-      </ion-label>
-    </ion-item>
-
-    <!-- Issue item -->
-    <ion-list class="issue-list">
-      <ion-item lines="none" class="issue-item" *ngFor="let issue of [0,1,2,3]">
-
-        <ion-avatar slot="start" class="issue-avatar">
-          <ion-img src="../../../../assets/svg/phonelink.svg"></ion-img>
-        </ion-avatar>
-
-        <ion-label>
-          <p class="text-color">Touchscreen Problem</p>
-          <p class="text-grey-code">{{issue}}878787878787</p>
+    <ion-card class="theme-card">
+      <ion-item lines="none" class="theme-secondary">
+        <ion-label class="modal-name">
+          <h1>Modal</h1>
+          <p>Iphone X CDM unlocked 64GB Space gray grade C</p>
         </ion-label>
+        <div class="icon-box">
+          <ion-icon src="../../../../assets/svg/devices-repo.svg" slot="end"></ion-icon>
+        </div>
+      </ion-item>
 
+      <ion-item lines="full" class="theme-secondary">
+        <ion-label class="modal-emei">
+          <h1>EMEI</h1>
+          <p>893403493043433XXX</p>
+        </ion-label>
+        <div class="icon-copy">
+          <ion-icon name="copy-outline" slot="end" class="copy"></ion-icon>
+        </div>
+      </ion-item>
+
+      <ion-list class="list-issue theme-secondary">
+        <ion-label class="modal-emei">
+          <h1>Issues</h1>
+        </ion-label>
+        <ion-row>
+          <ion-chip class="theme-chip"><ion-label>iPhone 7</ion-label>
+          </ion-chip>
+          <ion-chip class="theme-chip"><ion-label>Grade B</ion-label></ion-chip>
+        </ion-row>
+      </ion-list>
+    </ion-card>
+
+    <ion-list [inset]="true" mode="ios" class="card-list theme-secondary">
+      <ion-item [button]="true" mode="ios" class="card-item theme-secondary">
+        <div class="icon-box">
+          <ion-icon name="time-outline" slot="start" class="text-color-icon text-22"></ion-icon>
+        </div>
+        <ion-label class="card-title">History</ion-label>
+        <ion-note slot="end">View</ion-note>
       </ion-item>
     </ion-list>
 
+    <ion-list [inset]="true" mode="ios" class="card-list theme-secondary">
+      <ion-item [button]="true" mode="ios" class="card-item theme-secondary">
+        <div class="icon-box">
+          <ion-icon src="../../../../assets/svg/parts.svg" slot="start" class="text-color text-22"></ion-icon>
+        </div>
+        <ion-label class="modal-name card-title">
+          <h1>View Parts</h1>
+          <p>View all parts avaible</p>
+        </ion-label>
+        <ion-note slot="end">150</ion-note>
+      </ion-item>
+    </ion-list>
+
+    <ion-list [inset]="true" mode="ios" class="card-list theme-secondary">
+      <ion-item [button]="true" mode="ios" class="card-item theme-secondary">
+        <div class="icon-box">
+          <ion-icon name="add" slot="start" class="text-color-icon text-22"></ion-icon>
+        </div>
+        <ion-label class="modal-name card-title">
+          <h1>Add New Part</h1>
+          <p>Add additional parts</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-list [inset]="true" mode="ios" class="card-list theme-secondary">
+      <ion-item mode="ios" class="card-item theme-secondary" lines="none">
+        <div>
+          <ion-icon src="../../../../assets/svg/request_part.svg" slot="start" class="theme-icon text-22"></ion-icon>
+        </div>
+        <ion-label class="modal-name card-title">
+          <h1>Part Request</h1>
+        </ion-label>
+      </ion-item>
+      <ion-list mode="ios" class="card-item-inner theme-secondary">
+        <ion-item style="--padding-start: 0px;" lines="none">
+          <div class="icon-box">
+            <ion-icon name="information-circle-outline" slot="start" class="text-color-icon  text-22"></ion-icon>
+          </div>
+          <ion-label class="modal-name card-title">
+            <h1>Part Request</h1>
+          </ion-label>
+        </ion-item>
+        <ion-label class="modal-name ">
+          <p style="width: 85%; margin-left: 15%;">Iphone X CDM unlocked 64GB Space gray grade C</p>
+        </ion-label>
+      </ion-list>
+    </ion-list>
   </ion-list>
 </ion-content>

@@ -13,8 +13,16 @@
 
     <!-- Right Icon Button -->
     <ion-buttons slot="end" *ngIf="rightIcon">
-      <ion-button fill="clear" (click)="onRightIconClick()" class="header-btn" id="receiver-trigger">
-        <ion-icon [name]="rightIcon" class="text-color"></ion-icon>
+      <ion-button fill="clear" (click)="onRightIconClick()" class="header-btn" id="receiver-trigger"
+        *ngIf="!showRightButton">
+        <ion-icon [name]="rightIcon" class="text-color menu" *ngIf="!iconFromAssets"></ion-icon>
+        <ion-icon [src]="iconFromAssets" class="text-color menu" *ngIf="iconFromAssets"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="onRightIconClick()" class="btn_background text-btn-border" *ngIf="showRightButton">
+        <ion-icon [name]="rightIcon" class="btn_text text-14 pl-5 " *ngIf="!iconFromAssets"></ion-icon>
+        <ion-icon [src]="iconFromAssets" class="btn_text text-14 pl-5 " *ngIf="iconFromAssets"></ion-icon>
+        <span class="btn_text ff fw500 text-12 ml-4 pr-5 ">{{buttonText}}</span>
       </ion-button>
     </ion-buttons>
 

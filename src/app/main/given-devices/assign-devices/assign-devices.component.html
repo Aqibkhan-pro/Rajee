@@ -1,74 +1,98 @@
-<app-global-header [showBack]="true" title="Devices" rightIcon="checkmark-circle-outline"></app-global-header>
+<app-global-header [showBack]="true" title="Devices" rightIcon="checkmark-circle-outline"
+  iconFromAssets="assets/svg/assign_icon.svg" [showRightButton]="true" [buttonText]="'Assign'"></app-global-header>
 
 <ion-content [scrollY]="false">
-  <app-global-search placeholder="Search for devices" (searchChange)="onSearchValue($event)">
+  <app-global-search [placeholder]="selectedSegment==segmentEnum.DEVICES?'Search for devices':'Search for parts'"
+    (searchChange)="onSearchValue($event)">
   </app-global-search>
 
-  <ion-list lines="none" class="list-wrap ion-padding">
-    <ion-item lines="none" class="item_padding mb-8">
-      <ion-card class="stats-card w100per card_padidng">
-        <ion-card-content class="card_content">
-          <ion-grid>
-            <ion-row class="stats-row">
-              <ion-col class="stat-box">
-                <div class="ff fw600 text-22  text-color">08</div>
-                <div class="ff fw400 text-10 sub_title_color">Total</div>
-              </ion-col>
+  <ion-card class="theme-card mb-10">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row class="stats-row">
+          <ion-col class="stat-box">
+            <div class="ff fw600 text-22  text-color">08</div>
+            <div class="ff fw400 text-10 sub_title_color">Total</div>
+          </ion-col>
 
-              <ion-col class="stat-box">
-                <div class="ff fw600 text-22  text-color">06</div>
-                <div class="ff fw400 text-10 sub_title_color">Devices</div>
-              </ion-col>
+          <ion-col class="stat-box">
+            <div class="ff fw600 text-22  text-color">06</div>
+            <div class="ff fw400 text-10 sub_title_color">Devices</div>
+          </ion-col>
 
-              <ion-col class="stat-box">
-                <div class="ff fw600 text-22  text-color">02</div>
-                <div class="ff fw400 text-10 sub_title_color">Parts</div>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card-content>
-      </ion-card>
-    </ion-item>
+          <ion-col class="stat-box">
+            <div class="ff fw600 text-22  text-color">02</div>
+            <div class="ff fw400 text-10 sub_title_color">Parts</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 
-    <ion-item lines="none" class="item_padding" *ngFor="let device of [1,2,3,4]">
-      <ion-card class="stats-card w100per card_padidng">
-        <ion-card-content class="card_content">
+  <app-global-segment [segments]="[segmentEnum.DEVICES,segmentEnum.PARTS]" (segmentChanged)="filterData($event)">
+  </app-global-segment>
 
-          <ion-grid>
-            <ion-row class="device-row">
+  <ng-container *ngIf="selectedSegment==segmentEnum.DEVICES; else partView">
+    <ion-card class="theme-card" *ngFor="let device of [1,2,3,4]">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row class="device-row">
 
-              <!-- LEFT ICON -->
-              <ion-col class="left-col">
-                <ion-icon src="assets/svg/phone_icon.svg" class="device-icon-left"></ion-icon>
-              </ion-col>
+            <!-- LEFT ICON -->
+            <ion-col class="left-col">
+              <ion-icon src="assets/svg/phone_icon.svg" class="device-icon-left"></ion-icon>
+            </ion-col>
 
-              <!-- MIDDLE CONTENT -->
-              <ion-col class="middle-col">
-                <div class="ff fw600 text-16 text-color">343434788348343XXX</div>
+            <!-- MIDDLE CONTENT -->
+            <ion-col class="middle-col">
+              <div class="ff fw600 text-14 text-color">343434788348343XXX</div>
+              <ion-row>
+                <ion-chip class="theme-chip"><ion-label>iPhone 7</ion-label>
+                </ion-chip>
+                <ion-chip class="theme-chip"><ion-label>Grade B </ion-label></ion-chip>
+              </ion-row>
+              <div class="ff fw500 text-12 sub_title_color">Unlocked</div>
+            </ion-col>
 
-                <ion-row class="chip-row">
-                  <ion-chip class="theme-chip"><ion-label>iPhone 7</ion-label>
-                  </ion-chip>
-                  <ion-chip class="theme-chip"><ion-label>Grade B </ion-label></ion-chip>
-                </ion-row>
+            <!-- RIGHT ARROW ICON -->
+            <ion-col class="right-col ion-text-end">
+              <ion-icon name="chevron-forward" class="arrow-icon"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
 
-                <div class="ff fw500 text-14 sub_title_color">Unlocked</div>
-              </ion-col>
+  <ng-template #partView>
+    <ion-card class="theme-card" *ngFor="let part of partsList">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row class="device-row">
 
-              <!-- RIGHT ARROW ICON -->
-              <ion-col class="right-col ion-text-end">
-                <ion-icon name="chevron-forward" class="arrow-icon"></ion-icon>
-              </ion-col>
+            <!-- LEFT ICON -->
+            <ion-col class="left-col">
+              <ion-icon src="assets/svg/parts.svg" class="part-icon-left"></ion-icon>
+            </ion-col>
 
-            </ion-row>
-          </ion-grid>
+            <!-- MIDDLE CONTENT -->
+            <ion-col class="middle-col">
+              <div class="ff fw600 text-14 text-color">{{part?.name}}</div>
+              <div class="ff fw400 text-12 sub_title_color mt-4">{{part?.detail}}</div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
 
-        </ion-card-content>
-      </ion-card>
-    </ion-item>
 
-
-  </ion-list>
-
-
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon src="assets/svg/qrcode_scan.svg" *ngIf="selectedSegment==segmentEnum.DEVICES; else addIcon"></ion-icon>
+      <ng-template #addIcon>
+        <ion-icon name="add"></ion-icon>
+      </ng-template>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

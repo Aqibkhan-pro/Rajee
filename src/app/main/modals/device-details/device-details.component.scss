@@ -7,6 +7,7 @@ ion-toolbar {
   --background: var(--primary-color);
   background: var(--primary-color);
   padding-top: 0px !important;
+  --border-color: var(--sub-title-color);
 }
 
 /* Header buttons */
@@ -22,94 +23,88 @@ ion-toolbar {
   text-transform: capitalize;
 }
 
-/* Timer */
-.timer-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-}
-
-.timer-value {
-  font-size: 40px;
-  font-weight: 600;
-  color: var(--button-color);
-  min-width: 52px;
-  text-align: center;
-}
-
-.timer-separator {
-  font-size: 36px;
-  font-weight: 600;
-  color: var(--button-color);
-}
-
-.timer-label-row {
-  display: flex;
-  justify-content: center;
-  margin-top: 4px;
-  font-size: 11px;
-  font-weight: 400;
-  padding-left: 10px;
-}
-
-.timer-label-row span {
-  min-width: 35px;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-/* Issues section */
-.issue-header {
-  margin-top: 8px;
-}
-
-.icon-small {
-  width: 24px;
-  height: 24px;
-}
-
-.issue-list {
-  padding: 4px 16px;
-}
-
-.issue-item {
-  border: 1px solid #7c7c7c;
-  border-radius: 10px;
-  padding: 4px 0;
-  margin-bottom: 8px;
-}
-
-.issue-avatar {
-  width: 40px;
-  height: 40px;
-  background: var(--button-color);
-  border-radius: 12px;
-  padding: 5px;
-}
-
 /* Text styles */
-ion-label {
-  .text-color {
-    font-size: 16px;
+.modal-name {
+  p {
+    font-size: 12px;
+    color: var(--sub-title-color);
+  }
+
+  h1 {
     color: var(--text-color);
     font-weight: bold;
-  }
-
-  .text-grey {
-    color: #7c7c7c;
-    font-weight: bold;
     font-size: 16px;
-  }
-
-  .text-grey-code {
-    color: #7c7c7c;
-    font-weight: 400;
-    font-size: 14px;
   }
 }
 
-.icon-color{
+.modal-emei{
+  h1 {
+    font-size: 14px;
+    color: var(--sub-title-color);
+  }
+
+  p {
+    color: var(--text-color);
+    font-weight: bold;
+    font-size: 12px;
+  }
+}
+
+.icon-box {
+  background-color: var(--button-color);
+  padding: 8px 8px 4px;
+  border-radius: 8px;
+}
+
+.icon-copy {
+  padding: 8px 8px 4px;
+  border-radius: 8px;
+  background: var(--secondary-color);
+  border: 1px solid color-mix(in srgb, var(--button-color) 15%, transparent);
+}
+
+.copy {
   color: var(--button-color);
-  margin-right: 8px;
+}
+
+.list-issue{
+  padding: 8px 16px !important;
+}
+
+.card-list{
+  border: 2px solid color-mix(in srgb, var(--button-color) 15%, transparent);
+  margin: 10px 16px;
+}
+
+.card-item{
+  padding: 10px 0px !important;
+  color: var(--sub-title-color);
+}
+
+.card-title{
+  margin-left: 10px;
+  color: var(--text-color);
+}
+
+.theme-icon{
+  fill: var(--text-color);
+  stroke: var(--text-color);
+  font-size: 30px;
+  margin-top: 4px;
+}
+
+.theme-secondary{
+  --background: var(--secondary-color) !important;
+    background: var(--secondary-color) !important;
+}
+
+.card-item-inner{
+  background: var(--primary-color) !important;
+  margin: 0px 16px 12px;
+  border-radius: 8px !important;
+  padding: 10px !important;
+}
+
+.text-color-icon{
+  color: #fff !important;
 }

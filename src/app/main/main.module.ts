@@ -13,9 +13,7 @@ import { TimeInProgressComponent } from './modals/time-in-progress/time-in-progr
   declarations: [
     MainContainerComponent,
     DashboardComponent,
-    ScannerComponent,
-    TimeInProgressComponent,
-    DeviceDetailsComponent
+    ScannerComponent
   ],
   imports: [
     CommonModule,

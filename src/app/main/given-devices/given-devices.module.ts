@@ -5,11 +5,13 @@ import { GivenDevicesRoutingModule } from './given-devices-routing.module';
 import { AssignDevicesComponent } from './assign-devices/assign-devices.component';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared/shared-module';
+import { TechniciansComponent } from './technicians/technicians.component';
 
 
 @NgModule({
   declarations: [
-    AssignDevicesComponent
+    AssignDevicesComponent,
+    TechniciansComponent,
   ],
   imports: [
     CommonModule,
