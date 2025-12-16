@@ -13,5 +13,8 @@ export enum ToastPosition {
 export enum Segment {
   REPAIR = 'Repair',
   QC = 'QC',
-  CLEAN = 'Clean'
+  CLEAN = 'Clean',
+  DEVICES = 'Devices',
+  PARTS = 'Parts',
+
 }

@@ -5,7 +5,7 @@ import { NavController } from '@ionic/angular';
   selector: 'app-global-header',
   templateUrl: './global-header.component.html',
   styleUrls: ['./global-header.component.scss'],
-  standalone:false
+  standalone: false
 })
 export class GlobalHeaderComponent {
 
@@ -14,14 +14,17 @@ export class GlobalHeaderComponent {
   @Input() title: string = '';
   @Input() rightIcon: string | null = null;
   @Input() showPopOver: boolean = false;
+  @Input() iconFromAssets: any
+  @Input() showRightButton: boolean = false;
+  @Input() buttonText: string = '';
 
   @Output() rightIconClick = new EventEmitter<void>();
 
-  constructor(private navCtrl: NavController) {}
+  constructor(private navCtrl: NavController) { }
 
- goBack() {
-  this.navCtrl.back();
-}
+  goBack() {
+    this.navCtrl.back();
+  }
 
   onRightIconClick() {
     this.rightIconClick.emit();

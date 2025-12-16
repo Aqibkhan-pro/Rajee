@@ -74,6 +74,10 @@ ion-content.scanner-active {
   align-content: center;
 }
 
+.align-items-center {
+  align-items: center;
+}
+
 .mt-4 {
   margin-top: 4px !important;
 }
@@ -84,6 +88,10 @@ ion-content.scanner-active {
 
 .mt-8 {
   margin-top: 8px !important;
+}
+
+.mt-10 {
+  margin-top: 10px !important;
 }
 
 .mt-12 {
@@ -106,12 +114,28 @@ ion-content.scanner-active {
   margin-top: 32px !important;
 }
 
+.mb-4 {
+  margin-bottom: 4px !important;
+}
+
 .mb-8 {
   margin-bottom: 8px !important;
 }
 
+.mb-10 {
+  margin-bottom: 10px !important;
+}
+
 .mb-16 {
   margin-bottom: 16px !important;
+}
+
+.ml-4 {
+  margin-left: 4px !important;
+}
+
+.ml-5 {
+  margin-left: 5px !important;
 }
 
 .ml-10 {
@@ -131,8 +155,17 @@ ion-content.scanner-active {
 }
 
 //padding classes
+
 .pl-7 {
   padding-left: 7px;
+}
+
+.pl-5 {
+  padding-left: 5px;
+}
+
+.pr-5 {
+  padding-right: 5px;
 }
 
 .text-8 {
@@ -194,6 +227,10 @@ ion-button {
 
 
 
+.text-success {
+  color: var(--completed-color) !important;
+}
+
 .text-color {
   color: var(--text-color) !important;
 }
@@ -234,6 +271,14 @@ ion-button {
 
 .w80per {
   width: 80% !important;
+}
+
+.w70per {
+  width: 70% !important;
+}
+
+.w30per {
+  width: 30% !important;
 }
 
 .w20per {
