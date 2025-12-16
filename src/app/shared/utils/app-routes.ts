@@ -12,4 +12,6 @@ export const APP_ROUTES = {
   ASSIGN_DEVICES: 'assign-devices',
   TECHNICIANS: 'technicians',
   DEVICES: 'devices',
+  TECHNICIANS_LIST: 'technicians-list',
+  TASKS_LIST: 'tasks-list',
 };
