@@ -311,9 +311,9 @@ ion-button {
 .theme-card {
   --background: var(--secondary-color);
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 0px 0px 1px color-mix(in srgb, var(--button-color) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--button-color) 15%, transparent);
   margin-bottom: 5px;
-  border: 1px solid var(--card-border-color);
   margin-top: 10px;
 
   ion-card-content {
