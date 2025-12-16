@@ -1,27 +1,31 @@
-<ion-card *ngFor="let device of devices">
+<ion-card *ngFor="let device of devices" class="theme-card">
   <ion-card-content>
     <ion-row class="device-row" align-items-center>
 
       <ion-col size="2">
         <div class="icon-wrapper">
-          <ion-icon name="phone-portrait-outline" size="large"></ion-icon>
+          <ion-icon src="../../../../assets/svg/devices-parts.svg">
+          </ion-icon>
         </div>
       </ion-col>
       <ion-col size="8">
         <div class="imei-section">
           <ion-text class="imei-text text-color">{{ device.imei }}</ion-text>
         </div>
-        <ion-chip class="theme-chip">
+        <div class="title-section">
+          <ion-text class="title-line text-color">{{ device.title }}</ion-text>
+        </div>
+        <!-- <ion-chip class="theme-chip">
           <ion-label class="chip-size">{{ device.title }}</ion-label>
         </ion-chip>
         <ion-chip class="theme-chip">
           <ion-label class="chip-size">{{ device.description }}</ion-label>
-        </ion-chip>
+        </ion-chip> -->
       </ion-col>
 
-      <ion-col size="2" class="ion-text-center ion-align-items-center d-flex">
+      <!-- <ion-col size="2" class="ion-text-center ion-align-items-center d-flex">
         <ion-text class="secondary">Unlocked</ion-text>
-      </ion-col>
+      </ion-col> -->
     </ion-row>
 
   </ion-card-content>

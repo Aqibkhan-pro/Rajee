@@ -54,8 +54,6 @@ swiper-slide {
   padding: 16px;
   height: 150px;
   margin: 0;
-  box-shadow: none;
-  border: 1px solid var(--card-border-color);
 }
 
 // ion-card {
@@ -101,14 +99,14 @@ swiper-slide {
   }
 }
 
-.mt-0{
+.mt-0 {
   margin-top: 0px;
 }
 
-.swiper{
+.swiper {
   margin: 16px 12px;
 }
 
-.text-margin{
+.text-margin {
   margin: 12px;
 }
