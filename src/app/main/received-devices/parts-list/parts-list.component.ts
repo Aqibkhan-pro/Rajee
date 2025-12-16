@@ -10,56 +10,56 @@ export class PartsListComponent  implements OnInit {
  devices: Device[] = [
     {
       imei: '343434788348343XXX',
-      title: 'iPhone 15 Pro Max',
+      title: 'Pre owned devices - iphone 7 gsm unlocked red grade B',
       description: 'Grade B',
       status: 'completed',
       time: '2 hrs ago'
     },
     {
       imei: '343434788348343XXX',
-      title: 'iPhone 14 Pro',
+      title: 'Pre owned devices - iphone 8 gsm unlocked red grade B',
       description: 'Grade B',
       status: 'pending',
       time: '4 hrs ago'
     },
     {
       imei: '343434788348343XXX',
-      title: 'iPhone 12',
+      title: 'Pre owned devices - iphone 9 gsm unlocked red grade B',
       description: 'Grade B',
       status: 'completed',
       time: '1 day ago'
     },
     {
       imei: '343434788348343XXX',
-      title: 'iPhone 11 Pro',
+      title: 'Pre owned devices - iphone XS MAX gsm unlocked red grade B',
       description: 'Grade B',
       status: 'completed',
       time: '2 days ago'
     },
     {
       imei: '343434788348343XXX',
-      title: 'iPhone 7',
+      title: 'Pre owned devices - iphone 11 Promax gsm unlocked red grade B',
       description: 'Grade B',
       status: 'pending',
       time: '4 hrs ago'
     },
      {
       imei: '343434788348343XXX',
-      title: 'iPhone 10 XS MAX',
+      title: 'Pre owned devices - iphone 12 Pro unlocked red grade B',
       description: 'Grade B',
       status: 'completed',
       time: '2 days ago'
     },
     {
       imei: '343434788348343XXX',
-      title: 'iPhone 8',
+      title: 'Pre owned devices - iphone 13 Mini gsm unlocked red grade B',
       description: 'Grade B',
       status: 'returned',
       time: '4 hrs ago'
     },
     {
       imei: '343434788348343XXX',
-      title: 'iPhone 13 mini',
+      title: 'Pre owned devices - iphone 14 Promax gsm unlocked red grade B',
       description: 'Grade B',
       status: 'returned',
       time: '4 hrs ago'

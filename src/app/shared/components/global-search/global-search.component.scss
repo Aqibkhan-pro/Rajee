@@ -4,3 +4,8 @@ ion-searchbar {
     --border-radius: 12px;
     --placeholder-color: #9399a7;
 }
+
+:host ::ng-deep ion-searchbar.sc-ion-searchbar-ios .searchbar-input-container.sc-ion-searchbar-ios {
+    border: 1px solid color-mix(in srgb, var(--button-color) 15%, transparent);
+    border-radius: 12px;
+}
