@@ -108,3 +108,35 @@ ion-toolbar {
 .text-color-icon{
   color: #fff !important;
 }
+
+
+.status-chip {
+  font-size: 12px;
+  margin-left: 10px;
+  color: #fff;
+  margin-top: 0px;
+}
+
+.status-chip ion-icon {
+  font-size: 16px;
+  width: 18px;
+  height: 18px;
+}
+
+.chip-completed {
+  color: var(--completed-color);
+  --background: color-mix(in srgb, var(--completed-color) 15%, transparent);
+
+  ion-icon {
+      color: var(--completed-color);
+  }
+}
+
+.chip-pending {
+  color: var(--pending-color);
+  --background: color-mix(in srgb, var(--pending-color) 15%, transparent);
+
+  ion-icon {
+      color: var(--pending-color);
+  }
+}

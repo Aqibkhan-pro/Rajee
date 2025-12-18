@@ -5,8 +5,6 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { Segment } from 'src/app/shared/enums/common.enum';
 import { APP_ROUTES } from 'src/app/shared/utils/app-routes';
 import { TimeInProgressComponent } from '../modals/time-in-progress/time-in-progress.component';
-import { DeviceDetailsComponent } from '../modals/device-details/device-details.component';
-import { PartsModalComponent } from '../modals/parts-modal/parts-modal.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,7 +32,6 @@ export class DashboardComponent implements OnInit {
     private popOverCtrl: PopoverController) { }
 
   ngOnInit() {
-    this.openModal();
   }
 
   @ViewChild('swiperEl', { static: false }) swiperEl!: ElementRef;
@@ -90,16 +87,6 @@ export class DashboardComponent implements OnInit {
       'Good Night';
   }
 
-  async openModal() {
-    const modal = await this.modalCtrl.create({
-      component: PartsModalComponent,
-      backdropDismiss: true,
-      breakpoints: [0, 0.9, 1],
-      initialBreakpoint: 0.9
-    });
-
-    await modal.present();
-  }
 
   async openModalTime() {
     const modal = await this.modalCtrl.create({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-time-in-progress',
@@ -9,7 +9,9 @@ import { ModalController } from '@ionic/angular';
 })
 export class TimeInProgressComponent implements OnInit {
 
-  constructor(public modalCtrl: ModalController) { }
+  constructor(
+    private navCtrl : NavController,
+    public modalCtrl: ModalController) { }
 
   ngOnInit() {
     this.start();
@@ -31,7 +33,7 @@ export class TimeInProgressComponent implements OnInit {
     this.intervalId = setInterval(() => {
       this.elapsedTime = Date.now() - startTime;
       this.updateTime();
-    }, 1000); // ⬅️ update every second
+    }, 1000);
   }
 
   pause() {
@@ -59,5 +61,9 @@ export class TimeInProgressComponent implements OnInit {
 
   pad(value: number): string {
     return value < 10 ? '0' + value : value.toString();
+  }
+
+  goBack(){
+    this.navCtrl.pop();
   }
 }

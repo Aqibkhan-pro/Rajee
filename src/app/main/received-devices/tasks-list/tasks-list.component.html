@@ -46,14 +46,11 @@
   <ion-card *ngFor="let user of users; let first = first;" class="user-card theme-card" (click)="openDevicesDetails()">
     <ion-col size="2">
       <div class="icon-wrapper">
-        <ion-icon src="../../../../assets/svg/devices-repo.svg">
-        </ion-icon>
+        <ion-icon name="file-tray-full"></ion-icon>
       </div>
     </ion-col>
-    <ion-col size="7">
+    <ion-col size="7" >
       <div class="user-left">
-        <!-- <img [src]="user.avatar" class="avatar" /> -->
-
         <div class="user-info">
           <div class="name-row">
             <div class="name">{{ user.date }}</div>

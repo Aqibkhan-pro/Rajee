@@ -1,5 +1,6 @@
+import { PriorityEmums } from './../../../../graphql/generated';
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { IonHeader } from "@ionic/angular/standalone";
 
 @Component({
@@ -10,8 +11,29 @@ import { IonHeader } from "@ionic/angular/standalone";
 })
 export class DeviceDetailsComponent implements OnInit {
 
-  constructor(public modalCtrl : ModalController) { }
+  constructor(
+    private navCtrl : NavController,
+    public modalCtrl : ModalController) { }
 
   ngOnInit() { }
 
+  getStatusClass(status: string): string {
+    return `chip-${status}`;
+  }
+
+  getStatusIcon(status: string): string {
+    switch (status) {
+      case 'completed':
+        return 'checkmark-circle-outline';
+      case 'pending':
+        return 'time-outline';
+
+      default:
+        return 'help-circle-outline';
+    }
+  }
+
+  routeToProgress(device:any){
+    this.navCtrl.navigateForward('/main/received-devices/devices/details/time-progress');
+  }
 }

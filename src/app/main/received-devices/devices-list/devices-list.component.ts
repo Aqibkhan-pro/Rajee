@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-devices-list',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   standalone:false
 })
 export class DevicesListComponent  implements OnInit {
+  @Output() onDeviceClicked: EventEmitter<Device> = new EventEmitter<Device>();
   devices: Device[] = [
     {
       imei: '343434788348343XXX',
@@ -65,7 +67,7 @@ export class DevicesListComponent  implements OnInit {
       time: '4 hrs ago'
     }
   ];
-  constructor() { }
+  constructor( private modalCtrl: ModalController) { }
 
   ngOnInit() {}
 
@@ -84,6 +86,9 @@ export class DevicesListComponent  implements OnInit {
     }
   }
 
+  onDeviceClick(device: Device) {
+    this.onDeviceClicked.emit(device);
+  }
 }
 
 interface Device {

@@ -26,7 +26,7 @@
         </div>
       </ion-item>
 
-      <ion-item lines="full" class="theme-secondary">
+      <ion-item lines="full" class="theme-secondary" (click)="routeToProgress(null)">
         <ion-label class="modal-emei">
           <h1>EMEI</h1>
           <p>893403493043433XXX</p>
@@ -97,12 +97,15 @@
           <div class="icon-box">
             <ion-icon name="information-circle-outline" slot="start" class="text-color-icon  text-22"></ion-icon>
           </div>
-          <ion-label class="modal-name card-title">
-            <h1>Part Request</h1>
-          </ion-label>
+          <ion-chip class="status-chip" [ngClass]="getStatusClass('pending')">
+            <ion-icon [name]="getStatusIcon('pending')"></ion-icon>
+            <ion-label>
+              Pending
+            </ion-label>
+          </ion-chip>
         </ion-item>
         <ion-label class="modal-name ">
-          <p style="width: 85%; margin-left: 15%;">Iphone X CDM unlocked 64GB Space gray grade C</p>
+          <p style="width: 85%; margin-left: 17%;">Iphone X CDM unlocked 64GB Space gray grade C</p>
         </ion-label>
       </ion-list>
     </ion-list>

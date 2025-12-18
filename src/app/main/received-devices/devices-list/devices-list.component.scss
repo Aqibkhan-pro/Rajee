@@ -7,8 +7,8 @@
 
 .icon-wrapper {
     width: 40px;
-    height: 60px;
-    border-radius: 10px;
+    padding: 14px 5px;
+    border-radius: 8px;
     background-color: var(--button-color);
     display: flex;
     align-items: center;
@@ -22,11 +22,11 @@
 
 .imei-section .imei-text {
     font-weight: 700;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .title-section .title-line {
-    font-size: 16px;
+    font-size: 13px;
     margin-top: 2px;
 }
 
@@ -49,12 +49,19 @@
     display: flex;
     justify-content: center;
     gap: 8px;
+    --padding-start: 6px;
+}
+
+.item-secondary{
+  --background: var(--secondary-color) !important;
+  --inner-padding-end: 4px;
 }
 
 .status-item {
     display: flex;
     align-items: center;
     gap: 6px;
+    color: var(--sub-title-color);
 }
 
 .status-icon {
@@ -91,4 +98,45 @@ ion-chip {
 
 ion-chip ion-icon {
     color: inherit;
+}
+
+
+
+.status-chip {
+  font-size: 10px;
+  color: #fff;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  min-height: 24px;
+}
+
+.status-chip ion-icon {
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+  margin-inline-end: 4px;
+}
+
+.chip-completed {
+  color: var(--completed-color);
+  --background: color-mix(in srgb, var(--completed-color) 15%, transparent);
+
+  ion-icon {
+      color: var(--completed-color);
+  }
+}
+
+.chip-pending {
+  color: var(--pending-color);
+  --background: color-mix(in srgb, var(--pending-color) 15%, transparent);
+
+  ion-icon {
+      color: var(--pending-color);
+  }
 }
