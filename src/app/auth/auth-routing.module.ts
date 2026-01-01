@@ -6,6 +6,7 @@ import { AuthLayoutComponent } from './components/auth/auth-layout.component';
 import { APP_ROUTES } from '../shared/utils/app-routes';
 import { GetStartedComponent } from './components/get-started/get-started.component';
 import { StartedGuard } from './services/started.guard';
+import { SignupComponent } from './components/signup/signup.component';
 const routes: Routes = [
   {
     path: '',
@@ -14,7 +15,8 @@ const routes: Routes = [
       { path: '', redirectTo: APP_ROUTES.STARTED, pathMatch: 'full' },
       { path: APP_ROUTES.STARTED, component: GetStartedComponent, canActivate: [StartedGuard] },
       { path: APP_ROUTES.LOGIN, component: LoginComponent},
-      { path: APP_ROUTES.FORGET_PASSWORD, component: ForgetPasswordComponent }
+      { path: APP_ROUTES.FORGET_PASSWORD, component: ForgetPasswordComponent },
+      { path: APP_ROUTES.SIGNUP, component: SignupComponent }
     ]
   }
 ];

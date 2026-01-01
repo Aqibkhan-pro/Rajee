@@ -3,15 +3,8 @@ export const APP_ROUTES = {
   AUTH: 'auth',
   LOGIN: 'login',
   FORGET_PASSWORD: 'forget-password',
+  SIGNUP: 'signup',
   DASHBOARD: 'dashboard',
   MAIN: 'main',
-  GIVEN_DEVICES: 'given-devices',
-  RECEIVED_DEVICES: 'received-devices',
-  PARTS_REQUESTED: 'parts-requested',
-  REPAIRS: 'repairs',
-  ASSIGN_DEVICES: 'assign-devices',
-  TECHNICIANS: 'technicians',
-  DEVICES: 'devices',
-  TECHNICIANS_LIST: 'technicians-list',
-  TASKS_LIST: 'tasks-list',
-};
+  CHAT: 'chat',
+}

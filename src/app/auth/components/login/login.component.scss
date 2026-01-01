@@ -9,8 +9,6 @@
   height: 125px;
 }
 
-
-
 .top-list {
   padding: 12px 24px 24px;
   height: 100%;
@@ -18,7 +16,7 @@
 }
 
 ion-label {
-  color: var(--text-color);
+  color: var(--secondary-color);
 
   h2 {
     font-weight: bold;
@@ -33,7 +31,13 @@ ion-label {
   .forgot-text {
     text-align: end;
     font-weight: 500;
-    color: var(--text-color);
+    color: var(--secondary-color);
+  }
+
+  .create-text {
+    text-align: center;
+    font-weight: 500;
+    color: var(--secondary-color);
   }
 }
 
@@ -69,7 +73,7 @@ ion-button {
 
 .custom-input {
   --background: var(--secondary-color) !important;
-  --color: var(--text-color) !important;
+  --color: #000000 !important;
   --placeholder-color: #ddd;
   --placeholder-opacity: 0.8;
   --padding-bottom: 2px;

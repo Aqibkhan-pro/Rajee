@@ -1,0 +1,51 @@
+
+
+  <!-- Card List -->
+  <div class="card-container">
+    <ion-card *ngFor="let item of items" mode="ios">
+      <!-- Card Image -->
+      <img [src]="item.image" [alt]="item.name" />
+
+      <!-- Card Header -->
+      <ion-card-header>
+        <ion-card-title>{{ item.name }}</ion-card-title>
+        <ion-card-subtitle>${{ item.price }}</ion-card-subtitle>
+      </ion-card-header>
+
+      <!-- Card Content -->
+      <ion-card-content>
+        {{ item.description }}
+      </ion-card-content>
+
+      <!-- Card Actions -->
+      <ion-row class="ion-padding">
+        <ion-col size="6">
+          <ion-button expand="block"  mode="ios"  style="color: var(--primary-color);
+          --background-activated: antiquewhite; --background: var(--button-color);" (click)="addToCart(item)">
+            <ion-icon slot="start" name="home-outline"></ion-icon>
+            Booking
+          </ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button
+            expand="block" mode="ios" style="color: #ffffff;"
+            [color]="item.isFavorite ? 'danger' : 'secondary'"
+            (click)="toggleFavorite(item)">
+            <ion-icon
+              slot="start"
+              [name]="item.isFavorite ? 'heart' : 'heart-outline'">
+            </ion-icon>
+            {{ item.isFavorite ? 'Saved' : 'Save' }}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    <!-- Empty State -->
+    <div *ngIf="items.length === 0" class="empty-state">
+      <ion-icon name="basket-outline" size="large"></ion-icon>
+      <p>No items available</p>
+    </div>
+  </div>
+
+

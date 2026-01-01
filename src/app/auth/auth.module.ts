@@ -8,13 +8,15 @@ import { ForgetPasswordComponent } from './components/forget-password/forget-pas
 import { GraphQLModule } from '../shared/graphql/apollo.module';
 import { AuthLayoutComponent } from './components/auth/auth-layout.component';
 import { GetStartedComponent } from './components/get-started/get-started.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     ForgetPasswordComponent,
     AuthLayoutComponent,
-    GetStartedComponent
+    GetStartedComponent,
+    SignupComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,150 @@
+ion-tab-bar {
+  /* --background: var(--primary-color); */
+  --background:  var(--secondary-color);
+
+  --color: #ebebeb;
+  --color-selected: #ffffff;
+}
+ion-title{
+  color: var(--secondary-color) !important;
+}
+
+ion-fab-button{
+  ion-icon{
+    color: #ffffff;
+  }
+}
+
+ion-toolbar {
+    /* --background: var(--primary-color); */
+
+  --background:  var(--secondary-color);
+}
+
+ion-content {
+  --background: var(--secondary-color) !important;
+}
+
+ion-tab-button {
+  font-size: 12px;
+}
+
+ion-tab-button .icon-outline {
+  display: block;
+}
+
+ion-tab-button .icon-sharp {
+  display: none;
+}
+
+ion-tab-button.tab-selected .icon-outline {
+  display: none;
+}
+
+ion-tab-button.tab-selected .icon-sharp {
+  display: block;
+}
+
+ion-menu-button{
+  color: var(--secondary-color);
+}
+
+ion-menu {
+  ion-content, ion-list {
+    --background: var(--secondary-color) !important;
+    background: var(--secondary-color) !important;
+  }
+
+  .user-profile-header {
+    height: auto;
+    background: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+
+    .user-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .user-name {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0;
+      margin-bottom: 4px;
+    }
+
+    .user-role {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 12px;
+      margin: 0;
+    }
+  }
+
+  ion-item {
+    --padding-start: 16px;
+    --background: var(--secondary-color) !important;
+    --color: var(--primary-color);
+    color: var(--primary-color);
+
+    ion-icon {
+      font-size: 24px;
+      margin-right: 16px;
+      color: var(--primary-color);
+    }
+
+    ion-label {
+      color: var(--primary-color);
+    }
+  }
+
+
+  .language-chips {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+
+    ion-chip {
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      ion-label {
+        color: inherit;
+      }
+    }
+  }
+
+
+  ion-footer {
+    --background: var(--secondary-color) !important;
+    background: var(--secondary-color) !important;
+
+    ion-list {
+      --background: var(--secondary-color) !important;
+      background: var(--secondary-color) !important;
+    }
+
+    .logout-item {
+      --padding-start: 16px;
+      --min-height: 56px;
+      --background: var(--secondary-color) !important;
+
+      ion-icon {
+        font-size: 24px;
+        margin-right: 16px;
+      }
+    }
+  }
+}
+

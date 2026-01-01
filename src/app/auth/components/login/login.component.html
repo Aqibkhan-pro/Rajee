@@ -16,7 +16,7 @@
     <form [formGroup]="loginForm" (ngSubmit)="callDetailUserApi()">
       <ion-list class="text-center mt-4">
         <ion-label>
-          <h2 (click)="scan()" class="text-20">Welcome back! Let's sign in</h2>
+          <h2 class="text-20">Welcome back! Let's sign in</h2>
         </ion-label>
         <ion-list class="text-start mt-12">
           <!-- <ion-label class="text-14">Email</ion-label> -->
@@ -45,7 +45,7 @@
           <p *ngIf="password?.errors?.minlength" class="text-start">Password must be at least 6 characters</p>
         </ion-text>
         <ion-label>
-          <p class="forgot-text text-14 mt-12" (click)="forgetPassword()"><u>Forgot Password</u></p>
+          <p class="forgot-text text-14 mt-12" ><u>Forgot Password</u></p>
         </ion-label>
 
         <ion-button expand="block" type="submit" mode="ios" [disabled]="isLoading" class="text-16 mt-20">
@@ -55,7 +55,10 @@
             Logging in...
           </ng-container>
         </ion-button>
-
+        <ion-label>
+          <p class="create-text text-14 mt-12" (click)="creatAccount()">Create new Account?<u
+          style="color: aqua; margin-left: 5px;">Sign Up</u></p>
+        </ion-label>
       </ion-list>
     </form>
   </ion-list>

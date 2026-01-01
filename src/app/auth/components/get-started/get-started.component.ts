@@ -16,7 +16,7 @@ export class GetStartedComponent implements OnInit {
   }
 
   getStarted(){
-    localStorage.setItem(constants.Started, JSON.stringify(false));
+    localStorage.setItem(constants.Started, JSON.stringify(true));
     this.navCtrl.navigateForward('/auth/login');
   }
 }

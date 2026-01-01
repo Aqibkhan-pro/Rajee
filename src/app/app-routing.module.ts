@@ -2,21 +2,32 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { APP_ROUTES } from './shared/utils/app-routes';
 import { AuthGuard } from './auth/services/auth.guard';
+import { StartedGuard } from './auth/services/started.guard';
+import { ChatComponent } from './auth/components/home/chat/chat.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: APP_ROUTES.MAIN,
+    redirectTo: APP_ROUTES.AUTH, // or whatever your started route is
     pathMatch: 'full'
   },
+  // {
+  //   path: APP_ROUTES.STARTED, // e.g., 'started' or 'onboarding'
+  //   loadChildren: () => import('./auth/components/get-started/get-started.component').then(m => m.StartedModule),
+  //   canActivate: [StartedGuard]
+  // },
   {
     path: APP_ROUTES.AUTH,
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
-   {
+  {
     path: APP_ROUTES.MAIN,
-    loadChildren: () => import('./main/main.module').then(m => m.MainModule),
-    // canActivate: [AuthGuard],
+    loadChildren: () => import('./auth/components/home/home.module').then(m => m.HomePageModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: APP_ROUTES.CHAT,
+    component: ChatComponent,
   },
 ];
 
