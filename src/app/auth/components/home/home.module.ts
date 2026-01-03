@@ -9,6 +9,7 @@ import { FavoraiteComponent } from './favoraite/favoraite.component';
 import { NotificationComponent } from './notification/notification.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatInboxComponent } from './chat-inbox/chat-inbox.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ChatInboxComponent } from './chat-inbox/chat-inbox.component';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
+    TranslateModule
   ],
   declarations: [
     HomePage,

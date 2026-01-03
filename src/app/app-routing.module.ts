@@ -29,6 +29,10 @@ const routes: Routes = [
     path: APP_ROUTES.CHAT,
     component: ChatComponent,
   },
+  {
+    path: 'add-product',
+    loadChildren: () => import('./auth/components/add-product/add-product.module').then( m => m.AddProductPageModule)
+  },
 ];
 
 @NgModule({

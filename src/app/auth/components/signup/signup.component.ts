@@ -1,4 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 import {
   FormBuilder,
   FormGroup,
@@ -8,7 +10,7 @@ import {
 } from '@angular/forms';
 import { NavController, ToastController } from '@ionic/angular';
 
-// ✅ Custom OTP validator
+/* ================= OTP Validator ================= */
 function otpRequiredLength(length: number) {
   return (control: AbstractControl): ValidationErrors | null => {
     const value = control.value;
@@ -19,6 +21,16 @@ function otpRequiredLength(length: number) {
   };
 }
 
+/* ================= User Interface ================= */
+interface User {
+  uid: string;
+  name: string;
+  email: string;
+  phone: string;
+  photoURL: string | null;
+  createdAt: number;
+}
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -27,30 +39,32 @@ function otpRequiredLength(length: number) {
 })
 export class SignupComponent implements OnInit, OnDestroy {
 
-  // Signup form
   signupForm!: FormGroup;
-  submitted = false;
-
-  // OTP form
   otpForm!: FormGroup;
-  otpFormSubmitted = false;
 
+  submitted = false;
+  otpFormSubmitted = false;
   isLoading = false;
   otpSent = false;
 
-  // Countdown for resend
-  countdown: number = 60;
-  canResend: boolean = false;
+  countdown = 60;
+  canResend = false;
   private countdownInterval: any;
+
+  // ✅ Firebase Database URL
+  FIREBASE_DB_URL = 'https://rajee-198a5-default-rtdb.firebaseio.com';
 
   constructor(
     private fb: FormBuilder,
     private navCtrl: NavController,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private afAuth: AngularFireAuth,
+    private db: AngularFireDatabase,
+    private ngZone: NgZone
   ) {}
 
+  /* ================= Lifecycle ================= */
   ngOnInit() {
-    // Signup form
     this.signupForm = this.fb.group(
       {
         fullName: ['Happy khan', Validators.required],
@@ -62,9 +76,8 @@ export class SignupComponent implements OnInit, OnDestroy {
       { validators: this.passwordMatchValidator }
     );
 
-    // OTP form
     this.otpForm = this.fb.group({
-      otp: ['', [Validators.required, otpRequiredLength(6)]]
+      otp: ['', [Validators.required, otpRequiredLength(6)]],
     });
   }
 
@@ -72,14 +85,14 @@ export class SignupComponent implements OnInit, OnDestroy {
     if (this.countdownInterval) clearInterval(this.countdownInterval);
   }
 
-  // Password match validator
+  /* ================= Validators ================= */
   passwordMatchValidator(group: AbstractControl) {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
-  // Form getters
+  /* ================= Getters ================= */
   get fullName() { return this.signupForm.get('fullName'); }
   get phone() { return this.signupForm.get('phone'); }
   get email() { return this.signupForm.get('email'); }
@@ -87,18 +100,63 @@ export class SignupComponent implements OnInit, OnDestroy {
   get confirmPassword() { return this.signupForm.get('confirmPassword'); }
   get otp() { return this.otpForm.get('otp'); }
 
-  // Toast helper
+  /* ================= Toast ================= */
   async showToast(message: string, color: string = 'danger') {
     const toast = await this.toastCtrl.create({
       message,
       duration: 2000,
       color,
-      position: 'bottom'
+      position: 'bottom',
     });
     toast.present();
   }
 
-  // ✅ Send OTP
+  /* ================= Database Helpers via REST API with Auth ================= */
+
+  // ✅ GET user from Realtime Database with token
+  async getUserFromDb(uid: string, idToken: string): Promise<User | null> {
+    try {
+      const url = `${this.FIREBASE_DB_URL}/users/${uid}.json?auth=${idToken}`;
+
+      const res = await fetch(url);
+      if (!res.ok) {
+        console.error('DB GET Error:', res.status, res.statusText);
+        throw new Error('Failed to fetch user from DB');
+      }
+
+      const data = await res.json();
+      return data ? data : null;
+    } catch (err) {
+      console.error('DB GET Error:', err);
+      return null;
+    }
+  }
+
+  // ✅ SAVE user to Realtime Database with token
+  async saveUserToDatabase(userData: User, idToken: string): Promise<void> {
+    try {
+      const url = `${this.FIREBASE_DB_URL}/users/${userData.uid}.json?auth=${idToken}`;
+
+      const res = await fetch(url, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
+      });
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.error('DB SAVE Error:', res.status, errorText);
+        throw new Error(`Failed to save user to DB: ${errorText}`);
+      }
+
+      console.log('✅ User saved successfully to Realtime Database');
+    } catch (err) {
+      console.error('❌ DB SAVE Error:', err);
+      throw err; // Re-throw to handle in calling function
+    }
+  }
+
+  /* ================= Send OTP ================= */
   async onSendOtp() {
     this.submitted = true;
     if (this.signupForm.invalid) return;
@@ -110,58 +168,113 @@ export class SignupComponent implements OnInit, OnDestroy {
       const res = await fetch('https://rajeeac-63le.vercel.app/send-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: fullName, phone, email, password })
+        body: JSON.stringify({ name: fullName, phone, email, password }),
       });
 
       const result = await res.json();
-      if (!result.success) throw new Error(result.message || 'Failed to send OTP');
+      if (!result.success) throw new Error(result.message);
 
       this.otpSent = true;
       this.startCountdown();
-      this.showToast('OTP sent! Check your email.', 'success');
+      this.showToast('OTP email par bhej diya gaya', 'success');
 
     } catch (err: any) {
-      this.showToast(err.message || 'Failed to send OTP');
+      this.showToast(err.message || 'OTP send fail');
     } finally {
       this.isLoading = false;
     }
   }
 
-  // ✅ Verify OTP
+  /* ================= Verify OTP + CREATE / LOGIN USER ================= */
   async onVerifyOtp() {
     this.otpFormSubmitted = true;
     this.otpForm.markAllAsTouched();
-
     if (this.otpForm.invalid) return;
 
     this.isLoading = true;
+
     try {
+      const { email, password, fullName, phone } = this.signupForm.value;
+
+      /* 🔹 Step 1: Verify OTP via your API */
       const res = await fetch('https://rajeeac-63le.vercel.app/verify-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email: this.signupForm.value.email,
-          otp: String(this.otpForm.value.otp)
-        })
+          email,
+          otp: String(this.otpForm.value.otp),
+        }),
       });
 
       const result = await res.json();
-      if (!result.success) throw new Error(result.message || 'OTP verification failed');
+      if (!result.success) throw new Error(result.message);
 
-      this.showToast('Account created successfully!', 'success');
-      this.navCtrl.navigateForward('auth/login');
+      console.log('✅ OTP verified successfully');
+
+      /* 🔹 Step 2: Create or Login User in Firebase Auth */
+      let cred;
+      try {
+        cred = await this.afAuth.createUserWithEmailAndPassword(email, password);
+        console.log('✅ New user created in Firebase Auth');
+      } catch (err: any) {
+        if (err.code === 'auth/email-already-in-use') {
+          cred = await this.afAuth.signInWithEmailAndPassword(email, password);
+          console.log('✅ Existing user logged in');
+        } else {
+          throw err;
+        }
+      }
+
+      if (!cred.user) throw new Error('Firebase Auth failed');
+
+      const uid = cred.user.uid;
+      console.log('User UID:', uid);
+
+      /* 🔹 Step 3: Get Firebase ID Token */
+      const idToken = await cred.user.getIdToken();
+      console.log('✅ ID Token received:', idToken.substring(0, 20) + '...');
+
+      /* 🔹 Step 4: Check if user already exists in DB */
+      const existingUser = await this.getUserFromDb(uid, idToken);
+
+      /* 🔹 Step 5: Prepare user data */
+      const userData: User = {
+        uid,
+        name: fullName,
+        email,
+        phone,
+        photoURL: null,
+        createdAt: existingUser?.createdAt || Date.now(),
+      };
+
+      console.log('Saving user data:', userData);
+
+      /* 🔹 Step 6: Save or Update user in Realtime Database */
+      await this.saveUserToDatabase(userData, idToken);
+
+      /* 🔹 Step 7: Sign out Firebase user after saving */
+      await this.afAuth.signOut();
+      console.log('✅ User signed out after registration');
+
+      /* 🔹 Step 8: Navigate to login */
+      this.ngZone.run(() => {
+        this.showToast('Account tayar! Ab login karein', 'success');
+        this.navCtrl.navigateForward('auth/login');
+      });
 
     } catch (err: any) {
-      this.showToast(err.message || 'Invalid OTP');
+      console.error('❌ Signup Error:', err);
+      this.showToast(err.message || 'Signup failed');
       this.otpForm.reset();
     } finally {
       this.isLoading = false;
     }
   }
 
-  // ✅ Resend OTP
+  /* ================= Resend OTP ================= */
   async onResendOtp() {
     if (!this.canResend) return;
+
     this.isLoading = true;
     this.otpForm.reset();
 
@@ -171,23 +284,23 @@ export class SignupComponent implements OnInit, OnDestroy {
       const res = await fetch('https://rajeeac-63le.vercel.app/send-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: fullName, phone, email, password })
+        body: JSON.stringify({ name: fullName, phone, email, password }),
       });
 
       const result = await res.json();
-      if (!result.success) throw new Error(result.message || 'Failed to resend OTP');
+      if (!result.success) throw new Error(result.message);
 
-      this.showToast('OTP resent successfully!', 'success');
+      this.showToast('OTP dobara bhej diya', 'success');
       this.startCountdown();
 
     } catch (err: any) {
-      this.showToast(err.message || 'Failed to resend OTP');
+      this.showToast(err.message || 'Resend OTP failed');
     } finally {
       this.isLoading = false;
     }
   }
 
-  // ✅ Countdown timer for resend
+  /* ================= Countdown ================= */
   startCountdown() {
     this.countdown = 60;
     this.canResend = false;
@@ -203,7 +316,6 @@ export class SignupComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  // Back to signup form
   goBack() {
     this.otpSent = false;
     this.submitted = false;
@@ -211,6 +323,8 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   goToLogin() {
-    this.navCtrl.navigateBack('auth/login');
+    this.ngZone.run(() => {
+      this.navCtrl.navigateBack('auth/login');
+    });
   }
 }

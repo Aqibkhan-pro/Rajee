@@ -7,7 +7,7 @@
           <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
           </ion-buttons>
-          <ion-title>Home</ion-title>
+          <ion-title>{{ 'home' | translate }}</ion-title>
         </ion-toolbar>
         <ion-toolbar>
           <ion-searchbar placeholder="Search items..." mode="ios" style="color: var(--secondary-color);"></ion-searchbar>
@@ -120,7 +120,7 @@
       </ion-content>
     </div>
   </ion-tab>
-  <ion-tab tab="notifications">
+  <ion-tab tab="profile">
     <div id="notifications-page" class="ion-page">
       <ion-header>
         <ion-toolbar>
@@ -140,29 +140,32 @@
     </div>
   </ion-tab>
 
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="home">
-      <ion-icon name="home-outline" class="icon-outline"></ion-icon>
-      <ion-icon name="home-sharp" class="icon-sharp"></ion-icon>
-      <ion-label>Home</ion-label>
+  <ion-fab vertical="bottom" horizontal="center" translucent="true">
+    <ion-fab-button (click)="onAddClick()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-tab-bar slot="bottom"  class="ion-no-border">
+    <ion-tab-button  tab="home">
+      <ion-icon name="home"></ion-icon>
+      <ion-text>Home</ion-text>
     </ion-tab-button>
 
-    <ion-tab-button tab="favorites">
-      <ion-icon name="heart-outline" class="icon-outline"></ion-icon>
-      <ion-icon name="heart-sharp" class="icon-sharp"></ion-icon>
-      <ion-label>Favorites</ion-label>
+    <ion-tab-button  tab="favorites" class="comments">
+      <ion-icon name="heart"></ion-icon>
+      <ion-text>Favorites</ion-text>
     </ion-tab-button>
 
-    <ion-tab-button tab="notifications">
-      <ion-icon name="notifications-outline" class="icon-outline"></ion-icon>
-      <ion-icon name="notifications-sharp" class="icon-sharp"></ion-icon>
-      <ion-label>Notification</ion-label>
-    </ion-tab-button>
+    <svg height="50" viewBox="0 0 100 50" width="100" xmlns="http://www.w3.org/2000/svg"><path d="M100 0v50H0V0c.543 27.153 22.72 49 50 49S99.457 27.153 99.99 0h.01z" fill="red" fill-rule="evenodd"></path></svg>
 
-    <ion-tab-button tab="chat">
-      <ion-icon name="chatbubble-ellipses-outline" class="icon-outline"></ion-icon>
-      <ion-icon name="chatbubble-ellipses-sharp" class="icon-sharp"></ion-icon>
-      <ion-label>Chat</ion-label>
+    <ion-tab-button tab="chat" class="notifs">
+      <ion-icon name="chatbubbles"></ion-icon>
+      <ion-text>Chat</ion-text>
+    </ion-tab-button>
+    <ion-tab-button tab="profile" >
+      <ion-icon name="person"></ion-icon>
+      <ion-text>Profile</ion-text>
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>

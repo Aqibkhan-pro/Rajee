@@ -34,6 +34,8 @@
     "@capacitor/status-bar": "7.0.3",
     "@ionic/angular": "^8.0.0",
     "@lottiefiles/lottie-player": "^2.0.12",
+    "@ngx-translate/core": "^17.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
     "apollo-angular": "^11.0.0",
     "firebase": "^12.7.0",
     "graphql": "^16.12.0",

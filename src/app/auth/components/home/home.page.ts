@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController, NavController, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { RAuthService } from 'src/app/services/r-auth.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class HomePage implements OnInit {
     private menuCtrl: MenuController,
     private toastController: ToastController,
     private authService: RAuthService,
-    private navCtrl : NavController) { }
+    private navCtrl : NavController,private translate: TranslateService) { }
 
   ngOnInit() {
 
@@ -32,7 +33,7 @@ export class HomePage implements OnInit {
 
   onLanguageChange(language: string) {
     this.selectedLanguage = language;
-    localStorage.setItem('selectedLanguage', language);
+    this.switchLanguage(language);
     console.log('Language changed to:', language);
   }
 
@@ -90,7 +91,12 @@ export class HomePage implements OnInit {
   }
 
   onAddClick() {
-    console.log('FAB clicked - Navigate to add new item');
-    // Navigate to add item page or open modal
+    this.navCtrl.navigateForward(['/add-product']);
   }
+
+    // Function to switch language
+    switchLanguage(lang: string) {
+      this.translate.use(lang);
+      localStorage.setItem('lang', lang); // save selected language
+    }
 }

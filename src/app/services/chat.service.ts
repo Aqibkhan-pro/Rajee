@@ -5,7 +5,7 @@ import { Observable, from, of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { StorageService } from './storage.service';
 
-export interface User {
+export interface UserData {
   uid: string;
   name?: string;
   email?: string;
@@ -22,7 +22,7 @@ export class ChatApiService {
 
   constructor(private http: HttpClient, private storageService: StorageService) {}
 
-  getUsers(): Observable<User[]> {
+  getUsers(): Observable<UserData[]> {
     const userData = this.storageService.getItem('userData');
     const idToken = userData?.idToken;
 

@@ -6,10 +6,18 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { environment } from '../environments/environment';
-import { HttpClientModule } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+
+// ✅ New factory for v7+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http,  './assets/i18n/', '.json' );
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,13 +26,19 @@ import { HttpClientModule } from '@angular/common/http';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    // ✅ Firebase compat modules
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(environment.firebase), // ✅ important
+    AngularFireAuthModule, // ✅ important
     AngularFireDatabaseModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+      defaultLanguage: 'en',
+    }),
   ],
-  providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-  ],
-  bootstrap: [AppComponent]
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
