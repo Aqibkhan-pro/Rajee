@@ -1,21 +1,24 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button style="color: var(--secondary-color) !important;"></ion-back-button>
+      <ion-icon name="chevron-back-outline" style="font-size: 24px;color: var(--secondary-color) !important;" (click)="goBack()"></ion-icon>
     </ion-buttons>
-    <ion-title>Chat</ion-title>
+    <ion-avatar class="chat-avatar" slot="start">
+      <div class="avatar-text">{{ chatRoom?.name?.charAt(0)?.toUpperCase() }}</div>
+    </ion-avatar>
+    <ion-title style="padding-left: 0;">{{chatRoom?.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="chat-content">
   <div class="messages-container">
     <div *ngFor="let message of messages"
-         [class.sent]="message.sent"
-         [class.received]="!message.sent"
+    [class.sent]="message.senderId == sender?.uid"
+    [class.received]="message.senderId !== sender?.uid"
          class="message-wrapper">
       <div class="message-bubble">
-        <p class="message-text">{{ message.text }}</p>
-        <span class="message-time">{{ message.time }}</span>
+        <p class="message-text">{{ message.message }}</p>
+        <span class="message-time">{{ message.timestamp | date:'shortTime' }}</span>
       </div>
     </div>
   </div>
@@ -29,12 +32,13 @@
         [(ngModel)]="newMessage"
         class="message-input">
       </ion-input>
-      <ion-button
-        fill="clear"
-        class="send-button"
-        (click)="sendMessage()">
-        <ion-icon name="send" slot="icon-only"></ion-icon>
-      </ion-button>
     </div>
+    <ion-button
+      slot="end"
+      fill="clear"
+      class="send-button"
+      (click)="sendMessage()">
+      <ion-icon name="send" slot="icon-only"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-footer>

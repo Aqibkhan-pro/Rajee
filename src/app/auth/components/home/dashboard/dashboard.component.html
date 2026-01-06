@@ -1,51 +1,56 @@
+<!-- Card List -->
+<div class="card-container">
+  <ion-card *ngFor="let item of items" mode="ios">
+    <ion-item class="card-item" lines="none" (click)="onCardClick(item)">
 
+      <img [src]="item.image" [alt]="item.title" class="card-image" />
 
-  <!-- Card List -->
-  <div class="card-container">
-    <ion-card *ngFor="let item of items" mode="ios">
-      <!-- Card Image -->
-      <img [src]="item.image" [alt]="item.name" />
+      <ion-list class="card-details">
+        <div class="card-title">{{ item.title }}</div>
 
-      <!-- Card Header -->
-      <ion-card-header>
-        <ion-card-title>{{ item.name }}</ion-card-title>
-        <ion-card-subtitle>${{ item.price }}</ion-card-subtitle>
-      </ion-card-header>
+        <div class="card-info">
+          <!-- Price -->
+          <span class="card-info-item-price">
+            <ion-icon name="pricetag-outline"></ion-icon>
+            <span>{{ item.price }}</span>
+          </span>
 
-      <!-- Card Content -->
-      <ion-card-content>
-        {{ item.description }}
-      </ion-card-content>
+          <!-- Time -->
+          <span class="card-info-item">
+            <ion-icon name="time-outline"></ion-icon>
+            <span>{{ item.time | date :'dd MMM yy'}}</span>
+          </span>
 
-      <!-- Card Actions -->
-      <ion-row class="ion-padding">
-        <ion-col size="6">
-          <ion-button expand="block"  mode="ios"  style="color: var(--primary-color);
-          --background-activated: antiquewhite; --background: var(--button-color);" (click)="addToCart(item)">
-            <ion-icon slot="start" name="home-outline"></ion-icon>
-            Booking
-          </ion-button>
-        </ion-col>
-        <ion-col size="6">
-          <ion-button
-            expand="block" mode="ios" style="color: #ffffff;"
-            [color]="item.isFavorite ? 'danger' : 'secondary'"
-            (click)="toggleFavorite(item)">
-            <ion-icon
-              slot="start"
-              [name]="item.isFavorite ? 'heart' : 'heart-outline'">
-            </ion-icon>
-            {{ item.isFavorite ? 'Saved' : 'Save' }}
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-card>
+          <!-- Location -->
+          <span class="card-info-item" style="justify-content:right">
+            <ion-icon name="location-outline"></ion-icon>
+            <span>24.56, 45.65</span>
+          </span>
+        </div>
 
-    <!-- Empty State -->
-    <div *ngIf="items.length === 0" class="empty-state">
-      <ion-icon name="basket-outline" size="large"></ion-icon>
-      <p>No items available</p>
-    </div>
+        <div class="card-info">
+          <!-- Component -->
+          <span class="card-info-item" style="justify-content: left; color: var(--primary-color);;">
+            <ion-icon name="chatbubbles"></ion-icon>
+            <span>{{ item.price/50 }}</span>
+          </span>
+
+          <!-- User Initial instead of icon -->
+          <span class="card-info-item user-initial"  style="justify-content:right">
+            <span class="initial-circle">{{ item.user?.displayName?.charAt(0) }}</span>
+            <span>{{ item.user?.displayName }}</span>
+          </span>
+
+        </div>
+
+      </ion-list>
+
+    </ion-item>
+  </ion-card>
+
+  <!-- Empty State -->
+  <div *ngIf="items.length === 0" class="empty-state">
+    <ion-icon name="basket-outline" size="large"></ion-icon>
+    <p>No items available</p>
   </div>
-
-
+</div>

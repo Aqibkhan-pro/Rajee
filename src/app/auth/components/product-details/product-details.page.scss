@@ -1,0 +1,91 @@
+
+ion-toolbar {
+  --background: var(--primary-color);
+}
+
+ion-title{
+  color: var(--secondary-color) !important;
+  font-family: system-ui;
+}
+
+ion-content , ion-list, ion-item {
+--background: var(--secondary-color) !important;
+background: var(--secondary-color) !important;
+}
+
+.card-details{
+  padding: 16px;
+  background-color: #f0f0f0 !important;
+}
+
+.card-title {
+  width: 100%;
+  font-size: small;
+  color: #006e47;
+  font-weight: bold;
+}
+
+.card-info {
+  width: 100%;
+  margin-top: 12px;
+  font-size: small;
+  color: #101010;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .card-info-item-price {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    justify-content: center;
+
+    ion-icon {
+      font-size: 16px;
+    }
+
+    span {
+      font-weight: bold;
+    }
+  }
+
+  .card-info-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    justify-content: center;
+
+    ion-icon {
+      font-size: 16px;
+    }
+
+    span {
+      font-weight: 300;
+    }
+  }
+
+  .user-initial {
+    .initial-circle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    span:last-child {
+      margin-left: 6px;
+    }
+  }
+}
+
+.card-image{
+  border-radius: 12px;
+  background: #f0f0f0;
+}

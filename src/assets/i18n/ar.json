@@ -3,14 +3,14 @@
   "please_login": "الرجاء تسجيل الدخول",
   "nightmode": "الوضع الليلي",
   "sign_out": "تسجيل الخروج",
-
+  "profile_label":"حساب تعريفي",
   "home": "الرئيسية",
   "favorite": "المفضلة",
   "alerts": "الإشعارات",
   "messages": "الرسائل",
   "add": "إضافة",
   "following_list": "قائمة المتابعين",
-  "favorites": "المفضلة",
+  "favorites_label": "المفضلة",
   "offer_posting": "نشر عرض",
     "add_images": "أضف صور",
     "location": "الموقع",
@@ -81,6 +81,7 @@
   "custom_reason": "أدخل سببًا مخصصًا",
   "cancel_action": "إلغاء",
   "submit": "إرسال",
+  "detail" :"التفاصيل",
 
   "categories": {
     "all": "الكل",

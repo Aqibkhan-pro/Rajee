@@ -176,7 +176,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 
       this.otpSent = true;
       this.startCountdown();
-      this.showToast('OTP email par bhej diya gaya', 'success');
+      this.showToast('OTP sent on email ', 'success');
 
     } catch (err: any) {
       this.showToast(err.message || 'OTP send fail');
@@ -258,7 +258,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 
       /* 🔹 Step 8: Navigate to login */
       this.ngZone.run(() => {
-        this.showToast('Account tayar! Ab login karein', 'success');
+        this.showToast('Account ready! Please login', 'success');
         this.navCtrl.navigateForward('auth/login');
       });
 
@@ -290,7 +290,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       const result = await res.json();
       if (!result.success) throw new Error(result.message);
 
-      this.showToast('OTP dobara bhej diya', 'success');
+      this.showToast('Resent OTP', 'success');
       this.startCountdown();
 
     } catch (err: any) {

@@ -3,6 +3,7 @@ ion-tab-bar {
   --color: #ebebeb;
   --color-selected: #ffffff;
 }
+
 ion-title{
   color: var(--secondary-color) !important;
   font-family: system-ui;
@@ -40,15 +41,6 @@ ion-menu {
     align-items: center;
     justify-content: center;
     padding: 40px 20px;
-
-    .user-avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #ffffff;
-      margin-bottom: 8px;
-    }
 
     .user-name {
       color: #ffffff;
@@ -152,8 +144,10 @@ ion-tabs{
 			position: absolute;
 		}
 		ion-tab-button {
-			color: var(--primary-color);
+			color:   #9e9e9e;;
+
       --background: #fafafa;
+      --color-selected: var(--primary-color);
 		}
 		ion-tab-button.comments {
 			margin-right: 0px;
@@ -172,3 +166,20 @@ ion-tabs{
 		}
 	}
 }
+
+.avatar {
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 48px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 3px solid #ffffff;
+  margin-bottom: 8px;
+}
+
+

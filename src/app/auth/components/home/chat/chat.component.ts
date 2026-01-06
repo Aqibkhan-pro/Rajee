@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { Router } from '@angular/router';
+import { IonContent, NavController } from '@ionic/angular';
+import { ChatApiService, Message } from 'src/app/services/chat.service';
+import { User } from 'src/app/services/user.service';
+import { ChatRoom } from 'src/app/shared/common.interface';
 
 @Component({
   selector: 'app-chat',
@@ -7,72 +12,103 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./chat.component.scss'],
   standalone: false
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
+  @ViewChild(IonContent, { static: false }) content!: IonContent;
+
+  chatRoom!: ChatRoom;
+  sender!: User;
+  messages: Message[] = [];
   newMessage: string = '';
+  private messageSubscription?: any;
+  private isInitialLoad = true;
 
-  messages = [
-    {
-      text: 'Hey! How are you doing?',
-      time: '10:30 AM',
-      sent: false
-    },
-    {
-      text: 'I\'m doing great! Thanks for asking 😊',
-      time: '10:32 AM',
-      sent: true
-    },
-    {
-      text: 'That\'s wonderful to hear!',
-      time: '10:33 AM',
-      sent: false
-    },
-    {
-      text: 'Are you free this weekend?',
-      time: '10:33 AM',
-      sent: false
-    },
-    {
-      text: 'Yes, I am! What did you have in mind?',
-      time: '10:35 AM',
-      sent: true
-    },
-    {
-      text: 'Maybe we could grab coffee and catch up?',
-      time: '10:36 AM',
-      sent: false
-    },
-    {
-      text: 'Sounds perfect! Saturday afternoon works for me',
-      time: '10:37 AM',
-      sent: true
-    },
-    {
-      text: 'Great! I\'ll text you the details later',
-      time: '10:38 AM',
-      sent: false
-    },
-    {
-      text: 'Looking forward to it! 🎉',
-      time: '10:39 AM',
-      sent: true
+  constructor(
+    private router: Router,
+    private navCtrl: NavController,
+    private chatService: ChatApiService,
+    private db: AngularFireDatabase
+  ) {}
+
+  ngOnInit() {
+    const nav = this.router.getCurrentNavigation();
+    if (nav?.extras?.state) {
+      this.chatRoom = nav.extras.state['chatRoom'];
+      console.log('ChatRoom:', this.chatRoom);
+      this.sender = JSON.parse(localStorage.getItem('userData') || '{}');
+      console.log('Sender:', this.sender);
+
+      const chatId = this.chatService.getChatId(this.sender.uid, this.chatRoom.uid);
+
+      // Listen for new messages only (more efficient)
+      this.db.database
+        .ref(`chats/${chatId}/messages`)
+        .orderByChild('timestamp')
+        .once('value')
+        .then((snapshot) => {
+          // Load initial messages
+          const msgs: Message[] = [];
+          snapshot.forEach((child) => {
+            msgs.push(child.val());
+          });
+          this.messages = msgs;
+
+          // Scroll to bottom on initial load
+          setTimeout(() => {
+            this.scrollToBottom(0);
+            this.isInitialLoad = false;
+          }, 100);
+
+          // Now listen for new messages only
+          this.messageSubscription = this.db.database
+            .ref(`chats/${chatId}/messages`)
+            .orderByChild('timestamp')
+            .startAt(Date.now())
+            .on('child_added', (snapshot) => {
+              if (!this.isInitialLoad) {
+                const newMsg = snapshot.val();
+                this.messages.push(newMsg);
+
+                setTimeout(() => {
+                  this.scrollToBottom(300);
+                }, 50);
+              }
+            });
+        });
     }
-  ];
+  }
 
-  constructor(private navCtrl: NavController) { }
-
-  async ngOnInit() {
-
-
+  ngOnDestroy() {
+    if (this.messageSubscription) {
+      const chatId = this.chatService.getChatId(this.sender.uid, this.chatRoom.uid);
+      this.db.database.ref(`chats/${chatId}/messages`).off('child_added');
+    }
   }
 
   sendMessage() {
-    if (this.newMessage.trim()) {
-      this.messages.push({
-        text: this.newMessage,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        sent: true
-      });
-      this.newMessage = '';
+    const text = this.newMessage.trim();
+    if (!text) return;
+
+    this.newMessage = '';
+
+    // Send to Firebase - no optimistic UI update
+    // Firebase listener will add the message when saved
+    this.chatService.sendMessage(
+      this.sender.uid,
+      this.chatRoom.uid,
+      text
+    ).catch(err => {
+      console.error('Error sending message:', err);
+      // Optionally show error message to user
+    });
+  }
+
+  private scrollToBottom(duration: number = 300) {
+    if (this.content) {
+      this.content.scrollToBottom(duration);
     }
+  }
+
+  goBack() {
+    this.navCtrl.pop();
   }
 }

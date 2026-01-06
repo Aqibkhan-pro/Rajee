@@ -1,6 +1,7 @@
 import { AuthService } from './auth/services/auth.service';
 import { Component } from '@angular/core';
 import { constants } from './shared/utils/constants';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -8,19 +9,13 @@ import { constants } from './shared/utils/constants';
   standalone: false
 })
 export class AppComponent {
-  // public appPages = [
-  //   { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
-  //   { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-  //   { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-  //   { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-  //   { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-  //   { title: 'Spam', url: '/folder/spam', icon: 'warning' },
-  // ];
-  // public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private translate : TranslateService) {
     let theme = localStorage.getItem(constants.Theme) || ''
     if (theme != '') {
       this.authService.changeTheme(theme)
     }
+
+    const lang = localStorage.getItem('lang') || 'en';
+    this.translate.use(lang);
   }
 }

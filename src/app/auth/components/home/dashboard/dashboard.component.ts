@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController, NavController, ToastController } from '@ionic/angular';
+import { NavigationExtras } from '@angular/router';
+import { NavController, ToastController } from '@ionic/angular';
+import { Product } from 'src/app/shared/common.interface';
+
+
 
 @Component({
   selector: 'app-dashboard',
@@ -7,11 +11,14 @@ import { MenuController, NavController, ToastController } from '@ionic/angular';
   styleUrls: ['./dashboard.component.scss'],
   standalone: false
 })
+
+
 export class DashboardComponent implements OnInit {
 
   selectedLanguage: string = 'en';
   userName: string = 'John Doe';
   userRole: string = 'Administrator';
+  FIREBASE_DB_URL = 'https://rajee-198a5-default-rtdb.firebaseio.com';
 
   constructor(
     private navCtrl: NavController,
@@ -27,45 +34,68 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  items: any[] = [];
+  items: Product[] = [];
 
-  loadItems() {
-    // Sample data - replace with your API call
-    this.items = [
-      {
-        id: 1,
-        name: 'Wireless Headphones',
-        description: 'High-quality noise-canceling headphones with 30-hour battery life.',
-        price: 99.99,
-        image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        isFavorite: false
-      },
-      {
-        id: 2,
-        name: 'Smart Watch',
-        description: 'Fitness tracker with heart rate monitor and GPS capabilities.',
-        price: 199.99,
-        image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        isFavorite: false
-      },
-      {
-        id: 3,
-        name: 'Bluetooth Speaker',
-        description: 'Portable waterproof speaker with amazing sound quality.',
-        price: 49.99,
-        image: 'https://plus.unsplash.com/premium_photo-1661964402307-02267d1423f5?q=80&w=1973&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        isFavorite: true
-      },
-      {
-        id: 4,
-        name: 'Laptop Stand',
-        description: 'Ergonomic adjustable stand for better posture and comfort.',
-        price: 39.99,
-        image: 'https://images.unsplash.com/photo-1455587734955-081b22074882?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        isFavorite: false
-      }
-    ];
+  async loadItems() {
+
+    const products = await this.fetchProducts();
+    console.log("Products:--",products);
+
+
+      // Assign to items array and map 'title' -> 'name' for template
+      this.items = products.map(p => ({
+        ...p,
+        isFavorite: false,
+        time: p.createdAt || Date.now()
+      }));
+
   }
+
+  async fetchProducts(): Promise<any[]> {
+    try {
+      // Get your user token from localStorage
+      const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+      const idToken = userData?.idToken;
+      if (!idToken) throw new Error('User token not found');
+
+      const url = `${this.FIREBASE_DB_URL}/products.json?auth=${idToken}`;
+
+      const res = await fetch(url);
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`Failed to fetch products: ${errorText}`);
+      }
+
+      const data = await res.json();
+
+      // Convert object to array
+      const products: any[] = [];
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          products.push(data[key]);
+        }
+      }
+
+      return products;
+
+    } catch (err : any) {
+      console.error('Fetch products error:', err);
+      this.showToast(err.message || 'Error fetching products', 'danger');
+      return [];
+    }
+  }
+
+  async showToast(message: string, color: string = 'danger') {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      color,
+      position: 'bottom',
+    });
+    toast.present();
+  }
+
+
 
   async addToCart(item: any) {
     const toast = await this.toastController.create({
@@ -101,5 +131,15 @@ export class DashboardComponent implements OnInit {
 
   onAddClick() {
     this.navCtrl.navigateForward(['/add-product']);
+  }
+
+  onCardClick(product : Product){
+    const navigationExtras: NavigationExtras = {
+      state: {
+        product: product
+      }
+    };
+
+    this.navCtrl.navigateForward(['/product-details'], navigationExtras);
   }
 }

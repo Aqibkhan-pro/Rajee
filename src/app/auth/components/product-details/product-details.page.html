@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button style="color: var(--secondary-color) !important;"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'detail'|translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list class="card-details">
+    <div class="card-title">{{ product.title | titlecase }}</div>
+    <div class="card-info">
+      {{ product.description | titlecase }}
+    </div>
+    <div class="card-info">
+      <!-- Price -->
+      <span class="card-info-item-price">
+        <ion-icon name="pricetag-outline"></ion-icon>
+        <span>{{ product.price }}</span>
+      </span>
+
+      <!-- Location -->
+      <span class="card-info-item" style="justify-content:right">
+        <ion-icon name="location-outline"></ion-icon>
+        <span>24.56, 45.65</span>
+      </span>
+    </div>
+
+    <div class="card-info">
+      <!-- User Initial instead of icon -->
+      <span class="card-info-item user-initial" style="justify-content: left">
+        <span class="initial-circle">{{ product?.user?.displayName.charAt(0) }}</span>
+        <span>{{ product?.user?.displayName }}</span>
+      </span>
+
+      <!-- Component -->
+      <span class="card-info-item" style="justify-content:right">
+        <ion-button size="small" shape="round" mode="ios"
+        [fill]="isFollowing ? 'solid' : 'outline'"
+        (click)="isFollowing ? unfollowUser() : followUser()"
+          style="--background: #0573c1; color: #fff;">
+          {{ isFollowing ? 'Following' : 'Follow' }}
+        </ion-button>
+
+      </span>
+    </div>
+
+  </ion-list>
+  <ion-list style="padding: 16px;">
+    <img [src]="product?.image" alt="Product Image" class="card-image" />
+    <ion-button mode="ios" shape="round" expand="block"  (click)="callUserData(product?.user?.phone)"
+    style="--background: #0573c1; color: #fff; margin-top: 12px;">
+      <ion-icon name="call-sharp"></ion-icon>
+      Contact</ion-button>
+  </ion-list>
+</ion-content>

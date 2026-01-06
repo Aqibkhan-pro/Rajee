@@ -10,6 +10,9 @@ import { NotificationComponent } from './notification/notification.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatInboxComponent } from './chat-inbox/chat-inbox.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   imports: [
@@ -17,7 +20,9 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    TranslateModule
+    TranslateModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule
   ],
   declarations: [
     HomePage,

@@ -1,63 +1,108 @@
 @import url(../home.page.scss);
 
-ion-searchbar{
+ion-searchbar {
   --color: #000000;
   --background: aliceblue;
   font-size: 12px;
 }
 
 .card-container {
-  padding: 0px;
+  padding: 0;
   padding-bottom: 16px;
 }
 
 ion-card {
-  margin-bottom: 16px;
+  margin: 8px;
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background: var(--primary-color);
+  background: var(--secondary-color) !important;
 
-  img {
-    width: 100%;
-    height: 200px;
+  .card-item,
+  .card-details {
+    height: 100%;
+    --background: var(--secondary-color) !important;
+    background: var(--secondary-color) !important;
+    --padding-start:0px;
+    --inner-padding-end: 0px;
+  }
+
+  .card-image {
+    width: 100px;
+    height: 105px;
     object-fit: cover;
+    background: #cfcfcf;
   }
 
-  ion-card-header {
-    padding-bottom: 8px;
+  .card-details {
+    margin: 6px;
+    width: calc(100% - 100px);
 
-    ion-card-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--secondary-color);
+    .card-title {
+      width: 100%;
+      font-size: small;
+      margin-top: 12px;
+      color: #006e47;
+      font-weight: bold;
     }
 
-    ion-card-subtitle {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #0bf553;
-      margin-top: 4px;
-    }
-  }
+    .card-info {
+      width: 100%;
+      margin-top: 12px;
+      font-size: small;
+      color: #101010;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-  ion-card-content {
-    font-size: 13px;
-    color: #d1d1d1;
-    line-height: 1.5;
-    padding-top: 0;
-  }
+      .card-info-item-price {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        justify-content: center;
 
-  ion-row {
-    padding: 0 8px 8px 8px;
+        ion-icon {
+          font-size: 16px;
+        }
 
-    ion-button {
-      font-size: 0.85rem;
-      height: 40px;
-      --border-radius: 8px;
-
-      ion-icon {
-        font-size: 1.1rem;
+        span {
+          font-weight: bold;
+        }
       }
+
+      .card-info-item {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        justify-content: center;
+
+        ion-icon {
+          font-size: 16px;
+        }
+
+        span {
+          font-weight: 300;
+        }
+      }
+
+      .user-initial {
+        .initial-circle {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background-color: var(--primary-color);
+          color: #fff;
+          font-weight: bold;
+          font-size: 12px;
+        }
+
+        span:last-child {
+          margin-left: 6px;
+        }
+      }
+
     }
   }
 }

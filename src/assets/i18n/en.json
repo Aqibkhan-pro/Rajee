@@ -10,7 +10,7 @@
   "messages": "Messages",
   "add": "Add",
   "following_list": "Following List",
-  "favorites": "Favorites",
+  "favorites_label": "Favorites",
   "report": "Report",
   "settings": "Settings",
   "contact_us": "Contact Us",
@@ -30,6 +30,7 @@
   "all": "All",
   "less_than_5000": "<5000",
   "greater_than_5000": ">5000",
+  "detail" :"Detail",
 
   "welcome_back": "Welcome Back!",
   "login_continue": "Login to continue",
@@ -145,5 +146,6 @@
   "stories": "Stories",
   "description": "Description",
   "condition_label": "Condition",
-  "select":"Select"
+  "select":"Select",
+  "profile_label": "Profile"
 }

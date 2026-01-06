@@ -11,11 +11,6 @@ const routes: Routes = [
     redirectTo: APP_ROUTES.AUTH, // or whatever your started route is
     pathMatch: 'full'
   },
-  // {
-  //   path: APP_ROUTES.STARTED, // e.g., 'started' or 'onboarding'
-  //   loadChildren: () => import('./auth/components/get-started/get-started.component').then(m => m.StartedModule),
-  //   canActivate: [StartedGuard]
-  // },
   {
     path: APP_ROUTES.AUTH,
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
@@ -28,6 +23,9 @@ const routes: Routes = [
   {
     path: APP_ROUTES.CHAT,
     component: ChatComponent,
+  }, {
+    path: 'product-details',
+    loadChildren: () => import('./auth/components/product-details/product-details.module').then( m => m.ProductDetailsPageModule)
   },
   {
     path: 'add-product',

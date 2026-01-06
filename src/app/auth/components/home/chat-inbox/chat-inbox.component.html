@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Chat</ion-title>
+    <ion-title>{{'messages'| translate}}</ion-title>
     <ion-buttons slot="end">
       <ion-button>
         <ion-icon name="search-outline" slot="icon-only"></ion-icon>
@@ -11,15 +11,15 @@
 
 <ion-content scrollY="true">
   <div class="chat-list">
-    <div *ngFor="let chat of chats"
+    <div *ngFor="let chat of users"
          class="chat-item"
          (click)="openChat(chat)">
-      <div class="avatar-container">
-        <div class="avatar" [style.background]="chat.avatarColor">
-          {{ chat.initials }}
+         <div class="avatar-container">
+          <div class="avatar" [style.background]="chat.avatarColor || getDummyColor(chat.name)">
+            {{ chat?.name?.charAt(0) }}
+          </div>
+          <span class="online-indicator" *ngIf="chat.online"></span>
         </div>
-        <span class="online-indicator" *ngIf="chat.online"></span>
-      </div>
 
       <div class="chat-info">
         <div class="chat-header">

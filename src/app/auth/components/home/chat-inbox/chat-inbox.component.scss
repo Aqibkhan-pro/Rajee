@@ -2,6 +2,11 @@ ion-toolbar {
   --background: var(--primary-color);
 }
 
+ion-title{
+  color: var(--secondary-color) !important;
+  font-family: system-ui;
+}
+
 ion-content {
   --background: var(--secondary-color) !important;
 }

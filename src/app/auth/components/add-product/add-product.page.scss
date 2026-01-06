@@ -3,6 +3,11 @@ ion-toolbar {
   --background: var(--primary-color);
 }
 
+ion-title{
+  color: var(--secondary-color) !important;
+  font-family: system-ui;
+}
+
 ion-content , ion-list, ion-item {
 --background: var(--secondary-color) !important;
 background: var(--secondary-color) !important;
@@ -61,8 +66,7 @@ ion-item {
 
     .location, .subject{
       color: #0e0e0e;
-
-    font-family: system-ui;
+      font-family: system-ui;
       font-size: smaller;
     }
 

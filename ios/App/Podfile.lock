@@ -1,29 +1,29 @@
 PODS:
-  - Capacitor (6.2.1):
+  - Capacitor (7.4.4):
     - CapacitorCordova
   - CapacitorApp (7.1.0):
     - Capacitor
   - CapacitorCamera (7.0.3):
     - Capacitor
-  - CapacitorCommunityBarcodeScanner (4.0.1):
-    - Capacitor
-  - CapacitorCordova (6.2.1)
+  - CapacitorCordova (7.4.4)
   - CapacitorHaptics (7.0.2):
     - Capacitor
   - CapacitorKeyboard (7.0.3):
     - Capacitor
   - CapacitorStatusBar (7.0.3):
     - Capacitor
+  - DroponioCapacitorCallNumber (3.0.0):
+    - Capacitor
 
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
   - "CapacitorCamera (from `../../node_modules/@capacitor/camera`)"
-  - "CapacitorCommunityBarcodeScanner (from `../../node_modules/@capacitor-community/barcode-scanner`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorHaptics (from `../../node_modules/@capacitor/haptics`)"
   - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
+  - "DroponioCapacitorCallNumber (from `../../node_modules/@droponio/capacitor-call-number`)"
 
 EXTERNAL SOURCES:
   Capacitor:
@@ -32,8 +32,6 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/app"
   CapacitorCamera:
     :path: "../../node_modules/@capacitor/camera"
-  CapacitorCommunityBarcodeScanner:
-    :path: "../../node_modules/@capacitor-community/barcode-scanner"
   CapacitorCordova:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorHaptics:
@@ -42,17 +40,19 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/keyboard"
   CapacitorStatusBar:
     :path: "../../node_modules/@capacitor/status-bar"
+  DroponioCapacitorCallNumber:
+    :path: "../../node_modules/@droponio/capacitor-call-number"
 
 SPEC CHECKSUMS:
-  Capacitor: 1e0d0e7330dea9f983b50da737d8918abcf273f8
+  Capacitor: 09d9ff8e9618e8c4b3cab2bbee34a17215dd2fef
   CapacitorApp: 846d4b4a1dbb19dd1e9029c08ba6f028aa7be862
   CapacitorCamera: 6ef67fd287de230ebd8cda05f2a7ffd44a48e568
-  CapacitorCommunityBarcodeScanner: 7feb206489c8555a8ca0c74c57ddf49ead774eb8
-  CapacitorCordova: 8d93e14982f440181be7304aa9559ca631d77fff
+  CapacitorCordova: bf648a636f3c153f652d312ae145fb508b6ffced
   CapacitorHaptics: 09d96bcb5a2b74ede8fd039b4cdf58fc43dcacf1
   CapacitorKeyboard: 3822c3a0c6b58168f96ca562f9534ed095d40860
   CapacitorStatusBar: 7d8fcbd6768db014bd721d75e246590b014928e8
+  DroponioCapacitorCallNumber: 4d8ab6ec28c6ad5ec8177c3eb61b5efdfbdfbb37
 
-PODFILE CHECKSUM: 6971e438cd4dfc6433e6e9ba4cd6db2181285d21
+PODFILE CHECKSUM: 01c19a27d54a61a7d5f39a3357d73558e0478be8
 
 COCOAPODS: 1.16.2

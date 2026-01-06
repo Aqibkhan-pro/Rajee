@@ -17,12 +17,6 @@
       <ion-content>
         <!-- Search Bar (Optional) -->
         <app-dashboard></app-dashboard>
-        <!-- FAB Button -->
-        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-          <ion-fab-button color="secondary" (click)="onAddClick()">
-            <ion-icon name="add"></ion-icon>
-          </ion-fab-button>
-        </ion-fab>
       </ion-content>
     </div>
   </ion-tab>
@@ -33,11 +27,11 @@
       <ion-toolbar color="primary">
         <!-- User Profile Section -->
         <div class="user-profile-header">
-          <img
-            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1061&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt="User Avatar" class="user-avatar">
+          <div class="avatar" [style.background]="getDummyColor(userName)">
+            {{ userName?.charAt(0) }}
+          </div>
           <h3 class="user-name">{{ userName }}</h3>
-          <p class="user-role">{{ userRole }}</p>
+          <p class="user-role">{{ userEmail }}</p>
         </div>
       </ion-toolbar>
 
@@ -68,7 +62,7 @@
     </ion-content>
 
     <!-- Footer with Language and Logout -->
-    <ion-footer>
+    <ion-footer style="padding-bottom: env(safe-area-inset-bottom);">
       <ion-list>
         <!-- Language Selection -->
         <ion-item lines="none">
@@ -101,7 +95,7 @@
           <ion-buttons slot="start">
             <ion-back-button></ion-back-button>
           </ion-buttons>
-          <ion-title>Favorites</ion-title>
+          <ion-title>{{'favorites_label' | translate}}</ion-title>
         </ion-toolbar>
         <ion-toolbar>
           <ion-searchbar placeholder="Search Favorites..." mode="ios" style="color: var(--secondary-color);"></ion-searchbar>
@@ -124,7 +118,7 @@
     <div id="notifications-page" class="ion-page">
       <ion-header>
         <ion-toolbar>
-          <ion-title>Notifications</ion-title>
+          <ion-title>{{'profile_label'| translate}}</ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-content>
@@ -146,7 +140,7 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-tab-bar slot="bottom"  class="ion-no-border">
+  <ion-tab-bar slot="bottom"  class="ion-no-border" selectedTab="home">
     <ion-tab-button  tab="home">
       <ion-icon name="home"></ion-icon>
       <ion-text>Home</ion-text>

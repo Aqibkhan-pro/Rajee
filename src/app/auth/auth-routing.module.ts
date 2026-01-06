@@ -18,6 +18,10 @@ const routes: Routes = [
       { path: APP_ROUTES.FORGET_PASSWORD, component: ForgetPasswordComponent },
       { path: APP_ROUTES.SIGNUP, component: SignupComponent }
     ]
+  },
+  {
+    path: 'product-details',
+    loadChildren: () => import('./components/product-details/product-details.module').then( m => m.ProductDetailsPageModule)
   }
 ];
 
