@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { APP_ROUTES } from './shared/utils/app-routes';
-import { AuthGuard } from './auth/services/auth.guard';
-import { StartedGuard } from './auth/services/started.guard';
 import { ChatComponent } from './auth/components/home/chat/chat.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: APP_ROUTES.AUTH, // or whatever your started route is
+    redirectTo: APP_ROUTES.MAIN, // or whatever your started route is
     pathMatch: 'full'
   },
   {
@@ -18,7 +16,6 @@ const routes: Routes = [
   {
     path: APP_ROUTES.MAIN,
     loadChildren: () => import('./auth/components/home/home.module').then(m => m.HomePageModule),
-    canActivate: [AuthGuard],
   },
   {
     path: APP_ROUTES.CHAT,
@@ -26,6 +23,9 @@ const routes: Routes = [
   }, {
     path: 'product-details',
     loadChildren: () => import('./auth/components/product-details/product-details.module').then( m => m.ProductDetailsPageModule)
+  },  {
+    path: 'admin-panel',
+    loadChildren: () => import('./auth/components/admin-panel/admin-panel.module').then( m => m.AdminPanelPageModule)
   },
   {
     path: 'add-product',

@@ -16,6 +16,21 @@ export interface Product {
   image?: string;
   user: User;
   createdAt?: number;
+  ratings?: Rating[] | any;
+  comments?: Comment[] | any;
+}
+
+export interface Rating {
+  userId: string;
+  value: number; // 1 to 5
+  createdAt: number;
+}
+
+export interface Comment {
+  userId: string;
+  userName: string;
+  text: string;
+  createdAt: number;
 }
 
 export interface ProductUser {
@@ -33,8 +48,10 @@ export interface ChatRoom {
   initials: string;
   avatarColor: string | null;
   lastMessage: string;
-  time: string;
+  time: any;
   unread: boolean;
   unreadCount: number;
   online: boolean;
+  participants: any;
+  lastMessageTime: any;
 }

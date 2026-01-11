@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+    <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Admin Panel</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="admin-bg">
+
+  <!-- Cards -->
+  <ion-grid>
+    <ion-row>
+
+      <!-- Manage Users -->
+      <ion-col size="12" size-md="6">
+        <ion-card mode="ios" class="admin-card" (click)="openUsers()">
+
+          <div class="card-header">
+            <div class="icon-circle blue">
+              <ion-icon name="people-outline"></ion-icon>
+            </div>
+            <span class="badge blue">Users</span>
+          </div>
+
+          <h2>Manage Users</h2>
+          <p>Add, edit, delete and view all user accounts in the system</p>
+
+          <div class="card-footer">
+            <div>
+              <h3>1,234</h3>
+              <span>Total Users</span>
+            </div>
+            <ion-button color="primary" size="small" mode="ios" [shape]="'round'">Open</ion-button>
+          </div>
+
+          <div class="card-strip blue"></div>
+        </ion-card>
+      </ion-col>
+
+      <!-- Manage Products -->
+      <ion-col size="12" size-md="6">
+        <ion-card mode="ios" class="admin-card" (click)="openProducts()">
+
+          <div class="card-header">
+            <div class="icon-circle indigo">
+              <ion-icon name="cube-outline"></ion-icon>
+            </div>
+            <span class="badge indigo">Products</span>
+          </div>
+
+          <h2>Manage Products</h2>
+          <p>Add, edit, delete and manage your product inventory</p>
+
+          <div class="card-footer">
+            <div>
+              <h3>567</h3>
+              <span>Total Products</span>
+            </div>
+            <ion-button color="secondary" size="small" mode="ios" [shape]="'round'">Open</ion-button>
+          </div>
+
+          <div class="card-strip indigo"></div>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <!-- Quick Stats -->
+  <ion-grid class="stats">
+    <ion-row>
+      <h3 style="color: var(--primary-color); margin-left: 12px;">User</h3>
+      <ion-col size="12" size-md="4">
+        <div class="stat-card">
+          <p>Active Users</p>
+          <h3>892</h3>
+        </div>
+      </ion-col>
+      <ion-col size="12" size-md="4">
+        <div class="stat-card">
+          <p>Deactive Users</p>
+          <h3>82</h3>
+        </div>
+      </ion-col>
+      <h3 style="color: var(--primary-color); margin-left: 12px;">Products</h3>
+      <ion-col size="12" size-md="4">
+        <div class="stat-card">
+          <p>Pending Request</p>
+          <h3>78</h3>
+        </div>
+      </ion-col>
+
+      <ion-col size="12" size-md="4">
+        <div class="stat-card">
+          <p>Reject Request</p>
+          <h3>8</h3>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

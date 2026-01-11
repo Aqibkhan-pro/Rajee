@@ -9,6 +9,7 @@ import { GraphQLModule } from '../shared/graphql/apollo.module';
 import { AuthLayoutComponent } from './components/auth/auth-layout.component';
 import { GetStartedComponent } from './components/get-started/get-started.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SignupComponent } from './components/signup/signup.component';
     IonicModule,
     AuthRoutingModule,
     GraphQLModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

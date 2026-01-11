@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'product-details',
     loadChildren: () => import('./components/product-details/product-details.module').then( m => m.ProductDetailsPageModule)
+  },
+  {
+    path: 'admin-panel',
+    loadChildren: () => import('./components/admin-panel/admin-panel.module').then( m => m.AdminPanelPageModule)
   }
 ];
 

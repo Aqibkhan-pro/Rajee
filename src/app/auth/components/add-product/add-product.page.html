@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button (click)="goBack()"></ion-back-button>
+      <ion-back-button (click)="goBack()" style="color: var(--secondary-color) !important;"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ 'add' | translate }}</ion-title>
   </ion-toolbar>
@@ -9,27 +9,36 @@
 
 <ion-content [fullscreen]="true">
 
-  <!-- ✅ Reactive Form Wrapper -->
   <form [formGroup]="form" (ngSubmit)="handleSubmit()">
-
     <ion-list>
-
-      <!-- Image (no control needed yet) -->
+      <!-- Image Picker -->
       <ion-item lines="none">
-        <div class="select_img" (click)="pickSingleImage()">
+        <div class="select_img" (click)="pickSingleImage()" *ngIf="!pickedImage?.dataUrl">
           <div class="sub_select">
-            <ion-icon name="camera" style="font-size: 32px;" class="add_icon"></ion-icon>
-            <ion-text>Add Image</ion-text>
+            <ion-icon name="camera" style="font-size: 32px;" [slot]="selectedLanguage=='en' ? 'start':'end'"
+              class="add_icon">
+            </ion-icon>
+            <ion-text>{{ 'add_image' | translate }}</ion-text>
           </div>
         </div>
+
+        <!-- Show selected image -->
+        <div *ngIf="pickedImage?.dataUrl" class="picked-image-container" (click)="pickSingleImage()">
+          <img [src]="pickedImage.dataUrl" alt="Selected Image" class="picked-image" />
+        </div>
       </ion-item>
+
 
       <!-- Location -->
       <ion-item lines="none">
         <div class="select_location">
           <div class="sub_select_location">
-            <ion-text class="location">{{ 'location' | translate }}</ion-text>
-            <ion-text class="change_location">{{ 'set_location' | translate }}</ion-text>
+            <ion-text class="location" [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
+              {{ 'location' | translate }}
+            </ion-text>
+            <ion-text class="change_location" [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
+              {{ 'set_location' | translate }}
+            </ion-text>
           </div>
         </div>
       </ion-item>
@@ -38,11 +47,11 @@
       <ion-item lines="none">
         <div class="select_location">
           <div class="sub_select_location">
-            <ion-text class="subject">{{ 'offer_subject' | translate }}</ion-text>
-            <ion-input
-              class="change_subject"
-              formControlName="title"
-              placeholder="e.g: Honda 125">
+            <ion-text class="subject" style="color:  #343434;" [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
+              {{ 'offer_subject' | translate }}
+            </ion-text>
+            <ion-input class="change_subject" formControlName="title" placeholder="e.g: Honda 125"
+              [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
             </ion-input>
           </div>
         </div>
@@ -52,48 +61,65 @@
       <ion-item lines="none">
         <div class="select_location">
           <div class="sub_select_location">
-            <ion-text class="subject">{{ 'price' | translate }}</ion-text>
-            <ion-input
-              class="change_subject"
-              type="number"
-              formControlName="price"
-              placeholder="e.g: 100">
+            <ion-text class="subject" [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
+              {{ 'price' | translate }}
+            </ion-text>
+            <ion-input class="change_subject" type="number" formControlName="price" placeholder="e.g: 100"
+              [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
             </ion-input>
           </div>
         </div>
       </ion-item>
 
       <!-- Section -->
+  <!-- Section -->
+<ion-item lines="none">
+  <div class="select_location">
+    <div class="sub_select_location">
+
+      <ion-text class="subject"
+        [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
+        {{ 'section' | translate }}
+      </ion-text>
+
       <ion-item lines="none">
-        <div class="select_location">
-          <div class="sub_select_location">
-            <ion-text class="subject">{{ 'section' | translate }}</ion-text>
-            <ion-item lines="none">
-              <ion-label style="color: #0e0e0e;">{{ 'select' | translate }}</ion-label>
-              <ion-select
-                formControlName="section"
-                class="change_subject"
-                interface="popover">
-                <ion-select-option *ngFor="let s of sections" [value]="s">
-                  {{ s }}
-                </ion-select-option>
-              </ion-select>
-            </ion-item>
-          </div>
-        </div>
+        <ion-label  style="color:  #343434;"
+          [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
+          {{ 'select' | translate }}
+        </ion-label>
+
+        <ion-select
+          formControlName="section"
+          class="change_subject"
+          interface="popover"
+          [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
+
+          <ion-select-option
+            *ngFor="let s of category"
+            [value]="s.key">
+            {{ selectedLanguage === 'en' ? s.en : s.ar }}
+          </ion-select-option>
+
+        </ion-select>
       </ion-item>
 
-      <!-- Condition (FIXED) -->
+    </div>
+  </div>
+</ion-item>
+
+
+      <!-- Condition -->
       <ion-item lines="none">
         <div class="select_location">
           <div class="sub_select_location">
-            <ion-text class="subject">{{ 'condition_label' | translate }}</ion-text>
+            <ion-text class="subject" [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
+              {{ 'condition_label' | translate }}
+            </ion-text>
             <ion-item lines="none">
-              <ion-label style="color: #0e0e0e">{{ 'select' | translate }}</ion-label>
-              <ion-select
-                formControlName="condition"
-                class="change_subject"
-                interface="popover">
+              <ion-label style="color:  #343434;" [style.text-align]="selectedLanguage=='en' ? 'start':'end'">{{ 'select' | translate
+                }}</ion-label>
+              <ion-select formControlName="condition" class="change_subject" interface="popover"
+                [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
                 <ion-select-option *ngFor="let c of conditions" [value]="c">
                   {{ c }}
                 </ion-select-option>
@@ -107,11 +133,12 @@
       <ion-item lines="none">
         <div class="select_location">
           <div class="sub_select_location">
-            <ion-text class="subject">{{ 'description_label' | translate }}</ion-text>
-            <ion-textarea
-              class="change_subject"
-              formControlName="description"
-              placeholder="{{ 'enter_description' | translate }}">
+            <ion-text class="subject" [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
+              {{ 'description_label' | translate }}
+            </ion-text>
+            <ion-textarea class="change_subject" formControlName="description"
+              placeholder="{{ 'enter_description' | translate }}"
+              [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
             </ion-textarea>
           </div>
         </div>

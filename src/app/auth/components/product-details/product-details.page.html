@@ -4,6 +4,15 @@
       <ion-back-button style="color: var(--secondary-color) !important;"></ion-back-button>
     </ion-buttons>
     <ion-title>{{'detail'|translate}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleFavorite()">
+        <ion-icon
+          slot="icon-only"
+          [name]="isFavorite ? 'heart' : 'heart-outline'"
+          [color]="isFavorite ? 'danger' : 'medium'">
+        </ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -30,28 +39,229 @@
     <div class="card-info">
       <!-- User Initial instead of icon -->
       <span class="card-info-item user-initial" style="justify-content: left">
-        <span class="initial-circle">{{ product?.user?.displayName.charAt(0) }}</span>
-        <span>{{ product?.user?.displayName }}</span>
+        <span class="initial-circle">{{ product?.user?.name.charAt(0) }}</span>
+        <span>{{ product?.user?.name }}</span>
       </span>
 
       <!-- Component -->
       <span class="card-info-item" style="justify-content:right">
-        <ion-button size="small" shape="round" mode="ios"
-        [fill]="isFollowing ? 'solid' : 'outline'"
-        (click)="isFollowing ? unfollowUser() : followUser()"
-          style="--background: #0573c1; color: #fff;">
+        <ion-button size="small" shape="round" mode="ios" [fill]="isFollowing ? 'solid' : 'outline'"
+          (click)="isFollowing ? unfollowUser() : followUser()" style="--background: #0573c1; color: #fff;">
           {{ isFollowing ? 'Following' : 'Follow' }}
         </ion-button>
-
       </span>
     </div>
-
   </ion-list>
+
   <ion-list style="padding: 16px;">
     <img [src]="product?.image" alt="Product Image" class="card-image" />
-    <ion-button mode="ios" shape="round" expand="block"  (click)="callUserData(product?.user?.phone)"
-    style="--background: #0573c1; color: #fff; margin-top: 12px;">
+    <ion-button mode="ios" shape="round" expand="block" (click)="callUserData(product)"
+      style="--background: #0573c1; color: #fff; margin-top: 12px;">
       <ion-icon name="call-sharp"></ion-icon>
-      Contact</ion-button>
+      Contact
+    </ion-button>
+    <ion-button mode="ios" shape="round" expand="block" (click)="openChat(product)"
+      style="--background: #0573c1; color: #fff; margin-top: 12px;">
+      <ion-icon name="chatbubble"></ion-icon>
+      Send Message
+    </ion-button>
   </ion-list>
+
+  <!-- Ratings Summary -->
+  <div class="product-rating">
+    <div class="rating-header">
+      <h3 style="color: var(--primary-color);">Rating & Reviews</h3>
+      <ion-button fill="clear" (click)="openActionsMenu()">
+        <ion-icon slot="icon-only" name="add-circle" color="primary"></ion-icon>
+      </ion-button>
+    </div>
+
+    <div class="rating-summary">
+      <div class="rating-score">
+        <h1>{{ averageRating | number:'1.1-1' }}</h1>
+        <div class="stars">
+          <ion-icon
+            *ngFor="let star of [1,2,3,4,5]"
+            name="star"
+            [color]="star <= averageRating ? 'warning' : 'medium'">
+          </ion-icon>
+        </div>
+        <p>{{ product?.ratings?.length || 0 }} reviews</p>
+      </div>
+
+      <!-- Rating Breakdown -->
+      <div class="rating-breakdown" *ngIf="product?.ratings?.length > 0">
+        <div class="rating-bar" *ngFor="let count of [5,4,3,2,1]">
+          <span class="star-count">{{ count }}★</span>
+          <div class="bar-container">
+            <div class="bar-fill" [style.width.%]="getRatingPercentage(count)"></div>
+          </div>
+          <span class="count-text">{{ getRatingCount(count) }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comments Preview -->
+  <div class="product-comments">
+    <div class="comments-header">
+      <h3>Comments ({{ product?.comments?.length || 0 }})</h3>
+      <ion-button fill="clear" size="small" (click)="openCommentsModal()">
+        View All
+        <ion-icon slot="end" name="chevron-forward"></ion-icon>
+      </ion-button>
+    </div>
+
+    <ion-list *ngIf="product?.comments?.length > 0" class="comments-preview">
+      <ion-item *ngFor="let comment of product?.comments.slice(0, 3)" lines="none">
+        <div class="comment-card">
+          <div class="comment-header">
+            <span class="user-avatar">{{ comment.userName.charAt(0) }}</span>
+            <div class="user-info">
+              <h4>{{ comment.userName }}</h4>
+              <p class="comment-time">{{ formatTime(comment.createdAt) }}</p>
+            </div>
+          </div>
+          <p class="comment-text">{{ comment.text }}</p>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <div class="no-comments" *ngIf="!product?.comments || product?.comments?.length === 0">
+      <ion-icon name="chatbubbles-outline"></ion-icon>
+      <p>No comments yet. Be the first to comment!</p>
+    </div>
+  </div>
 </ion-content>
+
+<!-- Action Sheet for Add Options -->
+<ion-action-sheet
+  [isOpen]="isActionSheetOpen"
+  header="Choose Action"
+  [buttons]="actionButtons"
+  (didDismiss)="isActionSheetOpen = false">
+</ion-action-sheet>
+
+<!-- Rating Modal -->
+<ion-modal [isOpen]="isRatingModalOpen" (didDismiss)="closeRatingModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Rate this Product</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeRatingModal()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="rating-modal-content">
+      <div class="rating-container">
+        <h2>How would you rate this product?</h2>
+        <div class="large-stars">
+          <ion-icon
+            *ngFor="let star of [1,2,3,4,5]"
+            name="star"
+            [color]="star <= selectedRating ? 'warning' : 'medium'"
+            (click)="selectRating(star)">
+          </ion-icon>
+        </div>
+        <p class="rating-text">{{ getRatingText(selectedRating) }}</p>
+
+        <ion-button
+          expand="block"
+          mode="ios"
+          shape="round"
+          (click)="submitRating()"
+          [disabled]="selectedRating === 0"
+          style="--background: #0573c1; color: #fff; margin-top: 24px;">
+          Submit Rating
+        </ion-button>
+      </div>
+
+      <!-- Existing Ratings -->
+      <div class="existing-ratings" *ngIf="product?.ratings?.length > 0">
+        <h3>All Ratings</h3>
+        <ion-list>
+          <ion-item *ngFor="let rating of product?.ratings" lines="none">
+            <div class="rating-item">
+              <div class="rating-item-header">
+                <span class="user-avatar">{{ rating.userName.charAt(0) }}</span>
+                <div class="user-info">
+                  <h4>{{ rating.userName }}</h4>
+                  <div class="small-stars">
+                    <ion-icon
+                      *ngFor="let star of [1,2,3,4,5]"
+                      name="star"
+                      [color]="star <= rating.value ? 'warning' : 'medium'">
+                    </ion-icon>
+                  </div>
+                </div>
+              </div>
+              <p class="rating-time">{{ formatTime(rating.createdAt) }}</p>
+            </div>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<!-- Comments Modal (Full Screen) -->
+<ion-modal [isOpen]="isCommentsModalOpen" [breakpoints]="[0, 1]" [initialBreakpoint]="1">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Comments</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeCommentsModal()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="comments-modal-content">
+      <ion-list *ngIf="product?.comments?.length > 0">
+        <ion-item *ngFor="let comment of product?.comments" lines="none">
+          <div class="full-comment-card">
+            <div class="comment-header">
+              <span class="user-avatar-large">{{ comment.userName.charAt(0) }}</span>
+              <div class="user-info">
+                <h4>{{ comment.userName }}</h4>
+                <p class="comment-time">{{ formatTime(comment.createdAt) }}</p>
+              </div>
+            </div>
+            <p class="comment-text">{{ comment.text }}</p>
+          </div>
+        </ion-item>
+      </ion-list>
+
+      <div class="no-comments-full" *ngIf="!product?.comments || product?.comments?.length === 0">
+        <ion-icon name="chatbubbles-outline"></ion-icon>
+        <h3>No comments yet</h3>
+        <p>Be the first to share your thoughts!</p>
+      </div>
+    </ion-content>
+
+    <ion-footer>
+      <ion-toolbar>
+        <div class="comment-input-container">
+          <ion-input
+            [(ngModel)]="newComment"
+            placeholder="Write a comment..."
+            class="comment-input">
+          </ion-input>
+          <ion-button
+            (click)="addComment()"
+            [disabled]="!newComment.trim()"
+            fill="clear"
+            class="send-button">
+            <ion-icon slot="icon-only" name="send" color="primary"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-toolbar>
+    </ion-footer>
+  </ng-template>
+</ion-modal>

@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { storage } from 'src/environments/firebase-config';
 import { ref as storageRef, uploadString, getDownloadURL } from 'firebase/storage';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
+import { UserService } from 'src/app/services/user.service';
 
 interface User {
   uid: string;
@@ -25,10 +26,10 @@ interface User {
 export class AddProductPage implements OnInit {
 
   form: FormGroup;
-  sections: string[] = [];
+  category: any[] = [];
   conditions: string[] = [];
   pickedImage: Photo | null = null;
-
+  selectedLanguage: string = 'en';
   // ✅ Your Firebase DB URL
   FIREBASE_DB_URL = 'https://rajee-198a5-default-rtdb.firebaseio.com';
 
@@ -37,7 +38,8 @@ export class AddProductPage implements OnInit {
     private navCtrl: NavController,
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private userService: UserService
   ) {
 
     this.form = this.fb.group({
@@ -49,13 +51,27 @@ export class AddProductPage implements OnInit {
       image: ['']
     });
 
-    this.sections = [
-      this.translate.instant('iron-tools'),
-      this.translate.instant('plastic-tools'),
-      this.translate.instant('electrical-tools'),
-      this.translate.instant('construction-equipment'),
-      this.translate.instant('old-electronics')
+     this.category = [
+      { key: 'cars', ar: 'حراج السيارات', en: 'Cars & Vehicles' },
+      { key: 'real_estate', ar: 'حراج العقار', en: 'Real Estate' },
+      { key: 'electronics', ar: 'حراج الأجهزة', en: 'Electronics & Devices' },
+      { key: 'animals', ar: 'مواشي وحيوانات وطيور', en: 'Livestock, Animals & Birds' },
+      { key: 'furniture', ar: 'حراج الأثاث', en: 'Furniture' },
+      { key: 'personal_items', ar: 'مستلزمات شخصية', en: 'Personal Items & Accessories' },
+      { key: 'services', ar: 'خدمات', en: 'Services' },
+      { key: 'jobs', ar: 'وظائف', en: 'Jobs' },
+      { key: 'games', ar: 'ألعاب وترفيه', en: 'Games & Entertainment' },
+      { key: 'food', ar: 'أطعمة ومشروبات', en: 'Food & Beverages' },
+      { key: 'books_art', ar: 'مكتبة وفنون', en: 'Books & Arts' },
+      { key: 'hunting_trips', ar: 'صيد ورحلات', en: 'Hunting & Trips' },
+      { key: 'events', ar: 'حفلات ومناسبات', en: 'Events & Parties' },
+      { key: 'agriculture', ar: 'زراعة وحدائق', en: 'Agriculture & Gardening' },
+      { key: 'travel', ar: 'سفر وسياحة', en: 'Travel & Tourism' },
+      { key: 'programming_design', ar: 'برمجة وتصاميم', en: 'Programming & Designs' },
+      { key: 'lost_found', ar: 'مفقودات', en: 'Lost & Found' },
+      { key: 'others', ar: 'قسم غير مصنف', en: 'Uncategorized / Other' }
     ];
+    ;
 
     this.conditions = [
       this.translate.instant('new'),
@@ -64,7 +80,16 @@ export class AddProductPage implements OnInit {
     ];
   }
 
-  ngOnInit() { }
+  async ngOnInit() {
+
+    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+    const pUser:any = await this.userService.getUserById(userData.uid)
+    console.log("User:--",pUser);
+     const savedLang = localStorage.getItem('lang');
+    if (savedLang) {
+      this.selectedLanguage = savedLang;
+    }
+   }
 
   async pickSingleImage() {
     try {
@@ -111,13 +136,15 @@ export class AddProductPage implements OnInit {
       const idToken = userData?.idToken;
       if (!idToken) throw new Error('User token not found');
 
+      const pUser:any = await this.userService.getUserById(userData.uid)
       // 3️⃣ Merge user info into product data
       const productData = {
         ...this.form.value,
         user: {
           uid: userData.uid,
-          displayName: userData.displayName,
+          name: userData.name,
           email: userData.email,
+          phone: pUser?.phone || '',
           photoURL: userData.photoURL
         },
         createdAt: Date.now()

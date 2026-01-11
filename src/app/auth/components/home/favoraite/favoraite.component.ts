@@ -1,5 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { NavigationExtras } from '@angular/router';
+import { AlertController, NavController, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+interface FavoriteItem {
+  productId: number;
+  userId: string;
+  addedAt: number;
+  product: {
+    title: string;
+    description: string;
+    price: string;
+    image: string;
+    createdAt: number;
+    user: {
+      uid: string;
+      name: string;
+    };
+  };
+}
 
 @Component({
   selector: 'app-favoraite',
@@ -10,97 +28,184 @@ import { ToastController } from '@ionic/angular';
 export class FavoraiteComponent implements OnInit {
 
 
+
+
+
   selectedLanguage: string = 'en';
-  userName: string = 'John Doe';
-  userRole: string = 'Administrator';
+  FIREBASE_DB_URL = 'https://rajee-198a5-default-rtdb.firebaseio.com';
+  currentUserId!: string;
+
+  items: FavoriteItem[] = [];
+  filteredItems: FavoriteItem[] = [];
+  searchTerm: string = '';
+  isLoading: boolean = false;
 
   constructor(
-    private toastController: ToastController) { }
+    private navCtrl: NavController,
+    private translate: TranslateService,
+    private toastController: ToastController,
+    private alertController: AlertController
+  ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.translate.onLangChange.subscribe(() => {
+      this.selectedLanguage = this.translate.currentLang;
+    });
 
-    this.loadItems();
-    const savedLang = localStorage.getItem('selectedLanguage');
+    const savedLang = localStorage.getItem('lang');
     if (savedLang) {
       this.selectedLanguage = savedLang;
     }
+
+    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+    if (userData?.uid) {
+      this.currentUserId = userData.uid;
+      await this.loadFavorites();
+    }
   }
 
+  ionViewWillEnter() {
+    // Refresh favorites when page is entered
+    this.loadFavorites();
+  }
 
-  items: any[] = [];
+  async loadFavorites() {
+    this.isLoading = true;
+    try {
+      const favorites = await this.fetchFavorites();
+      console.log("Favorites:", favorites);
 
-  loadItems() {
-    // Sample data - replace with your API call
-    this.items = [
-      {
-        id: 1,
-        name: 'Wireless Headphones',
-        description: 'High-quality noise-canceling headphones with 30-hour battery life.',
-        price: 99.99,
-        image: 'https://images.pexels.com/photos/261395/pexels-photo-261395.jpeg',
-        isFavorite: true
-      },
-      {
-        id: 2,
-        name: 'Smart Watch',
-        description: 'Fitness tracker with heart rate monitor and GPS capabilities.',
-        price: 199.99,
-        image: 'https://images.pexels.com/photos/3155725/pexels-photo-3155725.jpeg',
-        isFavorite: true
-      },
-      {
-        id: 3,
-        name: 'Bluetooth Speaker',
-        description: 'Portable waterproof speaker with amazing sound quality.',
-        price: 49.99,
-        image: 'https://images.pexels.com/photos/1268855/pexels-photo-1268855.jpeg',
-        isFavorite: true
-      },
-      {
-        id: 4,
-        name: 'Laptop Stand',
-        description: 'Ergonomic adjustable stand for better posture and comfort.',
-        price: 39.99,
-        image: 'https://images.pexels.com/photos/7832554/pexels-photo-7832554.jpeg',
-        isFavorite: true
+      this.items = favorites;
+      this.filteredItems = favorites;
+    } catch (error) {
+      console.error('Error loading favorites:', error);
+      this.showToast('Failed to load favorites', 'danger');
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  async fetchFavorites(): Promise<FavoriteItem[]> {
+    try {
+      const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+      const idToken = userData?.idToken;
+      if (!idToken) throw new Error('User token not found');
+
+      const url = `${this.FIREBASE_DB_URL}/favorites/${this.currentUserId}.json?auth=${idToken}`;
+
+      const res = await fetch(url);
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`Failed to fetch favorites: ${errorText}`);
       }
-    ];
+
+      const data = await res.json();
+
+      // Convert object to array
+      const favorites: FavoriteItem[] = [];
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          favorites.push(data[key]);
+        }
+      }
+
+      // Sort by addedAt (most recent first)
+      favorites.sort((a, b) => b.addedAt - a.addedAt);
+
+      return favorites;
+
+    } catch (err: any) {
+      console.error('Fetch favorites error:', err);
+      throw err;
+    }
   }
 
-  async addToCart(item: any) {
+  filterFavorites() {
+    if (!this.searchTerm || this.searchTerm.trim() === '') {
+      this.filteredItems = this.items;
+      return;
+    }
+
+    const term = this.searchTerm.toLowerCase().trim();
+    this.filteredItems = this.items.filter(item =>
+      item.product?.title?.toLowerCase().includes(term) ||
+      item.product?.description?.toLowerCase().includes(term) ||
+      item.product?.user?.name?.toLowerCase().includes(term)
+    );
+  }
+
+  async removeFavorite(item: FavoriteItem, event: Event) {
+    event.stopPropagation(); // Prevent card click
+
+    const alert = await this.alertController.create({
+      header: 'Remove Favorite',
+      message: `Are you sure you want to remove "${item.product?.title}" from favorites?`,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Remove',
+          role: 'destructive',
+          handler: async () => {
+            await this.confirmRemoveFavorite(item);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async confirmRemoveFavorite(item: FavoriteItem) {
+    try {
+      const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+      const idToken = userData?.idToken;
+      if (!idToken) throw new Error('User token not found');
+
+      const productId = item.productId;
+      const url = `${this.FIREBASE_DB_URL}/favorites/${this.currentUserId}/${productId}.json?auth=${idToken}`;
+
+      const res = await fetch(url, {
+        method: 'DELETE'
+      });
+
+      if (!res.ok) throw new Error('Failed to remove favorite');
+
+      // Remove from local arrays
+      this.items = this.items.filter(i => i.productId !== productId);
+      this.filteredItems = this.filteredItems.filter(i => i.productId !== productId);
+
+      await this.showToast('Removed from favorites', 'success');
+    } catch (error) {
+      console.error('Error removing favorite:', error);
+      await this.showToast('Failed to remove favorite', 'danger');
+    }
+  }
+
+  async showToast(message: string, color: string = 'danger') {
     const toast = await this.toastController.create({
-      message: `${item.name} added to cart!`,
+      message,
       duration: 2000,
+      color,
       position: 'bottom',
-      color: 'success',
-      icon: 'checkmark-circle-outline'
     });
     toast.present();
-
-    // Add your cart logic here
-    console.log('Added to cart:', item);
   }
 
-  async toggleFavorite(item: any) {
-    item.isFavorite = !item.isFavorite;
+  onCardClick(item: FavoriteItem) {
+    // Navigate to product details with the product data
+    const navigationExtras: NavigationExtras = {
+      state: {
+        product: item.product
+      }
+    };
 
-    const toast = await this.toastController.create({
-      message: item.isFavorite
-        ? `${item.name} added to favorites!`
-        : `${item.name} removed from favorites`,
-      duration: 1500,
-      position: 'bottom',
-      color: item.isFavorite ? 'danger' : 'medium',
-      icon: item.isFavorite ? 'heart' : 'heart-outline'
-    });
-    toast.present();
-
-    // Save to favorites list or API
-    console.log('Favorite toggled:', item);
+    this.navCtrl.navigateForward(['/product-details'], navigationExtras);
   }
 
-  onAddClick() {
-    console.log('FAB clicked - Navigate to add new item');
-    // Navigate to add item page or open modal
+  goToHome() {
+    this.navCtrl.navigateBack(['/home']);
   }
 }

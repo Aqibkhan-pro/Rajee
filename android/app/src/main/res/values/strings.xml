@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Preowned Devices</string>
+    <string name="app_name">Rajee</string>
     <string name="title_activity_main">Preowned Devices</string>
     <string name="package_name">app.preowned.devices</string>
     <string name="custom_url_scheme">app.preowned.devices</string>

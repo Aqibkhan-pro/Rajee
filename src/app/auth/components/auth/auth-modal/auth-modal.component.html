@@ -1,0 +1,106 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content scrollY="false" [fullscreen]="true">
+  <ion-list class="top-list">
+
+    <!-- Animation -->
+    <ion-item lines="none">
+      <div class="avatar-center">
+        <lottie-player
+          src="../../../../assets/anim/data.json"
+          background="transparent"
+          speed="1"
+          loop
+          autoplay
+          style="width: 160px; height: 160px;">
+        </lottie-player>
+      </div>
+    </ion-item>
+
+    <!-- Login Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="callDetailUserApi()">
+      <ion-list class="text-center mt-4">
+        <ion-label>
+          <h2 class="text-20">{{ 'welcome_back_let' | translate }}</h2>
+        </ion-label>
+
+        <!-- Email -->
+        <ion-list class="text-start mt-12">
+          <ion-item class="custom-input mt-8 input-item" lines="none">
+            <ion-icon
+              slot="{{ selectedLanguage=='en' ? 'start':'end' }}"
+              src="assets/svg/envelope.svg"
+              class="text-20">
+            </ion-icon>
+            <ion-input
+              type="email"
+              placeholder="{{ 'email_placeholder' | translate }}"
+              formControlName="email"
+              [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
+            </ion-input>
+          </ion-item>
+        </ion-list>
+
+        <ion-text color="danger" *ngIf="submitted && email?.errors">
+          <p *ngIf="email?.errors?.required" [style.text-align]="selectedLanguage=='en' ? 'start':'end'">{{ 'email_required' | translate }}</p>
+          <p *ngIf="email?.errors?.email" [style.text-align]="selectedLanguage=='en' ? 'start':'end'">{{ 'email_invalid' | translate }}</p>
+        </ion-text>
+
+        <!-- Password -->
+        <ion-list class="text-start">
+          <ion-item class="custom-input mt-8 input-item" lines="none">
+            <ion-icon
+              slot="{{ selectedLanguage=='en' ? 'start':'end' }}"
+              src="assets/svg/lock.svg"
+              class="text-20">
+            </ion-icon>
+            <ion-input
+              type="password"
+              placeholder="{{ 'password_placeholder' | translate }}"
+              formControlName="password"
+              [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
+            </ion-input>
+            <ion-icon
+              slot="{{ selectedLanguage=='en' ? 'end':'start' }}"
+              src="assets/svg/view.svg"
+              class="text-20">
+            </ion-icon>
+          </ion-item>
+        </ion-list>
+
+        <ion-text color="danger" *ngIf="submitted && password?.errors">
+          <p *ngIf="password?.errors?.required" [style.text-align]="selectedLanguage=='en' ? 'start':'end'">{{ 'password_required' | translate }}</p>
+          <p *ngIf="password?.errors?.minlength" [style.text-align]="selectedLanguage=='en' ? 'start':'end'">{{ 'password_minlength' | translate }}</p>
+        </ion-text>
+
+        <!-- Forgot Password -->
+        <ion-label>
+          <p class="forgot-text text-14 mt-12" [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
+            <u>{{ 'forgot_password' | translate }}</u>
+          </p>
+        </ion-label>
+
+        <!-- Login Button -->
+        <ion-button expand="block" type="submit" mode="ios" [disabled]="isLoading" class="text-16 mt-20">
+          <ng-container *ngIf="!isLoading">{{ 'login' | translate }}</ng-container>
+          <ng-container *ngIf="isLoading">
+            <ion-spinner name="crescent" slot="start"></ion-spinner>
+            {{ 'logging_in' | translate }}
+          </ng-container>
+        </ion-button>
+
+        <!-- Sign Up -->
+        <ion-label>
+          <p class="create-text text-14 mt-12" [style.text-align]="selectedLanguage=='en' ? 'start':'end'" (click)="creatAccount()">
+            {{ 'create_account' | translate }}
+            <u style="color: aqua; margin-left: 5px;">{{ 'sign_up' | translate }}</u>
+          </p>
+        </ion-label>
+      </ion-list>
+    </form>
+  </ion-list>
+</ion-content>

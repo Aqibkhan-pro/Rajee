@@ -60,7 +60,6 @@ export class ChatApiService {
     return [user1, user2].sort().join('_'); // consistent chat room ID
   }
 
-  // Send message
   sendMessage(senderId: string, receiverId: string, message: string): Promise<void> {
     if (!this.idToken) {
       console.error('No ID token found');
@@ -75,28 +74,23 @@ export class ChatApiService {
       timestamp: Date.now()
     };
 
-    return this.http.post<void>(
-      `${this.baseUrl}/chats/${chatId}/messages.json?auth=${this.idToken}`,
-      msg
-    ).toPromise();
+    // Save message under /chats/{chatId}/messages
+    const messagesRef = `${this.baseUrl}/chats/${chatId}/messages.json?auth=${this.idToken}`;
+
+    return this.http.post<void>(messagesRef, msg).toPromise().then(async () => {
+      // Update last message in /chatRooms/{chatId}
+      const chatRoomRef = `${this.baseUrl}/chatRooms/${chatId}.json?auth=${this.idToken}`;
+
+      const lastMessageData = {
+        lastMessage: message,
+        lastMessageTime: msg.timestamp,
+        senderId: senderId,
+        participants: [senderId, receiverId]
+      };
+
+      await this.http.patch(chatRoomRef, lastMessageData).toPromise();
+    });
   }
-
-  // // Get all messages
-  // getMessages(user1: string, user2: string): Observable<Message[]> {
-  //   if (!this.idToken) {
-  //     console.error('No ID token found');
-  //     return of([]);
-  //   }
-
-  //   const chatId = this.getChatId(user1, user2);
-
-  //   return this.http.get<{ [key: string]: Message }>(
-  //     `${this.baseUrl}/chats/${chatId}/messages.json?auth=${this.idToken}&orderBy="timestamp"`
-  //   ).pipe(
-  //     map(res => res ? Object.values(res) : [])
-  //   );
-  // }
-
 
 
 }

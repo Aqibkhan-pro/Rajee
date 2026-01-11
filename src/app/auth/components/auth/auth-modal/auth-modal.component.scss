@@ -1,0 +1,87 @@
+.avatar-center {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  width: 125px;
+  height: 125px;
+}
+
+.top-list {
+  padding: 4px 24px 24px;
+  height: 100%;
+}
+
+ion-label {
+  color: var(--secondary-color);
+
+  h2 {
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .paragraph {
+    margin: 0px 0px 20px 0px;
+    font-weight: 500;
+  }
+
+  .forgot-text {
+    text-align: end;
+    font-weight: 500;
+    color: var(--secondary-color);
+  }
+
+  .create-text {
+    text-align: center;
+    font-weight: 500;
+    color: var(--secondary-color);
+  }
+}
+
+ion-text {
+  p {
+    margin: 0px;
+    font-size: 12px;
+  }
+}
+
+ion-content,
+ion-item,
+ion-list,
+ion-header,
+ion-toolbar {
+  --background: var(--primary-color);
+  background: var(--primary-color);
+}
+
+.input-item {
+  border: 1px solid var(--card-border-color);
+  border-radius: 12px;
+}
+
+ion-button {
+  color: var(--btn-text-color);
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  --background: var(--button-color);
+  --background-hover: var(--button-press-color);
+  --background-activated: var(--button-press-color);
+}
+
+.custom-input {
+  --background: var(--secondary-color) !important;
+  --color: #000000 !important;
+  --placeholder-color: #ddd;
+  --placeholder-opacity: 0.8;
+  --padding-bottom: 2px;
+  --padding-end: 0px;
+  --padding-start: 12px;
+  --padding-top: 2px;
+  --border-radius: 6px;
+}
+
+.mt-16{
+  margin-top: 16px;
+}

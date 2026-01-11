@@ -7,6 +7,7 @@ import { ToastService } from 'src/app/services/toast.service';
 import { ToastType } from 'src/app/shared/enums/common.enum';
 import { StorageService } from 'src/app/services/storage.service';
 import { constants } from 'src/app/shared/utils/constants';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -18,12 +19,14 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   submitted = false;
   isLoading: boolean = false;
+  selectedLanguage: string = 'ar';
 
   constructor(
     private navCtrl: NavController,
     private fb: FormBuilder,
     private authService: RAuthService,
     private toastService: ToastService,
+    private translate : TranslateService,
     private storageService: StorageService
   ) { }
 
@@ -32,6 +35,11 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang) {
+      this.selectedLanguage = savedLang;
+    }
   }
 
   get email() {
@@ -70,7 +78,7 @@ export class LoginComponent implements OnInit {
         const userData = {
           uid: res.user?.uid,
           email: res.user?.email,
-          displayName: res.user?.displayName,
+          name: res.user?.displayName,
           photoURL: res.user?.photoURL,
           emailVerified: res.user?.emailVerified,
           loginTime: new Date().toISOString(),

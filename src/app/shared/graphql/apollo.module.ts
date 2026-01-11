@@ -10,6 +10,7 @@ import { setContext } from '@apollo/client/link/context';
 
 import { environment } from 'src/environments/environment';
 import { constants } from '../utils/constants';
+import { IsArabicPipe } from './Users/mohammdtyyab/Desktop/New/preowned_devices/src/app/shared/is-arabic.pipe';
 
 @NgModule({
   imports: [
@@ -107,6 +108,9 @@ import { constants } from '../utils/constants';
         }
       };
     })
+  ],
+   declarations: [
+    "IsArabicPipe"
   ]
 })
 export class GraphQLModule {}

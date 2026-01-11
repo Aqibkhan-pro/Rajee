@@ -9,6 +9,7 @@ import {
   ValidationErrors
 } from '@angular/forms';
 import { NavController, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 /* ================= OTP Validator ================= */
 function otpRequiredLength(length: number) {
@@ -38,7 +39,7 @@ interface User {
   standalone: false
 })
 export class SignupComponent implements OnInit, OnDestroy {
-
+  selectedLanguage : string = 'ar';
   signupForm!: FormGroup;
   otpForm!: FormGroup;
 
@@ -60,7 +61,8 @@ export class SignupComponent implements OnInit, OnDestroy {
     private toastCtrl: ToastController,
     private afAuth: AngularFireAuth,
     private db: AngularFireDatabase,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private translate: TranslateService,
   ) {}
 
   /* ================= Lifecycle ================= */
@@ -79,6 +81,10 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.otpForm = this.fb.group({
       otp: ['', [Validators.required, otpRequiredLength(6)]],
     });
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang) {
+      this.selectedLanguage = savedLang;
+    }
   }
 
   ngOnDestroy() {

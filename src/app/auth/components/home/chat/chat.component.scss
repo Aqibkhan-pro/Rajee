@@ -95,7 +95,7 @@ ion-title {
 
 ion-footer {
   ion-toolbar {
-    padding-bottom: env(safe-area-inset-bottom);
+    margin-bottom: env(safe-area-inset-bottom);
     --background: white;
     --border-width: 1px 0 0 0;
     --border-color: #e0e0e0;

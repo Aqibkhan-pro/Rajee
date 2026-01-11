@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController, NavController, ToastController } from '@ionic/angular';
+import { MenuController, ModalController, NavController, ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { RAuthService } from 'src/app/services/r-auth.service';
+import { AuthModalComponent } from '../auth/auth-modal/auth-modal.component';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-home',
@@ -15,26 +17,26 @@ export class HomePage implements OnInit {
   userEmail: string = 'Loading...';
 
   constructor(
+    private navCtrl : NavController,
     private menuCtrl: MenuController,
-    private toastController: ToastController,
     private authService: RAuthService,
-    private navCtrl : NavController,private translate: TranslateService) { }
+    private modalCtrl: ModalController,
+    private translate: TranslateService,
+    private commonService : CommonService) { }
 
   ngOnInit() {
-
     const userData = JSON.parse(localStorage.getItem('userData') || '{}');
     if (userData) {
-      this.userName = userData?.displayName;
+      this.userName = userData?.name;
       this.userEmail = userData?.email;
+
     }
 
-    const savedLang = localStorage.getItem('selectedLanguage');
+    const savedLang = localStorage.getItem('lang');
     if (savedLang) {
       this.selectedLanguage = savedLang;
     }
-
   }
-
 
   onLanguageChange(language: string) {
     this.selectedLanguage = language;
@@ -43,11 +45,15 @@ export class HomePage implements OnInit {
   }
 
   onMenuItemClick(item: string) {
-    console.log('Menu item clicked:', item);
+
+    this.openLoginModal();
     this.menuCtrl.close('homeMenu');
 
     switch(item) {
       case 'profile':
+        break;
+      case 'admin-panel':
+        this.navCtrl.navigateForward(['/admin-panel']);
         break;
       case 'settings':
         break;
@@ -62,47 +68,23 @@ export class HomePage implements OnInit {
     }
   }
 
-
-  async addToCart(item: any) {
-    const toast = await this.toastController.create({
-      message: `${item.name} added to cart!`,
-      duration: 2000,
-      position: 'bottom',
-      color: 'success',
-      icon: 'checkmark-circle-outline'
-    });
-    toast.present();
-
-    // Add your cart logic here
-    console.log('Added to cart:', item);
-  }
-
-  async toggleFavorite(item: any) {
-    item.isFavorite = !item.isFavorite;
-
-    const toast = await this.toastController.create({
-      message: item.isFavorite
-        ? `${item.name} added to favorites!`
-        : `${item.name} removed from favorites`,
-      duration: 1500,
-      position: 'bottom',
-      color: item.isFavorite ? 'danger' : 'medium',
-      icon: item.isFavorite ? 'heart' : 'heart-outline'
-    });
-    toast.present();
-
-    // Save to favorites list or API
-    console.log('Favorite toggled:', item);
-  }
-
   onAddClick() {
+    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+    const uid = userData?.uid;
+    const token = userData?.idToken;
+
+    if (!uid || !token) {
+      this.openLoginModal();
+      console.error('No auth data available');
+      return;
+    }
+
     this.navCtrl.navigateForward(['/add-product']);
   }
 
-    // Function to switch language
     switchLanguage(lang: string) {
       this.translate.use(lang);
-      localStorage.setItem('lang', lang); // save selected language
+      localStorage.setItem('lang', lang);
     }
 
     getDummyColor(name?: string): string {
@@ -116,4 +98,52 @@ export class HomePage implements OnInit {
       const index = Math.abs(hash) % colors.length;
       return colors[index];
     }
+
+    async openLoginModal() {
+      const modal = await this.modalCtrl.create({
+        component: AuthModalComponent,
+        cssClass: 'login-bottom-sheet-modal',
+        breakpoints: [0, 0.6, 1],
+        initialBreakpoint: 0.6,
+        mode: 'ios',
+        backdropDismiss: false,
+        presentingElement: await this.modalCtrl.getTop(),
+      });
+
+      // Present the modal
+      await modal.present();
+
+      // Wait for the modal to be dismissed
+      const { data, role } = await modal.onDidDismiss();
+
+      if (role === 'success') {
+        this.commonService.notifyLoginSuccess();
+      } else if (role === 'warning') {
+        // this.navCtrl.navigateForward(['auth/signup']);
+      } else if (role === 'close') {
+        console.log('Login modal closed');
+      }
+    }
+
+
+    selectedTab: string = 'home'; // default selected tab
+
+// Or simpler function if using tab name directly
+selectTab(tab: string) {
+  const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+  const uid = userData?.uid;
+  const token = userData?.idToken;
+
+  if (!uid || !token) {
+    this.selectedTab = 'home';
+    console.error('No auth data available');
+    return;
+  }
+
+  if (tab.includes('home')) this.selectedTab = 'home';
+  else if (tab.includes('favorites')) this.selectedTab = 'favorites';
+  else if (tab.includes('chat')) this.selectedTab = 'chat';
+  else if (tab.includes('profile')) this.selectedTab = 'profile';
+}
+
 }

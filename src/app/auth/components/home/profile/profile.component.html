@@ -1,0 +1,84 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title class="text-color">My Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="profile-content">
+  <!-- Gradient Header Background -->
+  <div class="profile-header-bg"></div>
+
+  <form [formGroup]="profileForm">
+
+    <!-- Profile Picture Section -->
+    <div class="profile-picture-container">
+      <div class="profile-avatar-wrapper">
+        <ion-avatar class="profile-avatar">
+          <img src="../../../../../assets/image/four.jpg" alt="Profile" />
+        </ion-avatar>
+      </div>
+      <h2 class="profile-name">{{ profileForm.value.fullName || 'Your Name' }}</h2>
+      <p class="profile-subtitle">{{ profileForm.value.email }}</p>
+    </div>
+
+    <!-- Form Card -->
+    <div class="form-card">
+      <div class="section-title">
+        <ion-icon name="person-outline"></ion-icon>
+        <span>Personal Information</span>
+      </div>
+
+      <!-- Full Name -->
+      <ion-list class="text-start">
+        <ion-item class="custom-input mt-8 input-item" lines="none">
+          <ion-icon slot="start" name="person-outline" class="text-20"></ion-icon>
+          <ion-input type="text" placeholder="Enter your full name" formControlName="fullName"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <!-- Email -->
+      <ion-list class="text-start">
+        <ion-item class="custom-input mt-8 input-item" lines="none">
+          <ion-icon slot="start" name="mail-outline" class="text-20"></ion-icon>
+          <ion-input type="email" placeholder="Email address" formControlName="email" disabled></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-label>
+        <p class="helper-text text-12 mt-4">Email cannot be changed</p>
+      </ion-label>
+
+      <!-- Phone Number -->
+      <ion-list class="text-start">
+        <ion-item class="custom-input mt-8 input-item" lines="none">
+          <ion-icon slot="start" name="call-outline" class="text-20"></ion-icon>
+          <ion-input type="tel" placeholder="+92 300 1234567" formControlName="phoneNumber"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <div class="section-title" style="margin-top: 32px;">
+        <ion-icon name="settings-outline"></ion-icon>
+        <span>Preferences</span>
+      </div>
+
+      <!-- Language Selection -->
+      <ion-list class="text-start">
+        <ion-item class="custom-input mt-8 input-item" lines="none">
+          <ion-icon slot="start" name="language-outline" class="text-20"></ion-icon>
+          <ion-select formControlName="language" (ionChange)="onLanguageChange($event)" placeholder="Select Language" interface="action-sheet">
+            <ion-select-option value="en">English</ion-select-option>
+            <ion-select-option value="ur">Urdu</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+
+      <!-- Action Buttons -->
+      <ion-button expand="block" mode="ios" class="text-16 mt-20" (click)="saveProfile()">
+        <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+        Save Changes
+      </ion-button>
+
+    </div>
+
+  </form>
+</ion-content>
+

@@ -144,8 +144,7 @@ ion-tabs{
 			position: absolute;
 		}
 		ion-tab-button {
-			color:   #9e9e9e;;
-
+			color: #9e9e9e;;
       --background: #fafafa;
       --color-selected: var(--primary-color);
 		}
@@ -182,4 +181,10 @@ ion-tabs{
   margin-bottom: 8px;
 }
 
+ion-tab-button.selected {
+  --color:  var(--primary-color);
+}
 
+.selected{
+  color:  var(--primary-color);
+}

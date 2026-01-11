@@ -12,6 +12,9 @@ ion-content , ion-list, ion-item {
 --background: var(--secondary-color) !important;
 background: var(--secondary-color) !important;
 }
+ion-content{
+  margin-bottom: env(safe-area-inset-bottom);
+}
 
 ion-list{
   overflow-y: scroll;
@@ -63,6 +66,7 @@ ion-item {
   .sub_select_location{
     display: grid;
     padding-left: 12px;
+    padding-right: 16px;
 
     .location, .subject{
       color: #0e0e0e;
@@ -99,4 +103,17 @@ ion-item {
       }
     }
   }
+}
+
+.picked-image-container {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.picked-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-top: 5px;
 }

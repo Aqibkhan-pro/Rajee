@@ -1,12 +1,49 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons [slot]="selectedLanguage=='en' ? 'start': 'end'">
+      <ion-menu-button menu="homeMenu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title [style.text-align]="selectedLanguage=='en' ? 'start': 'end'" >{{ 'home' | translate }}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar
+  [placeholder]="'search_items' | translate"
+  (ionInput)="onSearch($event)"
+  mode="ios">
+</ion-searchbar>
+  </ion-toolbar>
+    <ion-toolbar>
+  <!-- Category Filter Chips -->
+  <div class="category-chips-container">
+    <ion-chip
+      *ngFor="let category of categories"
+      [color]="category.selected ? 'primary' : 'medium'"
+      [outline]="!category.selected"
+      (click)="onCategorySelect(category)">
+      <ion-icon [name]="category.icon"></ion-icon>
+      <ion-label>{{ selectedLanguage == 'en'  ? category.en : category.ar }}</ion-label>
+    </ion-chip>
+  </div>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content id="main-content">
 <!-- Card List -->
 <div class="card-container">
-  <ion-card *ngFor="let item of items" mode="ios">
+  <ion-card *ngFor="let item of filteredItems" mode="ios">
     <ion-item class="card-item" lines="none" (click)="onCardClick(item)">
 
       <img [src]="item.image" [alt]="item.title" class="card-image" />
 
       <ion-list class="card-details">
-        <div class="card-title">{{ item.title }}</div>
+        <div
+        class="card-title"
+        [attr.dir]="(item.title | isArabic) ? 'rtl' : 'ltr'"
+        [style.text-align]="(item.title | isArabic) ? 'right' : 'left'">
+        {{ item.title }}
+      </div>
+
+
 
         <div class="card-info">
           <!-- Price -->
@@ -37,8 +74,8 @@
 
           <!-- User Initial instead of icon -->
           <span class="card-info-item user-initial"  style="justify-content:right">
-            <span class="initial-circle">{{ item.user?.displayName?.charAt(0) }}</span>
-            <span>{{ item.user?.displayName }}</span>
+            <span class="initial-circle">{{ item.user?.name?.charAt(0) }}</span>
+            <span>{{ item.user?.name }}</span>
           </span>
 
         </div>
@@ -51,6 +88,11 @@
   <!-- Empty State -->
   <div *ngIf="items.length === 0" class="empty-state">
     <ion-icon name="basket-outline" size="large"></ion-icon>
-    <p>No items available</p>
+    <p>{{'no_items'| translate}}</p>
   </div>
 </div>
+
+
+</ion-content>
+
+

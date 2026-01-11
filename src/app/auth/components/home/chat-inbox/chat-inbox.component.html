@@ -1,11 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{'messages'| translate}}</ion-title>
-    <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon name="search-outline" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <ion-title>Messages</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,25 +9,32 @@
     <div *ngFor="let chat of users"
          class="chat-item"
          (click)="openChat(chat)">
-         <div class="avatar-container">
-          <div class="avatar" [style.background]="chat.avatarColor || getDummyColor(chat.name)">
-            {{ chat?.name?.charAt(0) }}
-          </div>
-          <span class="online-indicator" *ngIf="chat.online"></span>
-        </div>
 
-      <div class="chat-info">
-        <div class="chat-header">
-          <h3 class="chat-name">{{ chat.name }}</h3>
-          <span class="chat-time">{{ chat.time }}</span>
-        </div>
-        <div class="chat-preview">
-          <p class="last-message" [class.unread]="chat.unread">
-            {{ chat.lastMessage }}
-          </p>
-          <span class="unread-badge" *ngIf="chat.unread">{{ chat.unreadCount }}</span>
+      <!-- Avatar -->
+      <div class="avatar-container">
+        <div class="avatar" [style.background]="getDummyColor(getOtherUser(chat)?.name)">
+          {{ getOtherUser(chat)?.name?.charAt(0) }}
         </div>
       </div>
+
+      <!-- Chat info -->
+      <div class="chat-info">
+        <div class="chat-header">
+          <h3 class="chat-name">{{ getOtherUser(chat)?.name }}</h3>
+          <span class="chat-time">
+            {{ chat.lastMessageTime ? (chat.lastMessageTime | date:'shortTime') : '' }}
+          </span>
+        </div>
+        <div class="chat-preview">
+          <p class="last-message" [class.unread]="getOtherUser(chat)?.unreadCount > 0">
+            {{ chat.lastMessage || 'No messages yet' }}
+          </p>
+          <span class="unread-badge" *ngIf="getOtherUser(chat)?.unreadCount > 0">
+            {{ getOtherUser(chat)?.unreadCount }}
+          </span>
+        </div>
+      </div>
+
     </div>
   </div>
 </ion-content>

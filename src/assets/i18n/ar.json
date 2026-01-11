@@ -3,26 +3,32 @@
   "please_login": "الرجاء تسجيل الدخول",
   "nightmode": "الوضع الليلي",
   "sign_out": "تسجيل الخروج",
-  "profile_label":"حساب تعريفي",
+  "language": "اللغة",
+  "english": "الانجليزية",
+  "arabic": "العربية",
+  "profile_label": "حساب تعريفي",
+  "admin_panel": "لوحة الإدارة",
   "home": "الرئيسية",
+  "about": "عن",
   "favorite": "المفضلة",
   "alerts": "الإشعارات",
   "messages": "الرسائل",
   "add": "إضافة",
+  "help": "يساعد",
   "following_list": "قائمة المتابعين",
   "favorites_label": "المفضلة",
   "offer_posting": "نشر عرض",
-    "add_images": "أضف صور",
-    "location": "الموقع",
-    "set_location": "تحديد الموقع",
-    "offer_subject": "موضوع العرض",
-    "section": "القسم",
-    "post": "نشر",
-    "example_subject": "مثال: تويوتا كامري 2019",
-    "example_price": "مثال: 3000",
-    "auction": "مزاد",
-    "product_uploaded": "تم رفع المنتج بنجاح!",
-    "product_upload_failed": "فشل في حفظ المنتج",
+  "add_image": "أضف صور",
+  "location": "الموقع",
+  "set_location": "تحديد الموقع",
+  "offer_subject": "موضوع العرض",
+  "section": "القسم",
+  "post": "نشر",
+  "example_subject": "مثال: تويوتا كامري 2019",
+  "example_price": "مثال: 3000",
+  "auction": "مزاد",
+  "product_uploaded": "تم رفع المنتج بنجاح!",
+  "product_upload_failed": "فشل في حفظ المنتج",
   "report": "تبليغ",
   "settings": "الإعدادات",
   "contact_us": "اتصل بنا",
@@ -42,7 +48,6 @@
   "all_categories": "الكل",
   "less_than_5000": "<5000",
   "greater_than_5000": ">5000",
-
   "welcome_back": "مرحبًا بعودتك",
   "login_continue": "تسجيل الدخول للمتابعة",
   "email": "البريد الإلكتروني",
@@ -56,10 +61,8 @@
   "login_failed": "فشل تسجيل الدخول",
   "unexpected_error": "حدث خطأ غير متوقع",
   "welcome_back_user": "مرحبا بعودتك",
-
   "description_label": "الوصف",
   "condition_label": "الحالة",
-
   "iron_tools": "أدوات حديد",
   "plastic_tools": "أدوات بلاستيك",
   "electrical_tools": "أدوات كهربائية",
@@ -68,10 +71,8 @@
   "new": "جديد",
   "used": "مستعمل",
   "good": "جيد",
-
   "enter_description": "أدخل الوصف",
   "select_condition": "اختر الحالة",
-
   "spam": "بريد مزعج",
   "inappropriate": "غير مناسب",
   "scam": "احتيال",
@@ -81,130 +82,46 @@
   "custom_reason": "أدخل سببًا مخصصًا",
   "cancel_action": "إلغاء",
   "submit": "إرسال",
-  "detail" :"التفاصيل",
-
-  "categories": {
-    "all": "الكل",
-    "electrical_tools": "أدوات كهربائية",
-    "plastic": "بلاستيك",
-    "construction_equipment": "معدات البناء",
-    "iron": "حديد",
-    "old_electronics": "إلكترونيات قديمة"
-  },
-
-  "cities": {
-    "riyadh": "الرياض",
-    "jeddah": "جدة",
-    "dammam": "الدمام",
-    "makkah": "مكة",
-    "madinah": "المدينة",
-    "tabuk": "تبوك",
-    "abha": "أبها",
-    "taif": "الطائف",
-    "hail": "حائل",
-    "najran": "نجران"
-  },
-
-  "add_post": {
-    "offer_posting": "نشر عرض",
-    "add_images": "أضف صور",
-    "location": "الموقع",
-    "set_location": "تحديد الموقع",
-    "offer_subject": "موضوع العرض",
-    "section": "القسم",
-    "post": "نشر",
-    "example_subject": "مثال: تويوتا كامري 2019",
-    "example_price": "مثال: 3000",
-    "auction": "مزاد",
-    "product_uploaded": "تم رفع المنتج بنجاح!",
-    "product_upload_failed": "فشل في حفظ المنتج"
-  },
-
-  "favorites": {
-    "no_favorites": "لم تتم إضافة أي عناصر مفضلة بعد"
-  },
-
-  "following": {
-    "no_following": "لم تقم بمتابعة أي بائعين بعد.",
-    "unknown_seller": "بائع غير معروف"
-  },
-
-  "messages_section": {
-    "start_new_chat": "ابدأ محادثة جديدة",
-    "type_username": "اكتب اسم المستخدم...",
-    "start_chat": "ابدأ المحادثة",
-    "no_messages_yet": "لا توجد رسائل بعد",
-    "type_a_message": "اكتب رسالة",
-    "unknown_user": "مستخدم غير معروف"
-  },
-
-  "notifications": {
-    "no_notifications_yet": "لا توجد إشعارات بعد",
-    "new_product_added": "تم إضافة منتج جديد"
-  },
-
-  "product_details": {
-    "product_not_found": "المنتج غير موجود",
-    "follow": "متابعة",
-    "following": "متابع",
-    "reported": "تم الإبلاغ",
-    "check_this_product": "اطّلع على هذا المنتج",
-    "write_comment": "اكتب تعليق",
-    "already_reported": "تم التبليغ مسبقًا",
-    "uploaded_time": "تاريخ الرفع",
-    "unknown_location": "الموقع غير معروف",
-    "comments": "التعليقات"
-  },
-
-  "profile": {
-    "not_logged_in": "لم يتم تسجيل الدخول",
-    "save_changes": "حفظ التغييرات",
-    "edit_profile": "تعديل الملف الشخصي",
-    "change_password": "تغيير كلمة المرور",
-    "profile_updated": "تم تحديث الملف الشخصي!"
-  },
-
-  "reports": {
-    "reported_products": "المنتجات المبلغ عنها",
-    "no_reported_products": "لا توجد منتجات تم الإبلاغ عنها بعد",
-    "remove_report": "إزالة البلاغ",
-    "are_you_sure_remove_report": "هل أنت متأكد أنك تريد إزالة هذا البلاغ؟"
-  },
-
-  "settings_section": {
-    "settings": "الإعدادات",
-    "profile": "الملف الشخصي",
-    "change_username": "تغيير اسم المستخدم",
-    "change_email": "تغيير البريد الإلكتروني",
-    "change_password": "تغيير كلمة المرور",
-    "change_phone": "تغيير رقم الهاتف",
-    "delete_account": "حذف الحساب",
-    "facebook": "فيسبوك",
-    "twitter": "تويتر",
-    "instagram": "إنستغرام",
-    "logout": "تسجيل الخروج"
-  },
-
-  "register_section": {
-    "register": "تسجيل",
-    "signup_info": "سجل باستخدام رقم الهاتف والبريد الإلكتروني وكلمة المرور",
+  "detail": "التفاصيل",
+  "select": "يختار",
+  "logout": "تسجيل الخروج",
+  "no_items": "لا توجد عناصر متاحة",
+  "welcome_back_let": "مرحبًا بعودتك! قم بتسجيل الدخول",
+  "email_placeholder": "أدخل البريد الإلكتروني...",
+  "password_placeholder": "أدخل كلمة المرور...",
+  "email_required": "البريد الإلكتروني مطلوب",
+  "email_invalid": "تنسيق البريد الإلكتروني غير صالح",
+  "password_required": "كلمة المرور مطلوبة",
+  "password_minlength": "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
+  "create_account": "إنشاء حساب جديد؟",
+    "signup_subtitle": "املأ التفاصيل للبدء",
     "full_name": "الاسم الكامل",
+    "full_name_required": "الاسم الكامل مطلوب",
     "phone": "رقم الهاتف",
-    "email": "البريد الإلكتروني",
-    "password": "كلمة المرور",
+    "phone_required": "رقم الهاتف مطلوب",
+    "phone_invalid": "رقم الهاتف غير صالح",
     "confirm_password": "تأكيد كلمة المرور",
+    "confirm_password_required": "تأكيد كلمة المرور مطلوب",
+    "password_mismatch": "كلمات المرور غير متطابقة",
     "send_otp": "إرسال رمز التحقق",
-    "sending_otp": "جاري إرسال رمز التحقق...",
-    "enter_otp": "أدخل رمز التحقق",
-    "verify_register": "تحقق من الرمز وسجل",
-    "verifying": "جاري التحقق...",
-    "passwords_not_match": "كلمتا المرور غير متطابقتين",
-    "otp_failed": "فشل إرسال رمز التحقق",
-    "otp_sent": "تم إرسال رمز التحقق",
-    "check_email_code": "تحقق من بريدك الإلكتروني للحصول على رمز التحقق.",
-    "otp_verification_failed": "فشل التحقق من رمز التحقق",
-    "account_created": "تم التحقق من البريد الإلكتروني وإنشاء الحساب!"
-  },
+    "sending": "جار الإرسال...",
+    "already_have_account": "هل لديك حساب بالفعل؟",
+    "verify_email": "تحقق من بريدك الإلكتروني",
+    "otp_sent_message": "تم إرسال رمز مكون من 6 أرقام إلى",
+    "otp_required": "رمز التحقق مطلوب",
+    "otp_invalid": "يجب أن يكون رمز التحقق 6 أرقام",
+    "verify_continue": "تحقق واستمر",
+    "back_to_login": "العودة لتسجيل الدخول",
+  "favorites": "المفضلة",
+  "chat": "الدردشة",
+  "profile":"أنا",
+  "search_items": "ابحث عن العناصر...",
 
-  "select":"يختار"
+  "search_favorites": "البحث في المفضلة...",
+  "no_favorites": "لا توجد مفضلات بعد",
+  "no_favorites_message": "ابدأ بإضافة المنتجات إلى مفضلتك!",
+  "browse_products": "تصفح المنتجات",
+  "loading_favorites": "جاري تحميل المفضلة..."
+
+
 }
