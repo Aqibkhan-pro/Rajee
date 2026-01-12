@@ -61,15 +61,17 @@
           <!-- Location -->
           <span class="card-info-item" style="justify-content:right">
             <ion-icon name="location-outline"></ion-icon>
-            <span>24.56, 45.65</span>
+            <span *ngIf="item?.location">{{item?.location?.lat}}, {{item?.location?.lng}}</span>
+            <span *ngIf="!item?.location">N/A</span>
+
           </span>
         </div>
 
         <div class="card-info">
           <!-- Component -->
-          <span class="card-info-item" style="justify-content: left; color: var(--primary-color);;">
-            <ion-icon name="chatbubbles"></ion-icon>
-            <span>{{ item.price/50 }}</span>
+          <span class="card-info-item" style="justify-content: left; color: var(--primary-color);">
+            <ion-icon name="chatbubbles" *ngIf="item?.comments?.length > 0"></ion-icon>
+            <span *ngIf="item?.comments?.length > 0">{{ item?.comments?.length }}</span>
           </span>
 
           <!-- User Initial instead of icon -->

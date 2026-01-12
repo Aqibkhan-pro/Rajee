@@ -65,6 +65,7 @@ ion-card {
 
         span {
           font-weight: bold;
+          padding-top: 5px;
         }
       }
 
@@ -81,6 +82,7 @@ ion-card {
 
         span {
           font-weight: 300;
+          padding-top: 4px;
         }
       }
 
@@ -91,6 +93,7 @@ ion-card {
           justify-content: center;
           width: 24px;
           height: 24px;
+          padding-top: 4px;
           border-radius: 50%;
           background-color: var(--primary-color);
           color: #fff;
@@ -100,6 +103,7 @@ ion-card {
 
         span:last-child {
           margin-left: 6px;
+          padding-top: 4px;
         }
       }
 

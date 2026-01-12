@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   AlertController,
   LoadingController,
+  ModalController,
   NavController,
   ToastController
 } from '@ionic/angular';
@@ -11,6 +12,8 @@ import { storage } from 'src/environments/firebase-config';
 import { ref as storageRef, uploadString, getDownloadURL } from 'firebase/storage';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { UserService } from 'src/app/services/user.service';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { MapComponentComponent } from './map-component/map-component.component';
 
 interface User {
   uid: string;
@@ -21,6 +24,7 @@ interface User {
   selector: 'app-add-product',
   templateUrl: './add-product.page.html',
   styleUrls: ['./add-product.page.scss'],
+  providers: [Geolocation],
   standalone: false
 })
 export class AddProductPage implements OnInit {
@@ -30,7 +34,8 @@ export class AddProductPage implements OnInit {
   conditions: string[] = [];
   pickedImage: Photo | null = null;
   selectedLanguage: string = 'en';
-  // ✅ Your Firebase DB URL
+  productLocation: { lat: number, lng: number } | null = null;
+
   FIREBASE_DB_URL = 'https://rajee-198a5-default-rtdb.firebaseio.com';
 
   constructor(
@@ -39,19 +44,21 @@ export class AddProductPage implements OnInit {
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
     private translate: TranslateService,
-    private userService: UserService
+    private userService: UserService,
+    private geolocation: Geolocation,
+    private modalCtrl: ModalController
   ) {
-
     this.form = this.fb.group({
       title: ['', Validators.required],
       price: ['', Validators.required],
       section: ['', Validators.required],
       condition: ['', Validators.required],
       description: ['', Validators.required],
+      address:[''],
       image: ['']
     });
 
-     this.category = [
+    this.category = [
       { key: 'cars', ar: 'حراج السيارات', en: 'Cars & Vehicles' },
       { key: 'real_estate', ar: 'حراج العقار', en: 'Real Estate' },
       { key: 'electronics', ar: 'حراج الأجهزة', en: 'Electronics & Devices' },
@@ -71,7 +78,6 @@ export class AddProductPage implements OnInit {
       { key: 'lost_found', ar: 'مفقودات', en: 'Lost & Found' },
       { key: 'others', ar: 'قسم غير مصنف', en: 'Uncategorized / Other' }
     ];
-    ;
 
     this.conditions = [
       this.translate.instant('new'),
@@ -81,15 +87,31 @@ export class AddProductPage implements OnInit {
   }
 
   async ngOnInit() {
-
     const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-    const pUser:any = await this.userService.getUserById(userData.uid)
-    console.log("User:--",pUser);
-     const savedLang = localStorage.getItem('lang');
-    if (savedLang) {
-      this.selectedLanguage = savedLang;
+    const pUser:any = await this.userService.getUserById(userData.uid);
+    console.log("User:--", pUser);
+
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang) this.selectedLanguage = savedLang;
+
+    // Get user location at page load
+    this.getCurrentLocation();
+  }
+
+  async getCurrentLocation() {
+    try {
+      const resp = await this.geolocation.getCurrentPosition();
+      this.productLocation = {
+        lat: resp.coords.latitude,
+        lng: resp.coords.longitude
+      };
+      this.getCityFromCoordinatesOSM(this.productLocation.lat, this.productLocation.lng);
+      console.log('Location:', this.productLocation);
+    } catch (err) {
+      console.error('Error getting location:', err);
+      this.showToast(this.translate.instant('location_permission_required'), 'danger');
     }
-   }
+  }
 
   async pickSingleImage() {
     try {
@@ -107,6 +129,7 @@ export class AddProductPage implements OnInit {
   }
 
   async handleSubmit() {
+    console.log("Form Data:--", this.form.value);
     if (this.form.invalid) {
       this.showToast(this.translate.instant('please_fill_required_fields'), 'danger');
       return;
@@ -116,14 +139,11 @@ export class AddProductPage implements OnInit {
     await loading.present();
 
     try {
-      // 1️⃣ Upload image to Firebase Storage (if picked)
+      // 1️⃣ Upload image to Firebase Storage
       if (this.pickedImage?.dataUrl) {
         const fileName = `products/${Date.now()}.jpeg`;
         const imgRef = storageRef(storage, fileName);
-
-        // Upload string works on mobile
         await uploadString(imgRef, this.pickedImage.dataUrl, 'data_url');
-
         const downloadURL = await getDownloadURL(imgRef);
         this.form.patchValue({ image: downloadURL });
       } else {
@@ -131,13 +151,13 @@ export class AddProductPage implements OnInit {
         return;
       }
 
-      // 2️⃣ Get userData + idToken from localStorage
+      // 2️⃣ Get user data
       const userData = JSON.parse(localStorage.getItem('userData') || '{}');
       const idToken = userData?.idToken;
       if (!idToken) throw new Error('User token not found');
+      const pUser:any = await this.userService.getUserById(userData.uid);
 
-      const pUser:any = await this.userService.getUserById(userData.uid)
-      // 3️⃣ Merge user info into product data
+      // 3️⃣ Merge user info + location
       const productData = {
         ...this.form.value,
         user: {
@@ -147,15 +167,15 @@ export class AddProductPage implements OnInit {
           phone: pUser?.phone || '',
           photoURL: userData.photoURL
         },
+        location: this.productLocation || {},
         createdAt: Date.now()
       };
 
-      // 4️⃣ Save product to Firebase DB via fetch
+      // 4️⃣ Save to Firebase
       const productId = Date.now().toString();
       await this.saveProductToDatabase(productData, productId, idToken);
 
       this.showToast(this.translate.instant('product_posted_success'), 'success');
-
       this.form.reset();
       this.pickedImage = null;
       this.navCtrl.navigateRoot('/home');
@@ -168,18 +188,9 @@ export class AddProductPage implements OnInit {
     }
   }
 
-  async showToast(message: string, color: string = 'danger') { const toast = await this.toastCtrl.create({ message, duration: 2000, color, position: 'bottom', }); toast.present(); }
-
-
-  goBack() {
-    this.navCtrl.navigateRoot('/main');
-  }
-
-  // ✅ Save via fetch HTTP PUT
   async saveProductToDatabase(productData: any, productId: string, idToken: string): Promise<void> {
     try {
       const url = `${this.FIREBASE_DB_URL}/products/${productId}.json?auth=${idToken}`;
-
       const res = await fetch(url, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -188,18 +199,62 @@ export class AddProductPage implements OnInit {
 
       if (!res.ok) {
         const errorText = await res.text();
-        console.error('DB SAVE Error:', res.status, errorText);
-        throw new Error(`Failed to save product to DB: ${errorText}`);
+        throw new Error(`Failed to save product: ${errorText}`);
       }
 
       console.log('✅ Product saved successfully to Realtime Database');
     } catch (err: any) {
-      this.showToast(err?.message, 'danger')
-      console.error('❌ DB SAVE Error:', err);
+      this.showToast(err?.message, 'danger');
       throw err;
     }
   }
 
+  async showToast(message: string, color: string = 'danger') {
+    const toast = await this.toastCtrl.create({
+      message,
+      duration: 2000,
+      color,
+      position: 'bottom',
+    });
+    toast.present();
+  }
+
+  goBack() {
+    this.navCtrl.navigateRoot('/main');
+  }
+
+  async openMapPicker() {
+    const modal = await this.modalCtrl.create({
+      component: MapComponentComponent,
+      componentProps: { location: this.productLocation }
+    });
+
+    modal.onDidDismiss().then((result) => {
+      if (result?.data) {
+        this.productLocation = result.data; // { lat: number, lng: number }
+        console.log('Picked Location:', this.productLocation);
+      }
+    });
+
+    await modal.present();
+  }
+
+
+  async getCityFromCoordinatesOSM(lat: number, lng: number) {
+
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`;
+
+    try {
+      const res: any = await fetch(url).then(r => r.json());
+      const city = res?.display_name;
+      console.log(res,'City:', city);
+      this.form.patchValue({ city });
+      return res?.display_name;
+    } catch (error) {
+      console.error('OSM Geocode error', error);
+      return '';
+    }
+  }
 
 
 }

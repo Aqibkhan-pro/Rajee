@@ -8,6 +8,8 @@ import { AddProductPageRoutingModule } from './add-product-routing.module';
 
 import { AddProductPage } from './add-product.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { MapComponentComponent } from './map-component/map-component.component';
 
 @NgModule({
   imports: [
@@ -17,7 +19,9 @@ import { TranslateModule } from '@ngx-translate/core';
     AddProductPageRoutingModule,
     TranslateModule,
     ReactiveFormsModule
+  ],providers: [
+    Geolocation
   ],
-  declarations: [AddProductPage]
+  declarations: [AddProductPage, MapComponentComponent]
 })
 export class AddProductPageModule {}

@@ -11,6 +11,7 @@ ion-title{
 ion-content , ion-list, ion-item {
 --background: var(--secondary-color) !important;
 background: var(--secondary-color) !important;
+color: #f0f0f0 !important;
 }
 ion-content{
   margin-bottom: env(safe-area-inset-bottom);
@@ -116,4 +117,16 @@ ion-item {
   object-fit: cover;
   border-radius: 10px;
   margin-top: 5px;
+}
+
+
+.arabic{
+  justify-items: center;
+  /* text-align: start; */
+  width: 50%;
+}
+
+ion-item.sc-ion-select-popover-md {
+  --inner-border-width: 0;
+  color: aliceblue;
 }

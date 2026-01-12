@@ -12,6 +12,8 @@ PODS:
     - Capacitor
   - CapacitorStatusBar (7.0.3):
     - Capacitor
+  - CordovaPlugins (7.4.4):
+    - CapacitorCordova
   - DroponioCapacitorCallNumber (3.0.0):
     - Capacitor
 
@@ -23,6 +25,7 @@ DEPENDENCIES:
   - "CapacitorHaptics (from `../../node_modules/@capacitor/haptics`)"
   - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
+  - CordovaPlugins (from `../capacitor-cordova-ios-plugins`)
   - "DroponioCapacitorCallNumber (from `../../node_modules/@droponio/capacitor-call-number`)"
 
 EXTERNAL SOURCES:
@@ -40,6 +43,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/keyboard"
   CapacitorStatusBar:
     :path: "../../node_modules/@capacitor/status-bar"
+  CordovaPlugins:
+    :path: "../capacitor-cordova-ios-plugins"
   DroponioCapacitorCallNumber:
     :path: "../../node_modules/@droponio/capacitor-call-number"
 
@@ -51,8 +56,9 @@ SPEC CHECKSUMS:
   CapacitorHaptics: 09d96bcb5a2b74ede8fd039b4cdf58fc43dcacf1
   CapacitorKeyboard: 3822c3a0c6b58168f96ca562f9534ed095d40860
   CapacitorStatusBar: 7d8fcbd6768db014bd721d75e246590b014928e8
+  CordovaPlugins: 98c46dee06a9d17321ef6db1855f7fdc735f12f5
   DroponioCapacitorCallNumber: 4d8ab6ec28c6ad5ec8177c3eb61b5efdfbdfbb37
 
-PODFILE CHECKSUM: 01c19a27d54a61a7d5f39a3357d73558e0478be8
+PODFILE CHECKSUM: 6bc095e29b83554b4223e1807b27e47c03a1e458
 
 COCOAPODS: 1.16.2

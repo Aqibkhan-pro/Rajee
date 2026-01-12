@@ -32,7 +32,7 @@
       <ion-list class="text-start">
         <ion-item class="custom-input mt-8 input-item" lines="none">
           <ion-icon slot="start" name="person-outline" class="text-20"></ion-icon>
-          <ion-input type="text" placeholder="Enter your full name" formControlName="fullName"></ion-input>
+          <ion-input type="text" placeholder="Enter your full name" formControlName="fullName" style="color: black;"></ion-input>
         </ion-item>
       </ion-list>
 
@@ -40,7 +40,7 @@
       <ion-list class="text-start">
         <ion-item class="custom-input mt-8 input-item" lines="none">
           <ion-icon slot="start" name="mail-outline" class="text-20"></ion-icon>
-          <ion-input type="email" placeholder="Email address" formControlName="email" disabled></ion-input>
+          <ion-input type="email" placeholder="Email address" formControlName="email" disabled style="color: black;"></ion-input>
         </ion-item>
       </ion-list>
       <ion-label>
@@ -51,7 +51,7 @@
       <ion-list class="text-start">
         <ion-item class="custom-input mt-8 input-item" lines="none">
           <ion-icon slot="start" name="call-outline" class="text-20"></ion-icon>
-          <ion-input type="tel" placeholder="+92 300 1234567" formControlName="phoneNumber"></ion-input>
+          <ion-input type="tel" placeholder="+92 300 1234567" formControlName="phoneNumber" style="color: black;"></ion-input>
         </ion-item>
       </ion-list>
 
@@ -62,11 +62,11 @@
 
       <!-- Language Selection -->
       <ion-list class="text-start">
-        <ion-item class="custom-input mt-8 input-item" lines="none">
+        <ion-item class="custom-input mt-8 input-item" style="color: black;" lines="none">
           <ion-icon slot="start" name="language-outline" class="text-20"></ion-icon>
-          <ion-select formControlName="language" (ionChange)="onLanguageChange($event)" placeholder="Select Language" interface="action-sheet">
-            <ion-select-option value="en">English</ion-select-option>
-            <ion-select-option value="ur">Urdu</ion-select-option>
+          <ion-select formControlName="language" (ionChange)="onLanguageChange($event)" placeholder="Select Language" interface="action-sheet" style="color: black; placeholder-color: black;">
+            <ion-select-option value="en" style="color: black;">English</ion-select-option>
+            <ion-select-option value="ar" style="color: black;">Arabic</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-list>

@@ -8,6 +8,7 @@ import { ProductDetailsPageRoutingModule } from './product-details-routing.modul
 
 import { ProductDetailsPage } from './product-details.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { IsArabicPipe } from "../../../shared/is-arabic.pipe";
 
 @NgModule({
   imports: [
@@ -15,8 +16,9 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     IonicModule,
     TranslateModule,
-    ProductDetailsPageRoutingModule
-  ],
+    ProductDetailsPageRoutingModule,
+    IsArabicPipe
+],
   declarations: [ProductDetailsPage]
 })
 export class ProductDetailsPageModule {}

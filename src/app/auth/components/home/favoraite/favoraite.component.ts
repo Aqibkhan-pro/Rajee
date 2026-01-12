@@ -79,7 +79,7 @@ export class FavoraiteComponent implements OnInit {
       this.filteredItems = favorites;
     } catch (error) {
       console.error('Error loading favorites:', error);
-      this.showToast('Failed to load favorites', 'danger');
+      // this.showToast('Failed to load favorites', 'danger');
     } finally {
       this.isLoading = false;
     }

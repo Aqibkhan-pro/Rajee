@@ -445,10 +445,10 @@ export class ProductDetailsPage implements OnInit {
     }
 
     // Remove any spaces, dashes, or special characters except +
-    const cleanedPhone = phone.replace(/[^\d+]/g, '');
+    // const cleanedPhone = phone.replace(/[^\d+]/g, '');
 
     // Create tel: URL for making phone calls
-    window.location.href = `tel:${cleanedPhone}`;
+    window.location.href = `tel:${phone}`;
   }
 
 }

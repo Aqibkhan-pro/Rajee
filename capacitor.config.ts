@@ -4,12 +4,18 @@ const config: CapacitorConfig = {
   appId: 'app.preowned.devices',
   appName: 'Rajee',
   webDir: 'www',
-  // bundledWebRuntime: false,
+
   plugins: {
     Keyboard: {
-      resize: 'none'
+      resize: 'ionic'
     }
-  }
+  },
+
+  android: {
+    webContentsDebuggingEnabled: true,
+    adjustMarginsForEdgeToEdge: 'disable',
+    allowMixedContent: true,
+  },
 };
 
 export default config;

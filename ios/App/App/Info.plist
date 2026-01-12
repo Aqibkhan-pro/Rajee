@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Preowned Devices</string>
+    <string>Rajee</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -26,9 +26,6 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-  <key>NSCameraUsageDescription</key>
-	<string> We use the device camera to capture and update user profile pictures, and to scan device QR codes and barcodes. Camera permission is required to enable these features.</string>
-
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -48,5 +45,14 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+
+    <!-- Permissions for Camera and Photo Library -->
+    <key>NSCameraUsageDescription</key>
+    <string>This app needs access to your camera to take photos and record videos.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>This app needs access to your photo library to select photos and videos.</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>This app needs access to save photos and videos to your photo library.</string>
+
 </dict>
 </plist>

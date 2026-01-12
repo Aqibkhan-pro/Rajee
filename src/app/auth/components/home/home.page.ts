@@ -63,7 +63,7 @@ export class HomePage implements OnInit {
         break;
       case 'logout':
         this.authService.logout();
-        this.navCtrl.navigateRoot('auth/login');
+        // this.navCtrl.navigateRoot('auth/login');
         break;
     }
   }
@@ -103,8 +103,8 @@ export class HomePage implements OnInit {
       const modal = await this.modalCtrl.create({
         component: AuthModalComponent,
         cssClass: 'login-bottom-sheet-modal',
-        breakpoints: [0, 0.6, 1],
-        initialBreakpoint: 0.6,
+        breakpoints: [0, 0.8],
+        initialBreakpoint: 0.8,
         mode: 'ios',
         backdropDismiss: false,
         presentingElement: await this.modalCtrl.getTop(),

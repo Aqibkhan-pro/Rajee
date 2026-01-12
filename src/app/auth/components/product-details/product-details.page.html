@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>{{'detail'|translate}}</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="toggleFavorite()">
+      <ion-button (click)="toggleFavorite()" style="--background: transparent !important">
         <ion-icon
           slot="icon-only"
           [name]="isFavorite ? 'heart' : 'heart-outline'"
@@ -16,10 +16,13 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content >
   <ion-list class="card-details">
-    <div class="card-title">{{ product.title | titlecase }}</div>
-    <div class="card-info">
+    <div class="card-title"
+    [attr.dir]="(product.title | isArabic) ? 'rtl' : 'ltr'"
+        [style.text-align]="(product.title | isArabic) ? 'right' : 'left'">{{ product.title | titlecase }}</div>
+    <div class="card-info"  [attr.dir]="(product.title | isArabic) ? 'rtl' : 'ltr'"
+    [style.text-align]="(product.title | isArabic) ? 'right' : 'left'">
       {{ product.description | titlecase }}
     </div>
     <div class="card-info">
@@ -55,7 +58,7 @@
 
   <ion-list style="padding: 16px;">
     <img [src]="product?.image" alt="Product Image" class="card-image" />
-    <ion-button mode="ios" shape="round" expand="block" (click)="callUserData(product)"
+    <ion-button mode="ios" shape="round" expand="block" (click)="callUserData(product?.user?.phone)"
       style="--background: #0573c1; color: #fff; margin-top: 12px;">
       <ion-icon name="call-sharp"></ion-icon>
       Contact
@@ -209,13 +212,13 @@
 </ion-modal>
 
 <!-- Comments Modal (Full Screen) -->
-<ion-modal [isOpen]="isCommentsModalOpen" [breakpoints]="[0, 1]" [initialBreakpoint]="1">
+<ion-modal [isOpen]="isCommentsModalOpen">
   <ng-template>
     <ion-header>
       <ion-toolbar>
         <ion-title>Comments</ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="closeCommentsModal()">
+          <ion-button (click)="closeCommentsModal()" style="--background: transparent !important; color:#0573c1; --color:#0573c1;">
             <ion-icon name="close"></ion-icon>
           </ion-button>
         </ion-buttons>

@@ -27,8 +27,7 @@ export class DashboardComponent implements OnInit {
   categories: Category[] = [
     { key: 'all', ar: 'الكل', en: 'All', icon: 'grid-outline', selected: true },
     { key: 'cars', ar: 'حراج السيارات', en: 'Cars & Vehicles', icon: 'car-outline', selected: false },
-    { key: 'real_estate', ar: 'حراج العقار', en: 'Real Estate', icon: 'business-outline', selected: false },
-    { key: 'electronics', ar: 'حراج الأجهزة', en: 'Electronics & Devices', icon: 'phone-portrait-outline', selected: false },
+   { key: 'electronics', ar: 'حراج الأجهزة', en: 'Electronics & Devices', icon: 'phone-portrait-outline', selected: false },
     { key: 'animals', ar: 'مواشي وحيوانات وطيور', en: 'Livestock, Animals & Birds', icon: 'paw-outline', selected: false },
     { key: 'furniture', ar: 'حراج الأثاث', en: 'Furniture', icon: 'bed-outline', selected: false },
     { key: 'personal_items', ar: 'مستلزمات شخصية', en: 'Personal Items & Accessories', icon: 'bag-handle-outline', selected: false },

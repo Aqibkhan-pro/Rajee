@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { getAuth } from 'firebase/auth';
 import { constants } from 'src/app/shared/utils/constants';
 
 @Injectable({
@@ -34,4 +35,16 @@ export class AuthService {
 
     localStorage.setItem(constants.Theme, theme);
   }
+
+    // 🔹 NEW: Refresh Firebase token
+    async refreshToken(): Promise<string> {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (!user) throw new Error('User not logged in');
+      const idToken = await user.getIdToken(true); // force refresh
+      const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+      userData.idToken = idToken;
+      localStorage.setItem('userData', JSON.stringify(userData));
+      return idToken;
+    }
 }
