@@ -55,7 +55,7 @@ export class AddProductPage implements OnInit {
       condition: ['', Validators.required],
       description: ['', Validators.required],
       address:[''],
-      image: ['']
+      images: [[]]
     });
 
     this.category = [
@@ -129,35 +129,44 @@ export class AddProductPage implements OnInit {
   }
 
   async handleSubmit() {
-    console.log("Form Data:--", this.form.value);
     if (this.form.invalid) {
       this.showToast(this.translate.instant('please_fill_required_fields'), 'danger');
       return;
     }
 
-    const loading = await this.loadingCtrl.create({ message: this.translate.instant('posting') });
+    if (!this.pickedImages.length) {
+      this.showToast(this.translate.instant('please_pick_product_image'), 'danger');
+      return;
+    }
+
+    const loading = await this.loadingCtrl.create({
+      message: this.translate.instant('posting')
+    });
     await loading.present();
 
     try {
-      // 1️⃣ Upload image to Firebase Storage
-      if (this.pickedImage?.dataUrl) {
-        const fileName = `products/${Date.now()}.jpeg`;
+      // 1️⃣ Upload ALL images
+      const imageUrls: string[] = [];
+
+      for (const img of this.pickedImages) {
+        const fileName = `products/${Date.now()}_${Math.random()}.jpeg`;
         const imgRef = storageRef(storage, fileName);
-        await uploadString(imgRef, this.pickedImage.dataUrl, 'data_url');
-        const downloadURL = await getDownloadURL(imgRef);
-        this.form.patchValue({ image: downloadURL });
-      } else {
-        this.showToast(this.translate.instant('please_pick_product_image'), 'danger');
-        return;
+
+        await uploadString(imgRef, img.dataUrl!, 'data_url');
+        const url = await getDownloadURL(imgRef);
+        imageUrls.push(url);
       }
 
-      // 2️⃣ Get user data
+      this.form.patchValue({ images: imageUrls });
+
+      // 2️⃣ User data
       const userData = JSON.parse(localStorage.getItem('userData') || '{}');
       const idToken = userData?.idToken;
-      if (!idToken) throw new Error('User token not found');
-      const pUser:any = await this.userService.getUserById(userData.uid);
+      if (!idToken) throw new Error('User not authenticated');
 
-      // 3️⃣ Merge user info + location
+      const pUser: any = await this.userService.getUserById(userData.uid);
+
+      // 3️⃣ Final Product Object
       const productData = {
         ...this.form.value,
         user: {
@@ -176,8 +185,10 @@ export class AddProductPage implements OnInit {
       await this.saveProductToDatabase(productData, productId, idToken);
 
       this.showToast(this.translate.instant('product_posted_success'), 'success');
+
+      // Reset
       this.form.reset();
-      this.pickedImage = null;
+      this.pickedImages = [];
       this.navCtrl.navigateRoot('/home');
 
     } catch (err: any) {
@@ -187,6 +198,7 @@ export class AddProductPage implements OnInit {
       loading.dismiss();
     }
   }
+
 
   async saveProductToDatabase(productData: any, productId: string, idToken: string): Promise<void> {
     try {
@@ -253,6 +265,28 @@ export class AddProductPage implements OnInit {
     } catch (error) {
       console.error('OSM Geocode error', error);
       return '';
+    }
+  }
+
+  pickedImages: Photo[] = [];
+
+  async pickMultipleImages() {
+    try {
+      if (this.pickedImages.length >= 3) {
+        this.showToast('Maximum 3 images allowed', 'warning');
+        return;
+      }
+
+      const image = await Camera.getPhoto({
+        quality: 60,
+        allowEditing: false,
+        resultType: CameraResultType.DataUrl,
+        source: CameraSource.Prompt
+      });
+
+      this.pickedImages.push(image);
+    } catch (error) {
+      console.error('Image pick error', error);
     }
   }
 

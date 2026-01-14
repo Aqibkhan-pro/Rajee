@@ -443,11 +443,6 @@ export class ProductDetailsPage implements OnInit {
       console.error('No phone number available');
       return;
     }
-
-    // Remove any spaces, dashes, or special characters except +
-    // const cleanedPhone = phone.replace(/[^\d+]/g, '');
-
-    // Create tel: URL for making phone calls
     window.location.href = `tel:${phone}`;
   }
 

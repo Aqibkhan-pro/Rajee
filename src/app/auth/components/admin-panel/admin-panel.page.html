@@ -1,15 +1,14 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-    <ion-back-button></ion-back-button>
+      <ion-back-button style="color: var(--secondary-color) !important;"></ion-back-button>
     </ion-buttons>
-    <ion-title>Admin Panel</ion-title>
+    <ion-title style="color: var(--secondary-color) !important;">Admin Panel</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen class="admin-bg">
 
-  <!-- Cards -->
   <ion-grid>
     <ion-row>
 
@@ -29,7 +28,7 @@
 
           <div class="card-footer">
             <div>
-              <h3>1,234</h3>
+              <h3>{{ totalUsers }}</h3>
               <span>Total Users</span>
             </div>
             <ion-button color="primary" size="small" mode="ios" [shape]="'round'">Open</ion-button>
@@ -51,11 +50,11 @@
           </div>
 
           <h2>Manage Products</h2>
-          <p>Add, edit, delete and manage your product inventory</p>
+          <p>Approved and Rejected products in Rajee.</p>
 
           <div class="card-footer">
             <div>
-              <h3>567</h3>
+              <h3>{{ totalProducts }}</h3>
               <span>Total Products</span>
             </div>
             <ion-button color="secondary" size="small" mode="ios" [shape]="'round'">Open</ion-button>
@@ -69,36 +68,42 @@
   </ion-grid>
 
   <!-- Quick Stats -->
-  <ion-grid class="stats">
+  <!-- <ion-grid class="stats">
     <ion-row>
+
       <h3 style="color: var(--primary-color); margin-left: 12px;">User</h3>
+
       <ion-col size="12" size-md="4">
         <div class="stat-card">
           <p>Active Users</p>
-          <h3>892</h3>
+          <h3>{{ activeUsers }}</h3>
         </div>
       </ion-col>
+
       <ion-col size="12" size-md="4">
         <div class="stat-card">
           <p>Deactive Users</p>
-          <h3>82</h3>
+          <h3>{{ deactiveUsers }}</h3>
         </div>
       </ion-col>
+
       <h3 style="color: var(--primary-color); margin-left: 12px;">Products</h3>
-      <ion-col size="12" size-md="4">
+
+     <ion-col size="12" size-md="4">
         <div class="stat-card">
           <p>Pending Request</p>
-          <h3>78</h3>
+          <h3>{{ pendingProducts }}</h3>
         </div>
       </ion-col>
 
       <ion-col size="12" size-md="4">
         <div class="stat-card">
           <p>Reject Request</p>
-          <h3>8</h3>
+          <h3>{{ rejectedProducts }}</h3>
         </div>
       </ion-col>
+
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
 
 </ion-content>

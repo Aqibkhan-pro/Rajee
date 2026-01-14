@@ -12,7 +12,7 @@
     <ion-list>
 
       <!-- Image Picker -->
-      <ion-item lines="none">
+      <!-- <ion-item lines="none">
         <div class="select_img" (click)="pickSingleImage()" *ngIf="!pickedImage?.dataUrl">
           <div class="sub_select">
             <ion-icon name="camera" style="font-size: 32px;" [slot]="selectedLanguage=='en' ? 'start':'end'" class="add_icon"></ion-icon>
@@ -22,7 +22,28 @@
         <div *ngIf="pickedImage?.dataUrl" class="picked-image-container" (click)="pickSingleImage()">
           <img [src]="pickedImage.dataUrl" alt="Selected Image" class="picked-image" />
         </div>
-      </ion-item>
+      </ion-item> -->
+
+      <!-- MULTIPLE IMAGE PICKER (MAX 3) -->
+<ion-item lines="none">
+  <div class="select_img" *ngIf="pickedImages.length < 3" (click)="pickMultipleImages()">
+    <div class="sub_select">
+      <ion-icon name="camera" style="font-size: 32px;"></ion-icon>
+      <ion-text>
+        {{ 'add_image' | translate }} ({{ pickedImages.length }}/3)
+      </ion-text>
+    </div>
+  </div>
+
+  <div class="picked-image-container" *ngIf="pickedImages.length">
+    <img
+      *ngFor="let img of pickedImages; let i = index"
+      [src]="img.dataUrl"
+      class="picked-image"
+    />
+  </div>
+</ion-item>
+
 
       <!-- Location -->
       <ion-item lines="none">

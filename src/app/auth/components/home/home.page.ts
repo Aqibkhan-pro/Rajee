@@ -46,7 +46,16 @@ export class HomePage implements OnInit {
 
   onMenuItemClick(item: string) {
 
-    this.openLoginModal();
+    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+    const uid = userData?.uid;
+    const token = userData?.idToken;
+
+    if (!uid || !token) {
+      this.openLoginModal();
+      this.menuCtrl.close('homeMenu');
+      console.error('No auth data available');
+      return;
+    }
     this.menuCtrl.close('homeMenu');
 
     switch(item) {

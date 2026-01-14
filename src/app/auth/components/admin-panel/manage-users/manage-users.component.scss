@@ -1,0 +1,194 @@
+@import url(../../home/home.page.scss);
+
+/* page */
+.page {
+  --background: #f5f6fa;
+}
+
+/* top header */
+.topbar {
+  --background: var(--primary-color);
+}
+.title {
+  color: var(--secondary-color) !important;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+.top-icon {
+  font-size: 22px;
+  color: var(--secondary-color);
+}
+
+/* searchbar */
+.searchbar-wrap {
+  --background: var(--primary-color);
+}
+.searchbar {
+  --background: #ffffff;
+  --color: #111;
+  --placeholder-color: #777;
+  --icon-color: #666;
+  font-size: 13px;
+}
+
+/* states */
+.state {
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: var(--ion-color-medium);
+
+  ion-icon {
+    font-size: 80px;
+    opacity: 0.45;
+    margin-bottom: 10px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+  }
+}
+
+/* list container */
+.list {
+  padding: 12px;
+}
+
+/* each user card */
+.user-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 12px;
+  margin-bottom: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* left section */
+.user-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+}
+
+/* avatar */
+.avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  padding-top: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  span {
+    color: #fff;
+    font-weight: 900;
+    font-size: 28px;
+    text-transform: uppercase;
+  }
+}
+
+/* info */
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+/* first row: name + status pill */
+.row1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+/* name */
+.name {
+  font-weight: 900;
+  font-size: 15px;
+  color: #0b5136;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* status pill */
+.status-pill {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 10px 2px;
+  border-radius: 999px;
+  background: rgba(45, 198, 83, 0.12);
+  color: #2dc653;
+  border: 1px solid rgba(45, 198, 83, 0.22);
+  flex-shrink: 0;
+}
+
+.status-pill.inactive {
+  background: rgba(255, 77, 79, 0.12);
+  color: #ff4d4f;
+  border: 1px solid rgba(255, 77, 79, 0.22);
+}
+
+/* meta rows */
+.meta {
+  display: grid;
+  gap: 6px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #333;
+
+  ion-icon {
+    font-size: 16px;
+    color: #666;
+    flex-shrink: 0;
+  }
+
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.muted {
+  opacity: 0.75;
+}
+
+.action {
+  font-weight: bold;
+  --padding-top: 10px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-bottom: 6px;
+}
+
+.danger{
+  --background:#bd0000;
+  color: #ffffff;
+}
+
+
+.success{
+  --background:#00980d;
+  color: #ffffff;
+}
