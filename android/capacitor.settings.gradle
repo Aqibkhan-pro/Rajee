@@ -19,3 +19,6 @@ project(':capacitor-status-bar').projectDir = new File('../node_modules/@capacit
 
 include ':droponio-capacitor-call-number'
 project(':droponio-capacitor-call-number').projectDir = new File('../node_modules/@droponio/capacitor-call-number/android')
+
+include ':capacitor-file-picker'
+project(':capacitor-file-picker').projectDir = new File('../node_modules/capacitor-file-picker/android')

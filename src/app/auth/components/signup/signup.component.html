@@ -19,8 +19,8 @@
       </div>
     </ion-item>
 
-    <!-- Signup Form -->
-    <form *ngIf="!otpSent" [formGroup]="signupForm" (ngSubmit)="onSendOtp()">
+    <!-- ✅ Signup Form Only -->
+    <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
       <ion-list class="text-center mt-4">
         <ion-label>
           <h2 class="text-20">{{ 'create_account' | translate }}</h2>
@@ -34,15 +34,19 @@
             name="person"
             class="text-20">
           </ion-icon>
+
           <ion-input
             type="text"
+            style="color: black; --color:black; padding-right: 10px; --padding-end:10px"
             placeholder="{{ 'full_name' | translate }}"
             formControlName="fullName"
             [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
           </ion-input>
         </ion-item>
         <ion-text color="danger" *ngIf="submitted && fullName?.errors">
-          <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="fullName?.errors?.required">{{ 'full_name_required' | translate }}</p>
+          <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="fullName?.errors?.required">
+            {{ 'full_name_required' | translate }}
+          </p>
         </ion-text>
 
         <!-- Phone -->
@@ -52,16 +56,19 @@
             name="call"
             class="text-20">
           </ion-icon>
+
           <ion-input
             type="tel"
+            style="color: black; --color:black; padding-right: 10px; --padding-end:10px"
             placeholder="{{ 'phone' | translate }}"
             formControlName="phone"
             [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
           </ion-input>
         </ion-item>
         <ion-text color="danger" *ngIf="submitted && phone?.errors">
-          <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="phone?.errors?.required">{{ 'phone_required' | translate }}</p>
-          <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="phone?.errors?.pattern">{{ 'phone_invalid' | translate }}</p>
+          <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="phone?.errors?.required">
+            {{ 'phone_required' | translate }}
+          </p>
         </ion-text>
 
         <!-- Email -->
@@ -71,16 +78,22 @@
             name="mail"
             class="text-20">
           </ion-icon>
+
           <ion-input
             type="email"
+            style="color: black; --color:black; padding-right: 10px; --padding-end:10px"
             placeholder="{{ 'email' | translate }}"
             formControlName="email"
             [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
           </ion-input>
         </ion-item>
         <ion-text color="danger" *ngIf="submitted && email?.errors">
-          <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="email?.errors?.required">{{ 'email_required' | translate }}</p>
-          <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="email?.errors?.email">{{ 'email_invalid' | translate }}</p>
+          <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="email?.errors?.required">
+            {{ 'email_required' | translate }}
+          </p>
+          <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="email?.errors?.email">
+            {{ 'email_invalid' | translate }}
+          </p>
         </ion-text>
 
         <!-- Password -->
@@ -90,16 +103,22 @@
             name="lock-closed"
             class="text-20">
           </ion-icon>
+
           <ion-input
             type="password"
+            style="color: black; --color:black; padding-right: 10px; --padding-end:10px"
             placeholder="{{ 'password' | translate }}"
             formControlName="password"
             [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
           </ion-input>
         </ion-item>
         <ion-text color="danger" *ngIf="submitted && password?.errors">
-          <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="password?.errors?.required">{{ 'password_required' | translate }}</p>
-          <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="password?.errors?.minlength">{{ 'password_minlength' | translate }}</p>
+          <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="password?.errors?.required">
+            {{ 'password_required' | translate }}
+          </p>
+          <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="password?.errors?.minlength">
+            {{ 'password_minlength' | translate }}
+          </p>
         </ion-text>
 
         <!-- Confirm Password -->
@@ -109,77 +128,45 @@
             name="lock-closed"
             class="text-20">
           </ion-icon>
+
           <ion-input
             type="password"
+            style="color: black; --color:black; padding-right: 10px; --padding-end:10px"
             placeholder="{{ 'confirm_password' | translate }}"
             formControlName="confirmPassword"
             [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
           </ion-input>
         </ion-item>
-        <ion-text color="danger" *ngIf="submitted && confirmPassword?.errors">
-          <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="confirmPassword?.errors?.required">{{ 'confirm_password_required' | translate }}</p>
-          <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="signupForm?.errors?.passwordMismatch">{{ 'password_mismatch' | translate }}</p>
+
+        <ion-text color="danger" *ngIf="submitted && (confirmPassword?.errors || signupForm?.errors)">
+          <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="confirmPassword?.errors?.required">
+            {{ 'confirm_password_required' | translate }}
+          </p>
+          <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="signupForm?.errors?.passwordMismatch">
+            {{ 'password_mismatch' | translate }}
+          </p>
         </ion-text>
 
-        <!-- Send OTP Button -->
+        <!-- Signup Button -->
         <ion-button expand="block" type="submit" mode="ios" [disabled]="isLoading" class="text-16 mt-20">
-          <ng-container *ngIf="!isLoading">{{ 'send_otp' | translate }}</ng-container>
+          <ng-container *ngIf="!isLoading">{{ 'sign_up' | translate }}</ng-container>
           <ng-container *ngIf="isLoading">
             <ion-spinner name="crescent" slot="start"></ion-spinner>
-            {{ 'sending' | translate }}
+            {{ 'creating' | translate }}
           </ng-container>
         </ion-button>
 
         <!-- Login Redirect -->
         <ion-label>
-          <p class="login-text text-14 mt-12" [style.text-align]="selectedLanguage=='en' ? 'start':'end'" (click)="goToLogin()">
+          <p class="login-text text-14 mt-12"
+             [style.text-align]="selectedLanguage=='en' ? 'start':'end'"
+             (click)="goToLogin()">
             {{ 'already_have_account' | translate }}
             <u style="color: aqua; margin-left: 5px;">{{ 'login' | translate }}</u>
           </p>
         </ion-label>
+
       </ion-list>
     </form>
-
-    <!-- OTP Verification -->
-    <div *ngIf="otpSent" class="otp-container">
-      <form [formGroup]="otpForm">
-        <ion-list class="text-center mt-4">
-          <ion-label>
-            <h2>{{ 'verify_email' | translate }}</h2>
-            <p class="subtitle">{{ 'otp_sent_message' | translate }}</p>
-            <p class="email-highlight">{{ signupForm.value.email }}</p>
-          </ion-label>
-
-          <!-- OTP Input -->
-          <ion-item lines="none" class="mt-20" style="justify-self: center;">
-            <ion-input-otp
-              formControlName="otp"
-              length="6"
-              size="small"
-              mode="ios"
-              fill="solid"
-              shape="soft"
-              inputmode="numeric"
-              autocomplete="one-time-code">
-            </ion-input-otp>
-          </ion-item>
-
-          <!-- OTP Validation -->
-          <ion-text color="danger" *ngIf="otp?.touched && otp?.errors">
-            <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="otp?.errors?.required">{{ 'otp_required' | translate }}</p>
-            <p [style.text-align]="selectedLanguage=='en' ? 'start':'end'" *ngIf="otp?.errors?.otpLength">{{ 'otp_invalid' | translate }}</p>
-          </ion-text>
-
-          <ion-list style="display: grid;">
-            <ion-button class="mt-20" shape="round" mode="ios" [disabled]="otpForm.invalid || isLoading" (click)="onVerifyOtp()">
-              {{ 'verify_continue' | translate }}
-            </ion-button>
-            <ion-button class="mt-20" color="medium" shape="round" mode="ios" (click)="goBack()">
-              {{ 'back_to_login' | translate }}
-            </ion-button>
-          </ion-list>
-        </ion-list>
-      </form>
-    </div>
   </ion-list>
 </ion-content>

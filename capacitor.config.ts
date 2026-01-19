@@ -1,21 +1,18 @@
 import type { CapacitorConfig } from '@capacitor/cli';
+import { KeyboardResize } from '@capacitor/keyboard';
 
 const config: CapacitorConfig = {
-  appId: 'app.preowned.devices',
-  appName: 'Rajee',
+  appId: 'app.rajee.mart',
+  appName: 'رجيع',
   webDir: 'www',
 
   plugins: {
     Keyboard: {
-      resize: 'ionic'
+      resize: KeyboardResize.Ionic,
+      resizeOnFullScreen: true
     }
   },
 
-  android: {
-    webContentsDebuggingEnabled: true,
-    adjustMarginsForEdgeToEdge: 'disable',
-    allowMixedContent: true,
-  },
 };
 
 export default config;

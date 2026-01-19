@@ -48,7 +48,7 @@
   "unexpected_error": "Unexpected error occurred",
   "welcome_back_user": "Welcome back",
   "user": "User",
-
+  "policies" : "Privacy Policies",
   "iron_tools": "Iron Tools",
   "plastic_tools": "Plastic Tools",
   "electrical_tools": "Electrical Tools",
@@ -191,7 +191,7 @@
         "search_favorites": "Search favorites...",
         "no_favorites_message": "Start adding products to your favorites!",
         "browse_products": "Browse Products",
-        "loading_favorites": "Loading favorites..."
-
+        "loading_favorites": "Loading favorites...",
+        "sub_category":"Sub Category"
 
 }

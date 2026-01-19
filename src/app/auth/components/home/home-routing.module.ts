@@ -6,6 +6,7 @@ import { ChatInboxComponent } from './chat-inbox/chat-inbox.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from '../../services/auth.guard';
+import { PoliciesComponent } from './policies/policies.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,7 @@ const routes: Routes = [
         component: ChatInboxComponent,
         canActivate: [AuthGuard],
       },
+
       {
         path: 'profile',
         component: ProfileComponent,

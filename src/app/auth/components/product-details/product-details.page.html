@@ -9,7 +9,7 @@
         <ion-icon
           slot="icon-only"
           [name]="isFavorite ? 'heart' : 'heart-outline'"
-          [color]="isFavorite ? 'danger' : 'medium'">
+          [color]="isFavorite ? 'danger' : 'white'">
         </ion-icon>
       </ion-button>
     </ion-buttons>
@@ -57,7 +57,7 @@
   </ion-list>
 
   <ion-list style="padding: 16px;">
-    <img [src]="product?.image" alt="Product Image" class="card-image" />
+    <img [src]="product?.image || product?.images[0]" alt="Product Image" class="card-image" />
     <ion-button mode="ios" shape="round" expand="block" (click)="callUserData(product?.user?.phone)"
       style="--background: #0573c1; color: #fff; margin-top: 12px;">
       <ion-icon name="call-sharp"></ion-icon>

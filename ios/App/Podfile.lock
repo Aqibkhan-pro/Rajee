@@ -6,6 +6,8 @@ PODS:
   - CapacitorCamera (7.0.3):
     - Capacitor
   - CapacitorCordova (7.4.4)
+  - CapacitorFilePicker (0.0.1):
+    - Capacitor
   - CapacitorHaptics (7.0.2):
     - Capacitor
   - CapacitorKeyboard (7.0.3):
@@ -22,6 +24,7 @@ DEPENDENCIES:
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
   - "CapacitorCamera (from `../../node_modules/@capacitor/camera`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
+  - CapacitorFilePicker (from `../../node_modules/capacitor-file-picker`)
   - "CapacitorHaptics (from `../../node_modules/@capacitor/haptics`)"
   - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
@@ -37,6 +40,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/camera"
   CapacitorCordova:
     :path: "../../node_modules/@capacitor/ios"
+  CapacitorFilePicker:
+    :path: "../../node_modules/capacitor-file-picker"
   CapacitorHaptics:
     :path: "../../node_modules/@capacitor/haptics"
   CapacitorKeyboard:
@@ -53,12 +58,13 @@ SPEC CHECKSUMS:
   CapacitorApp: 846d4b4a1dbb19dd1e9029c08ba6f028aa7be862
   CapacitorCamera: 6ef67fd287de230ebd8cda05f2a7ffd44a48e568
   CapacitorCordova: bf648a636f3c153f652d312ae145fb508b6ffced
+  CapacitorFilePicker: dcc675cd5cc67baa0eb2e648fdbc38f4a4b18ff6
   CapacitorHaptics: 09d96bcb5a2b74ede8fd039b4cdf58fc43dcacf1
   CapacitorKeyboard: 3822c3a0c6b58168f96ca562f9534ed095d40860
   CapacitorStatusBar: 7d8fcbd6768db014bd721d75e246590b014928e8
   CordovaPlugins: 98c46dee06a9d17321ef6db1855f7fdc735f12f5
   DroponioCapacitorCallNumber: 4d8ab6ec28c6ad5ec8177c3eb61b5efdfbdfbb37
 
-PODFILE CHECKSUM: 6bc095e29b83554b4223e1807b27e47c03a1e458
+PODFILE CHECKSUM: 43d75ab0956bc65779eea4594008fbde7bb6e267
 
 COCOAPODS: 1.16.2

@@ -1,0 +1,73 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button style="color: var(--secondary-color) !important;"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: var(--secondary-color) !important;">Manage Products</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-searchbar
+      placeholder="Search products..."
+      (ionInput)="onSearch($event)"
+      mode="ios">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="list-container">
+
+    <ion-card *ngFor="let p of filteredProducts" mode="ios">
+      <ion-item lines="none" class="card-item">
+        <img [src]="p?.image || p?.images[0]" class="card-image" />
+
+        <div class="card-body">
+          <div class="title">{{ p.title }}</div>
+
+          <div class="meta">
+            <div class="meta-item">
+              <ion-icon name="pricetag-outline"></ion-icon>
+              <span>{{ p.price || 'N/A' }}</span>
+            </div>
+
+            <div class="meta-item">
+              <ion-icon name="time-outline"></ion-icon>
+              <span>{{ (p.createdAt || p.time || 0) | date:'dd MMM yy' }}</span>
+            </div>
+          </div>
+
+          <div class="desc" *ngIf="p.description">{{ p.description }}</div>
+        </div>
+      </ion-item>
+
+      <!-- ✅ Action buttons bottom -->
+      <div class="actions">
+        <ion-button expand="block" (click)="approve(p)">
+          <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+          Approve
+        </ion-button>
+
+        <ion-button expand="block" color="danger" fill="outline" (click)="reject(p)">
+          <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+          Reject
+        </ion-button>
+      </div>
+    </ion-card>
+
+    <!-- Empty -->
+    <div class="empty" *ngIf="!loading && products.length === 0">
+      <ion-icon name="cube-outline"></ion-icon>
+      <p>No pending products</p>
+    </div>
+
+    <!-- Loading -->
+    <div class="empty" *ngIf="loading">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Loading...</p>
+    </div>
+
+  </div>
+
+</ion-content>

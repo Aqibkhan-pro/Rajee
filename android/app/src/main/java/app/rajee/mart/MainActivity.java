@@ -1,4 +1,4 @@
-package app.preowned.devices;
+package app.rajee.mart;
 
 import com.getcapacitor.BridgeActivity;
 

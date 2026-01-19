@@ -20,9 +20,16 @@
           <ion-icon name="person-outline" [slot]="selectedLanguage=='en' ? 'start': 'end'"></ion-icon>
           <ion-label [style.text-align]="selectedLanguage=='en' ? 'start': 'end'">{{'profile_label'| translate }}</ion-label>
         </ion-item>
-        <ion-item button (click)="onMenuItemClick('admin-panel')" lines="none">
+        <ion-item button (click)="onMenuItemClick('admin-panel')" lines="none"  *ngIf="isAdmin">
           <ion-icon name="id-card-outline" [slot]="selectedLanguage=='en' ? 'start': 'end'"></ion-icon>
           <ion-label [style.text-align]="selectedLanguage=='en' ? 'start': 'end'">{{'admin_panel'| translate }}</ion-label>
+        </ion-item>
+
+        <ion-item button (click)="onMenuItemClick('policies')" lines="none">
+          <ion-icon name="shield-checkmark-outline" [slot]="selectedLanguage=='en' ? 'start': 'end'"></ion-icon>
+          <ion-label [style.text-align]="selectedLanguage=='en' ? 'start': 'end'">
+            {{ 'policies' | translate }}
+          </ion-label>
         </ion-item>
 
         <ion-item button (click)="onMenuItemClick('settings')" lines="none">

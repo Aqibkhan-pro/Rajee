@@ -1,100 +1,283 @@
 <ion-header class="ion-no-border">
+  <!-- Top toolbar -->
   <ion-toolbar>
     <ion-buttons [slot]="selectedLanguage=='en' ? 'start': 'end'">
       <ion-menu-button menu="homeMenu"></ion-menu-button>
     </ion-buttons>
-    <ion-title [style.text-align]="selectedLanguage=='en' ? 'start': 'end'" >{{ 'home' | translate }}</ion-title>
+
+    <ion-title [style.text-align]="selectedLanguage=='en' ? 'start': 'end'">
+      {{ 'home' | translate }}
+    </ion-title>
+
+    <ion-buttons [slot]="selectedLanguage!=='en' ? 'start': 'end'">
+      <ion-button fill="clear" (click)="toggleLayout()" style="color: var(--secondary-color)">
+        <ion-icon [name]="isGrid ? 'list' : 'grid'"></ion-icon>
+      </ion-button>
+
+      <ion-button fill="clear" style="color: var(--secondary-color)">
+        <ion-icon name="heart" style="color: var(--secondary-color) !important"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
+
+  <!-- Search toolbar -->
   <ion-toolbar>
-    <ion-searchbar
-  [placeholder]="'search_items' | translate"
-  (ionInput)="onSearch($event)"
-  mode="ios">
-</ion-searchbar>
+    <ion-searchbar #searchbar [placeholder]="'search_items' | translate"
+      [attr.dir]="selectedLanguage !== 'en' ? 'rtl' : 'ltr'" (ionInput)="onSearch($event)" mode="ios">
+    </ion-searchbar>
   </ion-toolbar>
-    <ion-toolbar>
-  <!-- Category Filter Chips -->
-  <div class="category-chips-container">
-    <ion-chip
-      *ngFor="let category of categories"
-      [color]="category.selected ? 'primary' : 'medium'"
-      [outline]="!category.selected"
-      (click)="onCategorySelect(category)">
-      <ion-icon [name]="category.icon"></ion-icon>
-      <ion-label>{{ selectedLanguage == 'en'  ? category.en : category.ar }}</ion-label>
-    </ion-chip>
-  </div>
-    </ion-toolbar>
 </ion-header>
 
-<ion-content id="main-content">
-<!-- Card List -->
-<div class="card-container">
-  <ion-card *ngFor="let item of filteredItems" mode="ios">
-    <ion-item class="card-item" lines="none" (click)="onCardClick(item)">
+<!-- ✅ IMPORTANT: ion-content does NOT scroll -->
+<ion-content id="main-content" [scrollY]="false">
 
-      <img [src]="item.image" [alt]="item.title" class="card-image" />
+  <div class="home-wrapper">
 
-      <ion-list class="card-details">
-        <div
-        class="card-title"
-        [attr.dir]="(item.title | isArabic) ? 'rtl' : 'ltr'"
-        [style.text-align]="(item.title | isArabic) ? 'right' : 'left'">
-        {{ item.title }}
+    <!-- ✅ TOP AREA (no scroll) -->
+    <div class="home-top">
+
+      <!-- ✅ STORIES (with show/hide arrow) -->
+      <div class="stories-wrapper">
+
+        <div class="stories-header">
+          <div class="stories-title">
+            {{ selectedLanguage=='en' ? 'Stories' : 'القصص' }}
+          </div>
+
+          <ion-button fill="clear" class="stories-toggle-btn" (click)="toggleStories()">
+            <ion-icon [name]="storiesCollapsed ? 'chevron-down-outline' : 'chevron-up-outline'" class="arrow-icon"
+              [class.rotate]="!storiesCollapsed">
+            </ion-icon>
+          </ion-button>
+        </div>
+
+        <div class="stories-body" [class.collapsed]="storiesCollapsed">
+          <div class="stories-scroll">
+
+            <!-- Add Story -->
+            <div class="story-item" (click)="openAddStoryModal()">
+              <div class="story-ring add-story">
+                <div class="story-avatar">
+                  <div class="story-initial">
+                    {{ getInitial(currentUserName) }}
+                  </div>
+
+                  <div class="plus-badge">
+                    <ion-icon name="add"></ion-icon>
+                  </div>
+                </div>
+              </div>
+
+              <div class="story-name">
+                {{ selectedLanguage=='en' ? 'Your Story' : 'قصتك' }}
+              </div>
+            </div>
+
+            <!-- Story List -->
+            <div class="story-item" *ngFor="let s of stories" (click)="openStoryViewer(s)">
+              <div class="story-ring" [class.seen]="s.seen">
+                <div class="story-avatar">
+                  <img [src]="s?.image" alt="Story" *ngIf="s?.image">
+                  <div class="story-initial" *ngIf="!s?.image">
+                    {{ getInitial(s.userName) }}
+                  </div>
+                </div>
+              </div>
+              <div class="story-name">{{ s.userName }}</div>
+            </div>
+
+          </div>
+        </div>
       </div>
 
+      <!-- ✅ Category Chips -->
+      <div class="category-chips-container">
+        <ion-chip *ngFor="let category of categories" [color]="category.selected ? 'primary' : 'medium'"
+          [outline]="!category.selected" (click)="onCategorySelect(category)">
 
+          <ion-icon [name]="category.icon"></ion-icon>
+          <ion-label style="margin-top: 4px;">
+            {{ selectedLanguage == 'en' ? category.en : category.ar }}
+          </ion-label>
+        </ion-chip>
+      </div>
 
-        <div class="card-info">
-          <!-- Price -->
-          <span class="card-info-item-price">
-            <ion-icon name="pricetag-outline"></ion-icon>
-            <span>{{ item.price }}</span>
-          </span>
+      <!-- ✅ Sub Category (ONLY when category != all) -->
+      <div class="subcat-bar" *ngIf="selectedCategoryKey !== 'all'">
+        <ion-select interface="popover" class="subcat-select" [value]="selectedSubCategoryKey"
+          (ionChange)="onSubCategorySelect($event.detail.value)" [attr.dir]="selectedLanguage !== 'en' ? 'rtl' : 'ltr'">
 
-          <!-- Time -->
-          <span class="card-info-item">
-            <ion-icon name="time-outline"></ion-icon>
-            <span>{{ item.time | date :'dd MMM yy'}}</span>
-          </span>
+          <ion-select-option value="all">
+            {{ selectedLanguage=='en' ? 'All Sub Categories' : 'كل التصنيفات الفرعية' }}
+          </ion-select-option>
 
-          <!-- Location -->
-          <span class="card-info-item" style="justify-content:right">
-            <ion-icon name="location-outline"></ion-icon>
-            <span *ngIf="item?.location">{{item?.location?.lat}}, {{item?.location?.lng}}</span>
-            <span *ngIf="!item?.location">N/A</span>
+          <ion-select-option *ngFor="let sc of subCategoryOptions" [value]="sc.key">
+            {{ selectedLanguage === 'en' ? sc.en : sc.ar }}
+          </ion-select-option>
 
-          </span>
+        </ion-select>
+      </div>
+
+    </div>
+
+    <!-- ✅ ONLY THIS LIST AREA SCROLLS -->
+    <div class="home-list">
+
+      <div class="card-container" [class.grid-view]="isGrid">
+
+        <ion-card *ngFor="let item of filteredItems" mode="ios">
+          <ion-item class="card-item" lines="none" (click)="onCardClick(item)" *ngIf="!isGrid ">
+
+            <img [src]="(item?.images?.[0] || item?.image || 'assets/images/img/usr.png')" [alt]="item?.title"
+              class="card-image" />
+
+            <div class="card-details">
+
+              <div class="card-title" [attr.dir]="(item.title | isArabic) ? 'rtl' : 'ltr'"
+                [style.text-align]="(item.title | isArabic) ? 'right' : 'left'">
+                {{ item.title }}
+              </div>
+
+              <div class="card-row">
+                <div class="price-pill">
+                  <ion-icon name="pricetag-outline"></ion-icon>
+                  <span style="margin-top: 6px;">{{ item.price }}</span>
+                </div>
+
+                <div class="meta">
+                  <ion-icon name="time-outline"></ion-icon>
+                  <span style="margin-top: 4px;">{{ item.time | date :'dd MMM yy' }}</span>
+                </div>
+              </div>
+
+              <div class="card-row">
+                <div class="meta">
+                  <ion-icon name="location-outline"></ion-icon>
+
+                  <span *ngIf="item?.location">
+                    {{ (+item?.location?.lat) | number:'1.2-2' }},
+                    {{ (+item?.location?.lng) | number:'1.2-2' }}
+                  </span>
+
+                  <span *ngIf="!item?.location">N/A</span>
+                </div>
+
+                <div class="user">
+                  <span class="initial-circle">{{ item.user?.name?.charAt(0) }}</span>
+                  <span class="user-name">{{ item.user?.name }}</span>
+                </div>
+              </div>
+
+              <!-- <div class="card-row" *ngIf="item?.comments?.length > 0">
+                <div class="meta comments">
+                  <ion-icon name="chatbubbles"></ion-icon>
+                  <span>{{ item?.comments?.length }}</span>
+                </div>
+              </div> -->
+
+            </div>
+
+          </ion-item>
+          <div *ngIf="isGrid">
+            <img [src]="(item?.images?.[0] || item?.image || 'assets/images/img/usr.png')" [alt]="item?.title"
+              class="card-image" />
+            <div class="card-title" style="
+           margin: 8px; font-size: 13px;" [attr.dir]="(item.title | isArabic) ? 'rtl' : 'ltr'"
+              [style.text-align]="(item.title | isArabic) ? 'right' : 'left'">
+              {{ item.title }}
+            </div>
+            <div class="card-row" style="margin: 0px 5px 5px;">
+              <div class="price-pill" style="padding: 6px 10px;">
+                <ion-icon name="pricetag-outline"></ion-icon>
+                <span >{{ item.price }}</span>
+              </div>
+
+              <div class="meta">
+                <ion-icon name="time-outline"></ion-icon>
+                <span>{{ item.time | date :'dd MMM yy' }}</span>
+              </div>
+            </div>
+          </div>
+
+        </ion-card>
+
+        <!-- Empty State -->
+        <div *ngIf="filteredItems.length === 0" class="empty-state">
+          <ion-icon name="basket-outline" size="large"></ion-icon>
+          <p>{{ 'no_items' | translate }}</p>
         </div>
 
-        <div class="card-info">
-          <!-- Component -->
-          <span class="card-info-item" style="justify-content: left; color: var(--primary-color);">
-            <ion-icon name="chatbubbles" *ngIf="item?.comments?.length > 0"></ion-icon>
-            <span *ngIf="item?.comments?.length > 0">{{ item?.comments?.length }}</span>
-          </span>
-
-          <!-- User Initial instead of icon -->
-          <span class="card-info-item user-initial"  style="justify-content:right">
-            <span class="initial-circle">{{ item.user?.name?.charAt(0) }}</span>
-            <span>{{ item.user?.name }}</span>
-          </span>
-
-        </div>
-
-      </ion-list>
-
-    </ion-item>
-  </ion-card>
-
-  <!-- Empty State -->
-  <div *ngIf="items.length === 0" class="empty-state">
-    <ion-icon name="basket-outline" size="large"></ion-icon>
-    <p>{{'no_items'| translate}}</p>
+      </div>
+    </div>
   </div>
-</div>
 
+  <!-- ✅ Add Story Modal -->
+  <ion-modal [isOpen]="isAddStoryOpen" (didDismiss)="closeAddStoryModal()" mode="ios">
+    <ng-template>
+      <ion-header class="ion-no-border">
+        <ion-toolbar>
+          <ion-title>{{ selectedLanguage=='en' ? 'Add Story' : 'إضافة قصة' }}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeAddStoryModal()">
+              {{ selectedLanguage=='en' ? 'Close' : 'إغلاق' }}
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="ion-padding">
+        <div class="story-pick-box" (click)="pickStoryImage()">
+          <ng-container *ngIf="!pickedStoryPreview">
+            <ion-icon name="images-outline"></ion-icon>
+            <p>{{ selectedLanguage=='en' ? 'Tap to pick from gallery' : 'اضغط لاختيار صورة من المعرض' }}</p>
+          </ng-container>
+          <img *ngIf="pickedStoryPreview" [src]="pickedStoryPreview" class="story-preview" />
+        </div>
+
+        <ion-item class="mt12">
+          <ion-label position="stacked">
+            {{ selectedLanguage=='en' ? 'Caption (optional)' : 'وصف (اختياري)' }}
+          </ion-label>
+          <ion-textarea [(ngModel)]="newStoryCaption" autoGrow="true"></ion-textarea>
+        </ion-item>
+
+        <ion-button expand="block" class="mt16" [disabled]="uploadingStory" (click)="addStory()">
+          <ng-container *ngIf="!uploadingStory">
+            {{ selectedLanguage=='en' ? 'Post Story' : 'نشر القصة' }}
+          </ng-container>
+          <ng-container *ngIf="uploadingStory">
+            <ion-spinner name="crescent" slot="start"></ion-spinner>
+            {{ selectedLanguage=='en' ? 'Uploading...' : 'جارٍ الرفع...' }}
+          </ng-container>
+        </ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <!-- ✅ Story Viewer Modal -->
+  <ion-modal [isOpen]="isStoryViewerOpen" (didDismiss)="closeStoryViewer()" mode="ios">
+    <ng-template>
+      <ion-header class="ion-no-border">
+        <ion-toolbar>
+          <ion-title>{{ activeStory?.userName }}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeStoryViewer()"
+              style="--background: var(--primary-color); --color: var(--secondary-color);">
+              {{ selectedLanguage=='en' ? 'Close' : 'إغلاق' }}
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="story-viewer">
+        <div class="story-viewer-inner">
+          <img [src]="activeStory?.image" class="story-full-image" />
+          <div class="story-caption" *ngIf="activeStory?.caption">
+            {{ activeStory?.caption }}
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 
 </ion-content>
-
-

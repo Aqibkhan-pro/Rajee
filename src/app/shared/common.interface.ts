@@ -16,6 +16,7 @@ export interface Product {
   image?: string;
   user: User;
   createdAt?: number;
+  images?: string[];
   ratings?: Rating[] | any;
   comments?: Comment[] | any;
 }

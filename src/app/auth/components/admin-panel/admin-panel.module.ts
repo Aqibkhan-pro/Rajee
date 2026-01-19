@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { AdminPanelPageRoutingModule } from './admin-panel-routing.module';
 
 import { AdminPanelPage } from './admin-panel.page';
+import { ManageProductsComponent } from './manage-products/manage-products.component';
+import { ManageUsersComponent } from './manage-users/manage-users.component';
 
 @NgModule({
   imports: [
@@ -15,6 +17,6 @@ import { AdminPanelPage } from './admin-panel.page';
     IonicModule,
     AdminPanelPageRoutingModule
   ],
-  declarations: [AdminPanelPage]
+  declarations: [AdminPanelPage, ManageProductsComponent, ManageUsersComponent]
 })
 export class AdminPanelPageModule {}
