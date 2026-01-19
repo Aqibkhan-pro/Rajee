@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar class="pol-toolbar">
+    <ion-title class="pol-title">Policies</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="pol-content ion-padding" style="background: #fafafa !important;--background:#fafafa !important">
+
+  <ion-card class="pol-hero">
+    <ion-card-header>
+      <ion-card-title>{{ appName }} Policies</ion-card-title>
+      <ion-card-subtitle>Last Updated: {{ lastUpdated }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-searchbar
+        class="pol-search"
+        [(ngModel)]="query"
+        placeholder="Search policy..."
+        debounce="150">
+      </ion-searchbar>
+
+      <div class="top-actions">
+        <ion-button class="pol-btn" fill="outline" size="small" (click)="mailToSupport()" style="--padding-top:10px">
+          <ion-icon name="mail-outline" slot="start" style="margin-bottom: 6px;"></ion-icon>
+          Email Support
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-accordion-group class="pol-acc-group" value="privacy">
+    <ion-accordion class="pol-acc" *ngFor="let s of filteredSections" [value]="s.id" style="background-color: #ffffff;">
+
+      <ion-item class="pol-acc-header" slot="header">
+        <ion-icon class="pol-acc-icon" [name]="s.icon || 'document-outline'" slot="start" style="color: #fafafa;--color:#fafafa"></ion-icon>
+        <ion-label class="pol-acc-label">
+          <h2>{{ s.title }}</h2>
+        </ion-label>
+      </ion-item>
+
+      <div class="ion-padding pol-body" slot="content">
+        <ng-container *ngFor="let b of s.blocks">
+          <p *ngIf="b.type === 'p'">{{ b.text }}</p>
+
+          <ul *ngIf="b.type === 'ul'">
+            <li *ngFor="let it of b.items">{{ it }}</li>
+          </ul>
+        </ng-container>
+      </div>
+
+    </ion-accordion>
+  </ion-accordion-group>
+
+  <div style="width: 100%; height:200px"></div>
+</ion-content>

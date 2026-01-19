@@ -121,7 +121,8 @@
   "no_favorites": "لا توجد مفضلات بعد",
   "no_favorites_message": "ابدأ بإضافة المنتجات إلى مفضلتك!",
   "browse_products": "تصفح المنتجات",
-  "loading_favorites": "جاري تحميل المفضلة..."
-
+  "loading_favorites": "جاري تحميل المفضلة...",
+  "sub_category":"الفئة الفرعية",
+  "policies" : "سياسات الخصوصية"
 
 }

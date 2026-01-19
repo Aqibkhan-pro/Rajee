@@ -1,0 +1,142 @@
+:host {
+  display: block;
+
+  /* fallback colors if your variables not defined */
+  --pol-primary: var(--primary-color, #ffffff);
+  --pol-surface: var(--secondary-color, #f4f6fb);
+
+  --pol-card: rgba(255, 255, 255, 0.92);
+  --pol-border: rgba(0, 0, 0, 0.08);
+  --pol-text: rgba(0, 0, 0, 0.88);
+  --pol-muted: rgba(0, 0, 0, 0.55);
+}
+
+/* Header */
+.pol-toolbar {
+  --background: var(--pol-primary);
+  --color: #fff;              /* ✅ ion-title ke liye correct */
+}
+
+.pol-title {
+  --color: #fff;              /* ✅ Shadow-safe */
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  font-family: system-ui;
+}
+
+/* Page background */
+.pol-content {
+  --background: var(--pol-surface);
+}
+
+/* Hero Card */
+.pol-hero {
+  margin: 0px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--primary-color);;
+  border: 1px solid var(--pol-border);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.pol-hero ion-card-title {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--secondary-color);
+}
+
+.pol-hero ion-card-subtitle {
+  color: #d9d9d9;
+}
+
+/* Searchbar (Ionic variables) */
+.pol-search {
+  --background: rgba(255, 255, 255, 0.95);
+  --border-radius: 14px;
+  --box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+  --color: var(--pol-text);
+  --placeholder-color: rgba(0, 0, 0, 0.40);
+  --icon-color: rgba(0, 0, 0, 0.45);
+  --clear-button-color: rgba(0, 0, 0, 0.45);
+  margin-top: 10px;
+  padding-inline-start: 0px;
+  padding-inline-end: 0px;
+}
+
+/* Button */
+.top-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.pol-btn {
+  --border-radius: 12px;
+  --border-color: rgba(0, 0, 0, 0.18);
+}
+
+/* Accordion look */
+.pol-acc-group {
+  margin-top: 12px;
+}
+
+.pol-acc {
+  margin: 10px 0;
+}
+
+/* ✅ Shadow DOM parts */
+.pol-acc::part(header) {
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--pol-border);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+.pol-acc::part(content) {
+  margin-top: 10px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid var(--pol-border);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.04);
+}
+
+/* Header item inside accordion */
+.pol-acc-header {
+  --background: transparent;
+  --inner-padding-start: 14px;
+  --inner-padding-end: 14px;
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+}
+
+.pol-acc-icon {
+  font-size: 20px;
+  opacity: 0.9;
+}
+
+.pol-acc-label h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--secondary-color);
+}
+
+/* Body text */
+.pol-body p {
+  white-space: pre-line;
+  margin: 0 0 12px;
+  line-height: 1.75;
+  color: var(--pol-text);
+}
+
+.pol-body ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.pol-body li {
+  margin: 8px 0;
+  line-height: 1.65;
+  color: rgba(0, 0, 0, 0.72);
+}

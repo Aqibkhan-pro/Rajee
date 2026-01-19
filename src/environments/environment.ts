@@ -1,6 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://api-admin-v2.uat.techbar.com/api',
   firebase: {
     apiKey: "AIzaSyCMUYhUr-PjEmvwMcDydyQLpVeWc6vrROk",
     authDomain: "rajee-198a5.firebaseapp.com",

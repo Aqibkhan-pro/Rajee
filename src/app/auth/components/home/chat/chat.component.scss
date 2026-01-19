@@ -1,12 +1,30 @@
+/* ✅ default */
+:host {
+  --footer-min-bottom: 0px; /* iOS uses safe-area automatically */
+}
+
+/* ✅ Android (md) sometimes returns 0 safe-area -> add minimum */
+:host-context(.md) {
+  --footer-min-bottom: 20px; /* change to 24 if needed */
+}
+
 .chat-content {
   --background: #f5f5f5 !important;
+
+  /* ✅ content must never go under footer */
+  --padding-bottom: calc(76px + max(var(--ion-safe-area-bottom), var(--footer-min-bottom)));
+}
+
+/* ✅ when keyboard open: remove extra bottom padding */
+.chat-content.kb-open {
+  --padding-bottom: 6px;
 }
 
 ion-title {
   color: var(--secondary-color) !important;
 }
 
-// Avatar styling
+/* Avatar styling */
 .chat-avatar {
   width: 36px;
   height: 36px;
@@ -22,7 +40,7 @@ ion-title {
     background: var(--secondary-color);
     color: var(--primary-color);
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 700;
     border-radius: 50%;
   }
 }
@@ -34,6 +52,19 @@ ion-title {
   gap: 12px;
 }
 
+.empty-state {
+  padding: 30px 0;
+  text-align: center;
+  color: #777;
+
+  ion-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+    opacity: 0.7;
+  }
+  p { margin: 0; }
+}
+
 .message-wrapper {
   display: flex;
   width: 100%;
@@ -43,9 +74,9 @@ ion-title {
 
     .message-bubble {
       background: var(--primary-color);
-      color: white;
+      color: #fff;
       border-radius: 18px 18px 4px 18px;
-      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
     }
   }
 
@@ -53,10 +84,10 @@ ion-title {
     justify-content: flex-start;
 
     .message-bubble {
-      background: white;
+      background: #fff;
       color: #333;
       border-radius: 18px 18px 18px 4px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
     }
   }
 }
@@ -64,18 +95,12 @@ ion-title {
 .message-bubble {
   max-width: 75%;
   padding: 12px 16px;
-  animation: slideIn 0.3s ease-out;
+  animation: slideIn 0.22s ease-out;
 }
 
 @keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .message-text {
@@ -93,23 +118,28 @@ ion-title {
   margin-top: 4px;
 }
 
-ion-footer {
-  ion-toolbar {
-    margin-bottom: env(safe-area-inset-bottom);
-    --background: white;
-    --border-width: 1px 0 0 0;
-    --border-color: #e0e0e0;
-    padding: 8px;
-  }
+/* ✅ Footer: safe-area when keyboard hidden */
+.chat-footer ion-toolbar {
+  --background: #fff;
+  --border-width: 1px 0 0 0;
+  --border-color: #e0e0e0;
+
+  padding: 8px;
+  padding-bottom: calc(8px + max(var(--ion-safe-area-bottom), var(--footer-min-bottom)));
+}
+
+/* ✅ Keyboard open -> remove extra bottom inset */
+.chat-footer.kb-open ion-toolbar {
+  padding-bottom: 8px !important;
 }
 
 .input-container {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #f5f5f5;
+  background: #f1f2f4;
   border-radius: 24px;
-  padding: 4px 8px;
+  padding: 6px 10px;
 }
 
 .message-input {

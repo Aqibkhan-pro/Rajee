@@ -10,6 +10,7 @@ import { GetStartedComponent } from './components/get-started/get-started.compon
 import { SignupComponent } from './components/signup/signup.component';
 import { TranslateModule } from '@ngx-translate/core';
 
+
 @NgModule({
   declarations: [
     LoginComponent,

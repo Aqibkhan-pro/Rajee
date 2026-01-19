@@ -2,9 +2,11 @@ import { UserData } from './../../../services/chat.service';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Router } from '@angular/router';
-import { NavController, ToastController } from '@ionic/angular';
+import { ModalController, NavController, ToastController } from '@ionic/angular';
 import { Product, ProductUser, Rating, Comment } from 'src/app/shared/common.interface';
 import { InboxService } from '../home/chat-inbox/service/inbox.service';
+import { AuthModalComponent } from '../auth/auth-modal/auth-modal.component';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-product-details',
@@ -59,7 +61,9 @@ export class ProductDetailsPage implements OnInit {
     private router: Router,
     private navCtrl: NavController,
     private db: AngularFireDatabase,
-    private inboxService: InboxService,
+    private commonService: CommonService,
+    private modalCtrl: ModalController,
+
     private toastController: ToastController
   ) {
     const navigation = this.router.getCurrentNavigation();
@@ -348,7 +352,43 @@ export class ProductDetailsPage implements OnInit {
     return texts[rating] || '';
   }
 
+
+  async openLoginModal() {
+    const modal = await this.modalCtrl.create({
+      component: AuthModalComponent,
+      cssClass: 'login-bottom-sheet-modal',
+      breakpoints: [0, 0.85],
+      initialBreakpoint: 0.85,
+      mode: 'ios',
+      backdropDismiss: false,
+      presentingElement: await this.modalCtrl.getTop(),
+    });
+
+    // Present the modal
+    await modal.present();
+
+    // Wait for the modal to be dismissed
+    const { data, role } = await modal.onDidDismiss();
+
+    if (role === 'success') {
+      this.commonService.notifyLoginSuccess();
+    } else if (role === 'warning') {
+      // this.navCtrl.navigateForward(['auth/signup']);
+    } else if (role === 'close') {
+      console.log('Login modal closed');
+    }
+  }
+
   async submitRating() {
+    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+    const uid = userData?.uid;
+    const token = userData?.idToken;
+
+    if (!uid || !token) {
+      this.openLoginModal();
+      console.error('No auth data available');
+      return;
+    }
     if (this.selectedRating === 0) return;
 
     try {
@@ -397,6 +437,15 @@ export class ProductDetailsPage implements OnInit {
   // ------------------- COMMENT FUNCTIONS -------------------
 
   async addComment() {
+    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+    const uid = userData?.uid;
+    const token = userData?.idToken;
+
+    if (!uid || !token) {
+      this.openLoginModal();
+      console.error('No auth data available');
+      return;
+    }
     if (!this.newComment.trim()) return;
 
     try {

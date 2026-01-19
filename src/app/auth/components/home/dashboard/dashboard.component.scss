@@ -10,6 +10,7 @@ ion-searchbar {
 /* ✅ IMPORTANT: disable ion-content scrolling */
 ion-content {
   --overflow: hidden;
+<<<<<<< HEAD
 }
 
 /* ✅ Layout: top fixed, list scroll only */
@@ -185,10 +186,126 @@ ion-card {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
+=======
+}
 
-  .card-item,
-  .card-details {
+/* ✅ Layout: top fixed, list scroll only */
+.home-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
+
+.home-top {
+  flex: 0 0 auto;
+}
+
+/* ✅ Critical for overflow in flex */
+.home-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(14px + env(safe-area-inset-bottom));
+}
+
+/* ✅ STORIES */
+.stories-wrapper {
+  padding: 10px 10px 6px 10px;
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.stories-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.stories-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #111;
+}
+
+.stories-toggle-btn {
+  --padding-start: 6px;
+  --padding-end: 6px;
+  height: 30px;
+}
+
+.arrow-icon {
+  font-size: 20px;
+  transition: transform 220ms ease;
+}
+
+.arrow-icon.rotate {
+  transform: rotate(180deg);
+}
+
+/* ✅ Animated collapse */
+.stories-body {
+  max-height: 320px;
+  opacity: 1;
+  overflow: hidden;
+  transition: max-height 260ms ease, opacity 220ms ease;
+}
+
+.stories-body.collapsed {
+  max-height: 0px;
+  opacity: 0;
+}
+
+.stories-scroll {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  padding-bottom: 8px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.story-item {
+  width: 72px;
+  flex-shrink: 0;
+  text-align: center;
+  cursor: pointer;
+}
+
+.story-ring {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(45deg, #ff005d, #ffc400, #00d084);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.story-ring.seen {
+  background: #cfcfcf;
+}
+
+.story-avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #fff;
+  padding: 2px;
+  position: relative;
+
+  img {
+    width: 100%;
     height: 100%;
+<<<<<<< HEAD
     --background: var(--secondary-color) !important;
     background: var(--secondary-color) !important;
     --padding-start: 0px;
@@ -198,22 +315,87 @@ ion-card {
   .card-image {
     width: 100px;
     height: 105px;
+=======
+    border-radius: 50%;
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
     object-fit: cover;
-    background: #cfcfcf;
+  }
+}
+
+.add-story {
+  background: #cfcfcf;
+}
+
+.plus-badge {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+
+  ion-icon {
+    font-size: 12px;
+    color: #fff;
+  }
+}
+
+.story-name {
+  margin-top: 6px;
+  font-size: 11px;
+  color: #222;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.story-initial {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: #fff;
+
+  padding-top: 10px;
+  font-weight: 800;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+/* ✅ CATEGORY CHIPS */
+.category-chips-container {
+  display: flex;
+  overflow-x: auto;
+  padding: 8px 10px;
+  gap: 6px;
+  background: #ffffff;
+
+  &::-webkit-scrollbar {
+    display: none;
   }
 
-  .card-details {
-    margin: 6px;
-    width: calc(100% - 100px);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
-    .card-title {
-      width: 100%;
-      font-size: small;
-      margin-top: 12px;
-      color: #006e47;
-      font-weight: bold;
+  ion-chip {
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:active {
+      transform: scale(0.98);
     }
 
+<<<<<<< HEAD
     .card-info {
       width: 100%;
       margin-top: 12px;
@@ -276,14 +458,181 @@ ion-card {
           padding-top: 4px;
         }
       }
+=======
+    ion-icon {
+      margin-right: 4px;
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
     }
   }
 }
 
+<<<<<<< HEAD
 .card-title[dir='rtl'] {
   font-family: 'Cairo', 'Tajawal', sans-serif;
 }
 
+=======
+/* ✅ SUB CATEGORY BAR */
+.subcat-bar {
+  background: #fff;
+  padding: 6px 10px 10px 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.subcat-select {
+  width: 100%;
+  background: #f4f6f8;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #111;
+}
+
+/* ✅ Cards container (do NOT scroll here) */
+.card-container {
+  padding: 10px;
+}
+
+/* ✅ Card base */
+ion-card {
+  margin: 10px 0;
+  border-radius: 14px;
+  background: #fff !important;
+  overflow: hidden;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+}
+
+/* ✅ List item */
+.card-item {
+  --background: #fff !important;
+  background: #fff !important;
+  --padding-start: 0px;
+  --inner-padding-end: 0px;
+  align-items: stretch;
+}
+
+/* image */
+.card-image {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  background: #e9e9e9;
+}
+
+/* details */
+.card-details {
+  flex: 1;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-title {
+  font-size: 14px;
+  font-weight: 900;
+  color: #0b6b4c;
+}
+
+.card-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.price-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: rgba(0, 110, 71, 0.10);
+  color: #006e47;
+  font-weight: 900;
+  font-size: 12px;
+
+  ion-icon { font-size: 16px; }
+}
+
+.meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #222;
+  opacity: 0.9;
+
+  ion-icon { font-size: 16px; }
+}
+
+.comments {
+  color: #006e47;
+  font-weight: 800;
+}
+
+.user {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.initial-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding-top: 5px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: #fff;
+  font-weight: 900;
+  font-size: 12px;
+}
+
+.user-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #111;
+}
+
+/* ✅ GRID VIEW */
+.card-container.grid-view {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.card-container.grid-view ion-card {
+  margin: 0 !important;
+}
+
+.card-container.grid-view .card-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-container.grid-view .card-image {
+  width: 100% !important;
+  height: 145px !important;
+  border-radius: 14px 14px 0 0;
+}
+
+.card-container.grid-view .card-details {
+  padding: 10px 10px 12px 10px;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .card-container.grid-view { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1024px) {
+  .card-container.grid-view { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ✅ Empty state */
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -336,6 +685,7 @@ ion-card {
   font-size: 14px;
 }
 
+<<<<<<< HEAD
 .mt12 { margin-top: 12px; }
 .mt16 { margin-top: 16px; }
 
@@ -396,3 +746,30 @@ ion-card {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+=======
+/* Add story modal */
+.story-pick-box{
+  width: 100%;
+  height: 200px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px dashed rgba(0,0,0,0.25);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap: 6px;
+  overflow:hidden;
+
+  ion-icon{ font-size: 34px; opacity: .7; }
+  p{ margin:0; font-size: 13px; opacity:.75; }
+}
+.story-preview{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+}
+
+.mt12 { margin-top: 12px; }
+.mt16 { margin-top: 16px; }
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34

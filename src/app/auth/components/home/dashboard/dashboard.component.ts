@@ -4,6 +4,10 @@ import { IonSearchbar, NavController, ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Product } from 'src/app/shared/common.interface';
 
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { Subscription } from 'rxjs';
+
 interface Category {
   key: string;
   en: string;
@@ -17,10 +21,17 @@ interface Story {
   userId: string;
   userName: string;
   userAvatar?: string;
+<<<<<<< HEAD
   image: string;
   caption?: string;
   createdAt: number; // timestamp
   seen?: boolean;    // local only
+=======
+  image: string;       // Firebase Storage downloadURL
+  caption?: string;
+  createdAt: number;
+  seen?: boolean;      // local only
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
 }
 
 @Component({
@@ -30,36 +41,79 @@ interface Story {
   standalone: false
 })
 export class DashboardComponent implements OnInit, OnDestroy {
+<<<<<<< HEAD
   selectedLanguage: string = 'en';
   FIREBASE_DB_URL = 'https://rajee-198a5-default-rtdb.firebaseio.com';
 
   // ✅ Current user (from localStorage)
+=======
+
+  selectedLanguage: string = 'en';
+  FIREBASE_DB_URL = 'https://rajee-198a5-default-rtdb.firebaseio.com';
+
+  // ✅ Current user
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
   currentUserId: string = '';
   currentUserName: string = '';
   currentUserAvatar: string = '';
 
+<<<<<<< HEAD
   // ✅ Categories
+=======
+  // ✅ Products
+  items: Product[] = [];
+  filteredItems: Product[] = [];
+  searchText: string = '';
+  selectedCategoryKey: string = 'all';
+
+  // ✅ SubCategory filter
+  selectedSubCategoryKey: string = 'all';
+  subCategoryOptions: Array<{ key: string; ar: string; en: string }> = [];
+
+  // ✅ UI
+  isGrid: boolean = false;
+
+  // ✅ Stories
+  stories: Story[] = [];
+  isAddStoryOpen = false;
+  isStoryViewerOpen = false;
+  activeStory: Story | null = null;
+
+  // ✅ Stories collapse/expand
+  storiesCollapsed = false;
+
+  newStoryCaption: string = '';
+  uploadingStory: boolean = false;
+
+  // picked image (gallery)
+  pickedStoryPreview: string = '';     // base64 preview for UI
+  pickedStoryBlob: Blob | null = null; // blob for upload
+
+  private storyRefreshTimer: any;
+  private langSub?: Subscription;
+
+  // template ref (you have #searchbar in HTML)
+  @ViewChild('searchbar', { static: false }) searchbar!: IonSearchbar;
+
+  // ✅ Categories (added furniture because you have furniture sub categories)
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
   categories: Category[] = [
     { key: 'all', ar: 'الكل', en: 'All', icon: 'grid-outline', selected: true },
     { key: 'cars', ar: 'حراج السيارات', en: 'Cars & Vehicles', icon: 'car-outline', selected: false },
     { key: 'electronics', ar: 'حراج الأجهزة', en: 'Electronics & Devices', icon: 'phone-portrait-outline', selected: false },
+<<<<<<< HEAD
     { key: 'animals', ar: 'مواشي وحيوانات وطيور', en: 'Livestock, Animals & Birds', icon: 'paw-outline', selected: false },
+=======
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
     { key: 'furniture', ar: 'حراج الأثاث', en: 'Furniture', icon: 'bed-outline', selected: false },
     { key: 'personal_items', ar: 'مستلزمات شخصية', en: 'Personal Items & Accessories', icon: 'bag-handle-outline', selected: false },
     { key: 'services', ar: 'خدمات', en: 'Services', icon: 'construct-outline', selected: false },
     { key: 'jobs', ar: 'وظائف', en: 'Jobs', icon: 'briefcase-outline', selected: false },
     { key: 'games', ar: 'ألعاب وترفيه', en: 'Games & Entertainment', icon: 'game-controller-outline', selected: false },
-    { key: 'food', ar: 'أطعمة ومشروبات', en: 'Food & Beverages', icon: 'restaurant-outline', selected: false },
-    { key: 'books_art', ar: 'مكتبة وفنون', en: 'Books & Arts', icon: 'book-outline', selected: false },
-    { key: 'hunting_trips', ar: 'صيد ورحلات', en: 'Hunting & Trips', icon: 'compass-outline', selected: false },
-    { key: 'events', ar: 'حفلات ومناسبات', en: 'Events & Parties', icon: 'calendar-outline', selected: false },
-    { key: 'agriculture', ar: 'زراعة وحدائق', en: 'Agriculture & Gardening', icon: 'leaf-outline', selected: false },
-    { key: 'travel', ar: 'سفر وسياحة', en: 'Travel & Tourism', icon: 'airplane-outline', selected: false },
-    { key: 'programming_design', ar: 'برمجة وتصاميم', en: 'Programming & Designs', icon: 'code-slash-outline', selected: false },
-    { key: 'lost_found', ar: 'مفقودات', en: 'Lost & Found', icon: 'search-outline', selected: false },
     { key: 'others', ar: 'قسم غير مصنف', en: 'Uncategorized / Other', icon: 'ellipsis-horizontal-outline', selected: false }
   ];
 
+<<<<<<< HEAD
   // ✅ Products
   items: Product[] = [];
   filteredItems: Product[] = [];
@@ -76,6 +130,104 @@ export class DashboardComponent implements OnInit, OnDestroy {
   newStoryCaption: string = '';
 
   private storyRefreshTimer: any;
+=======
+  // ✅ Sub Categories Map (YOUR FULL LIST)
+  subCategoriesMap: Record<string, Array<{ key: string; ar: string; en: string }>> = {
+    cars: [
+      { key: 'parts', ar: 'قطع غيار وملحقات', en: 'Parts & Accessories' },
+      { key: 'trucks', ar: 'شاحنات ومعدات ثقيلة', en: 'Trucks & Heavy Equipment' },
+      { key: 'motorbikes', ar: 'دبابات', en: 'Motorbikes' },
+      { key: 'classic', ar: 'سيارات تراثية', en: 'Classic/Heritage Cars' },
+      { key: 'damaged', ar: 'سيارات مصدومه', en: 'Damaged Cars' },
+      { key: 'transfer', ar: 'سيارات للتنازل', en: 'Transfer Cars' },
+    ],
+
+    electronics: [
+      { key: 'mobiles', ar: 'جوالات', en: 'Mobiles' },
+      { key: 'tablets', ar: 'تابلت', en: 'Tablets' },
+      { key: 'computers', ar: 'كمبيوتر', en: 'Computers' },
+      { key: 'egames', ar: 'العاب إلكترونية', en: 'Electronic Games' },
+      { key: 'tv_audio', ar: 'تلفزيونات وصوتيات', en: 'TV & Audio' },
+      { key: 'cameras', ar: 'كاميرات', en: 'Cameras' },
+      { key: 'accounts', ar: 'حسابات واشتراكات', en: 'Accounts & Subscriptions' },
+      { key: 'numbers', ar: 'أرقام مميزة', en: 'Special Numbers' },
+      { key: 'appliances', ar: 'أجهزة منزلية ومطبخ', en: 'Home & Kitchen Appliances' },
+      { key: 'generators', ar: 'مولدات ومحركات', en: 'Generators & Motors' },
+      { key: 'networking', ar: 'شبكات وراوترات', en: 'Networking & Routers' },
+      { key: 'printers', ar: 'طابعات وملحقاتها', en: 'Printers & Accessories' },
+    ],
+
+    furniture: [
+      { key: 'majlis', ar: 'مجالس ومفروشات', en: 'Majlis & Upholstery' },
+      { key: 'tables', ar: 'طاولات وكراسي', en: 'Tables & Chairs' },
+      { key: 'beds', ar: 'أسرة ومراتب', en: 'Beds & Mattresses' },
+      { key: 'wardrobes', ar: 'خزائن ودواليب', en: 'Wardrobes & Cabinets' },
+      { key: 'office', ar: 'أثاث مكتبي', en: 'Office Furniture' },
+      { key: 'outdoor', ar: 'أثاث خارجي', en: 'Outdoor Furniture' },
+      { key: 'home_tools', ar: 'أدوات منزلية', en: 'Home Tools & Items' },
+      { key: 'decor', ar: 'تحف وديكور', en: 'Decor & Antiques' },
+      { key: 'kitchen', ar: 'مطابخ', en: 'Kitchens' },
+      { key: 'carpets', ar: 'سجاد وستائر', en: 'Carpets & Curtains' },
+    ],
+
+    personal_items: [
+      { key: 'watches', ar: 'ساعات', en: 'Watches' },
+      { key: 'perfumes', ar: 'عطور', en: 'Perfumes' },
+      { key: 'sports', ar: 'مستلزمات رياضية', en: 'Sports Items' },
+      { key: 'glasses', ar: 'نظارات', en: 'Glasses' },
+      { key: 'men', ar: 'ملابس رجالية', en: 'Men Clothing' },
+      { key: 'women', ar: 'ملابس نسائية', en: 'Women Clothing' },
+      { key: 'kids', ar: 'ملابس واحتياجات اطفال', en: 'Kids Items' },
+      { key: 'gifts', ar: 'هدايا', en: 'Gifts' },
+      { key: 'bags', ar: 'شنط سفر', en: 'Travel Bags' },
+      { key: 'beauty', ar: 'صحة وجمال', en: 'Health & Beauty' },
+      { key: 'jewelry', ar: 'ذهب ومجوهرات', en: 'Gold & Jewelry' },
+    ],
+
+    services: [
+      { key: 'construction', ar: 'بناء ومقاولات', en: 'Construction & Contracting' },
+      { key: 'ac', ar: 'تكييف وتبريد', en: 'AC & Cooling' },
+      { key: 'car_services', ar: 'خدمات سيارات', en: 'Car Services' },
+      { key: 'moving', ar: 'نقل عفش', en: 'Moving Furniture' },
+      { key: 'water_pumps', ar: 'مضخات ومياه', en: 'Water & Pumps' },
+      { key: 'shipping', ar: 'شحن وتوصيل', en: 'Delivery & Shipping' },
+      { key: 'cleaning', ar: 'نظافة', en: 'Cleaning' },
+      { key: 'rentals', ar: 'تاجير', en: 'Rentals' },
+      { key: 'other_services', ar: 'خدمات أخرى', en: 'Other Services' },
+    ],
+
+    jobs: [
+      { key: 'admin', ar: 'إدارية وسكرتارية', en: 'Admin & Secretary' },
+      { key: 'sales', ar: 'تسويق ومبيعات', en: 'Sales & Marketing' },
+      { key: 'media', ar: 'إعلام', en: 'Media' },
+      { key: 'tech', ar: 'تقنية واتصالات', en: 'Tech & Telecom' },
+      { key: 'accounting', ar: 'محاسبة ومالية', en: 'Accounting & Finance' },
+      { key: 'engineering', ar: 'هندسة', en: 'Engineering' },
+      { key: 'customer_service', ar: 'خدمة عملاء', en: 'Customer Service' },
+      { key: 'security', ar: 'حراسة وأمن', en: 'Security & Guard' },
+      { key: 'teaching', ar: 'تعليم وتدريس', en: 'Education & Teaching' },
+      { key: 'hospitality', ar: 'سياحة وفندقة', en: 'Tourism & Hospitality' },
+      { key: 'drivers', ar: 'سائقين وتوصيل', en: 'Drivers & Delivery' },
+      { key: 'design', ar: 'تصميم', en: 'Design' },
+      { key: 'industry', ar: 'صناعة وحرف', en: 'Industry & Crafts' },
+      { key: 'medical', ar: 'طب وتمريض', en: 'Medical & Nursing' },
+      { key: 'hr_training', ar: 'تدريب وموارد بشرية', en: 'Training & HR' },
+      { key: 'trades', ar: 'مهن وحرف', en: 'Trades' },
+      { key: 'remote', ar: 'عمل من المنزل', en: 'Work From Home' },
+    ],
+
+    games: [
+      { key: 'console_games', ar: 'ألعاب بلايستيشن/إكس بوكس', en: 'Console Games' },
+      { key: 'consoles', ar: 'أجهزة ألعاب', en: 'Gaming Consoles' },
+      { key: 'controllers', ar: 'يد تحكم وملحقات', en: 'Controllers & Accessories' },
+      { key: 'toys', ar: 'ألعاب أطفال', en: 'Kids Toys' },
+      { key: 'tickets', ar: 'تذاكر', en: 'Tickets' },
+      { key: 'other_ent', ar: 'ترفيه أخرى', en: 'Other Entertainment' },
+    ],
+
+    others: [{ key: 'misc', ar: 'متنوع', en: 'Miscellaneous' }],
+  };
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
 
   constructor(
     private navCtrl: NavController,
@@ -85,24 +237,40 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // ✅ Language
+<<<<<<< HEAD
     this.translate.onLangChange.subscribe(() => {
+=======
+    this.langSub = this.translate.onLangChange.subscribe(() => {
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
       this.selectedLanguage = this.translate.currentLang;
     });
 
     const savedLang = localStorage.getItem('lang');
     if (savedLang) this.selectedLanguage = savedLang;
 
+<<<<<<< HEAD
     // ✅ Current user
+=======
+    // ✅ Current user from localStorage
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
     const userData = JSON.parse(localStorage.getItem('userData') || '{}');
     this.currentUserId = userData?.uid || userData?.userId || 'guest';
     this.currentUserName = userData?.name || userData?.full_name || 'You';
     this.currentUserAvatar = userData?.avatar || userData?.profile || '';
 
+<<<<<<< HEAD
     // ✅ Load
     this.loadItems();
     this.loadStoriesFromFirebase();
 
     // ✅ Optional auto refresh (every 15 sec)
+=======
+    // ✅ Load initial data
+    this.loadItems();
+    this.loadStoriesFromFirebase();
+
+    // ✅ Auto refresh stories
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
     this.storyRefreshTimer = setInterval(() => {
       this.loadStoriesFromFirebase();
     }, 15000);
@@ -110,6 +278,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.storyRefreshTimer) clearInterval(this.storyRefreshTimer);
+<<<<<<< HEAD
   }
 
   // ------------------ ✅ PRODUCTS ------------------
@@ -156,39 +325,139 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   onCategorySelect(category: Category) {
     this.categories.forEach(cat => (cat.selected = false));
+=======
+    if (this.langSub) this.langSub.unsubscribe();
+  }
+
+  // -------------------- ✅ UI --------------------
+
+  toggleLayout() {
+    this.isGrid = !this.isGrid;
+  }
+
+  toggleStories() {
+    this.storiesCollapsed = !this.storiesCollapsed;
+  }
+
+  // -------------------- ✅ FILTERS --------------------
+
+  onCategorySelect(category: Category) {
+    this.categories.forEach(c => (c.selected = false));
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
     category.selected = true;
 
     this.selectedCategoryKey = category.key;
+
+    // ✅ SubCategory only for real categories
+    if (this.selectedCategoryKey === 'all') {
+      this.subCategoryOptions = [];
+      this.selectedSubCategoryKey = 'all';
+    } else {
+      this.subCategoryOptions = this.subCategoriesMap[this.selectedCategoryKey] || [];
+      this.selectedSubCategoryKey = 'all';
+    }
+
+    this.applyFilters();
+  }
+
+  onSubCategorySelect(key: string) {
+    this.selectedSubCategoryKey = key || 'all';
     this.applyFilters();
   }
 
   onSearch(event: any) {
-    this.searchText = event.target.value?.toLowerCase() || '';
+    const value = event?.detail?.value ?? event?.target?.value ?? '';
+    this.searchText = (value || '').toLowerCase();
     this.applyFilters();
   }
 
   applyFilters() {
     this.filteredItems = this.items.filter((item: any) => {
+<<<<<<< HEAD
+=======
+      const itemSection = (item.section || '').toLowerCase();
+      const itemSub = (item.subCategory || item.sub_category || '').toLowerCase();
+
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
       const matchesCategory =
         this.selectedCategoryKey === 'all' ||
-        item.section?.toLowerCase() === this.selectedCategoryKey.toLowerCase();
+        itemSection === this.selectedCategoryKey.toLowerCase();
+
+      const matchesSubCategory =
+        this.selectedCategoryKey === 'all' ||
+        this.selectedSubCategoryKey === 'all' ||
+        itemSub === this.selectedSubCategoryKey.toLowerCase();
 
       const matchesSearch =
         !this.searchText ||
-        item.title?.toLowerCase().includes(this.searchText) ||
-        item.description?.toLowerCase().includes(this.searchText) ||
-        item.user?.name?.toLowerCase().includes(this.searchText);
+        (item.title || '').toLowerCase().includes(this.searchText) ||
+        (item.description || '').toLowerCase().includes(this.searchText) ||
+        (item.user?.name || '').toLowerCase().includes(this.searchText);
 
-      return matchesCategory && matchesSearch;
+      return matchesCategory && matchesSubCategory && matchesSearch;
     });
   }
 
+<<<<<<< HEAD
+=======
+  // -------------------- ✅ PRODUCTS --------------------
+
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
   onCardClick(product: Product) {
     const navigationExtras: NavigationExtras = { state: { product } };
     this.navCtrl.navigateForward(['/product-details'], navigationExtras);
   }
 
+<<<<<<< HEAD
   // ------------------ ✅ STORIES (Firebase) ------------------
+=======
+  private getIdTokenFromStorage(): string | null {
+    try {
+      const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+      return userData?.idToken || null;
+    } catch {
+      return null;
+    }
+  }
+
+  private buildDbUrl(path: string): string {
+    const token = this.getIdTokenFromStorage();
+    const base = `${this.FIREBASE_DB_URL}/${path}.json`;
+    return token ? `${base}?auth=${encodeURIComponent(token)}` : base;
+  }
+
+  async fetchProducts(): Promise<any[]> {
+    try {
+      const url = this.buildDbUrl('approvedProducts');
+      const res = await fetch(url);
+
+      if (!res.ok) throw new Error(await res.text());
+
+      const data = await res.json();
+      if (!data) return [];
+
+      return Object.keys(data).map(key => ({ id: key, ...data[key] }));
+    } catch (err: any) {
+      console.error('Fetch products error:', err);
+      this.showToast(err?.message || 'Error fetching products', 'danger');
+      return [];
+    }
+  }
+
+  async loadItems() {
+    const products = await this.fetchProducts();
+
+    this.items = (products || []).map((p: any) => ({
+      ...p,
+      isFavorite: false,
+      time: p.createdAt || Date.now()
+    }));
+
+    this.applyFilters();
+  }
+
+  // -------------------- ✅ STORIES --------------------
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
 
   openAddStoryModal() {
     this.isAddStoryOpen = true;
@@ -196,18 +465,29 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   closeAddStoryModal() {
     this.isAddStoryOpen = false;
+<<<<<<< HEAD
     this.newStoryImage = '';
     this.newStoryCaption = '';
+=======
+    this.newStoryCaption = '';
+    this.pickedStoryPreview = '';
+    this.pickedStoryBlob = null;
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
   }
 
   openStoryViewer(story: Story) {
     this.activeStory = story;
     this.isStoryViewerOpen = true;
 
+<<<<<<< HEAD
     // ✅ mark as seen locally
     this.stories = this.stories.map(s =>
       s.id === story.id ? { ...s, seen: true } : s
     );
+=======
+    // mark as seen (local)
+    this.stories = this.stories.map(s => (s.id === story.id ? { ...s, seen: true } : s));
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
   }
 
   closeStoryViewer() {
@@ -215,6 +495,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.activeStory = null;
   }
 
+<<<<<<< HEAD
   async addStory() {
     if (!this.newStoryImage?.trim()) {
       this.showToast('Please add story image URL', 'danger');
@@ -236,17 +517,95 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.showToast('Story posted!', 'success');
     this.closeAddStoryModal();
     await this.loadStoriesFromFirebase();
+=======
+  async pickStoryImage() {
+    try {
+      const photo = await Camera.getPhoto({
+        quality: 80,
+        allowEditing: false,
+        resultType: CameraResultType.Base64,
+        source: CameraSource.Photos,
+      });
+
+      if (!photo?.base64String) return;
+
+      this.pickedStoryPreview = `data:image/jpeg;base64,${photo.base64String}`;
+      this.pickedStoryBlob = this.base64ToBlob(photo.base64String, 'image/jpeg');
+    } catch (e) {
+      console.log('pickStoryImage cancelled', e);
+    }
+  }
+
+  async addStory() {
+    try {
+      if (this.currentUserId === 'guest') {
+        this.showToast('Please login to post story', 'danger');
+        return;
+      }
+
+      if (!this.pickedStoryBlob) {
+        this.showToast(
+          this.selectedLanguage === 'en'
+            ? 'Please pick an image from gallery'
+            : 'رجاءً اختر صورة من المعرض',
+          'danger'
+        );
+        return;
+      }
+
+      this.uploadingStory = true;
+
+      // 1) upload to Firebase Storage
+      const downloadURL = await this.uploadStoryImageToStorage(this.pickedStoryBlob);
+
+      // 2) save to RTDB
+      const payload = {
+        userId: this.currentUserId,
+        userName: this.currentUserName,
+        userAvatar: this.currentUserAvatar,
+        image: downloadURL,
+        caption: (this.newStoryCaption || '').trim(),
+        createdAt: Date.now(),
+      };
+
+      const ok = await this.saveStoryToFirebase(payload);
+      if (!ok) return;
+
+      this.showToast(this.selectedLanguage === 'en' ? 'Story posted!' : 'تم نشر القصة!', 'success');
+      this.closeAddStoryModal();
+      await this.loadStoriesFromFirebase();
+    } catch (err: any) {
+      console.error(err);
+      this.showToast(err?.message || 'Upload failed', 'danger');
+    } finally {
+      this.uploadingStory = false;
+    }
+  }
+
+  private async uploadStoryImageToStorage(blob: Blob): Promise<string> {
+    const storage = getStorage();
+    const filePath = `stories/${this.currentUserId}/${Date.now()}.jpg`;
+    const storageRef = ref(storage, filePath);
+
+    await uploadBytes(storageRef, blob, { contentType: 'image/jpeg' });
+    return await getDownloadURL(storageRef);
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
   }
 
   async saveStoryToFirebase(payload: any): Promise<boolean> {
     try {
+<<<<<<< HEAD
       const url = `${this.FIREBASE_DB_URL}/stories.json`;
+=======
+      const url = this.buildDbUrl('stories');
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
       const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
 
+<<<<<<< HEAD
       if (!res.ok) {
         const errorText = await res.text();
         throw new Error(`Failed to save story: ${errorText}`);
@@ -255,6 +614,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     } catch (err: any) {
       console.error('Save story error:', err);
       this.showToast(err.message || 'Error saving story', 'danger');
+=======
+      if (!res.ok) throw new Error(await res.text());
+      return true;
+    } catch (err: any) {
+      console.error('Save story error:', err);
+      this.showToast(err?.message || 'Error saving story', 'danger');
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
       return false;
     }
   }
@@ -265,6 +631,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   async fetchStoriesFromFirebase(): Promise<Story[]> {
     try {
+<<<<<<< HEAD
       const url = `${this.FIREBASE_DB_URL}/stories.json`;
       const res = await fetch(url);
 
@@ -272,32 +639,58 @@ export class DashboardComponent implements OnInit, OnDestroy {
         const errorText = await res.text();
         throw new Error(`Failed to fetch stories: ${errorText}`);
       }
+=======
+      const url = this.buildDbUrl('stories');
+      const res = await fetch(url);
+
+      if (!res.ok) throw new Error(await res.text());
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
 
       const data = await res.json();
       if (!data) return [];
 
+<<<<<<< HEAD
       const arr: Story[] = Object.keys(data).map((key) => ({
+=======
+      const arr: Story[] = Object.keys(data).map(key => ({
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
         id: key,
         ...data[key],
         seen: false
       }));
 
+<<<<<<< HEAD
       // ✅ show only last 24 hours
       const last24h = Date.now() - 24 * 60 * 60 * 1000;
       const filtered = arr.filter(s => (s.createdAt || 0) >= last24h);
 
       // ✅ newest first
+=======
+      // only last 24h
+      const last24h = Date.now() - 24 * 60 * 60 * 1000;
+      const filtered = arr.filter(s => (s.createdAt || 0) >= last24h);
+
+      // newest first
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
       filtered.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
       return filtered;
     } catch (err: any) {
       console.error('Fetch stories error:', err);
+<<<<<<< HEAD
       this.showToast(err.message || 'Error fetching stories', 'danger');
+=======
+      this.showToast(err?.message || 'Error fetching stories', 'danger');
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
       return [];
     }
   }
 
+<<<<<<< HEAD
   // ------------------ ✅ UI helpers ------------------
+=======
+  // -------------------- ✅ Helpers --------------------
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
 
   async showToast(message: string, color: string = 'danger') {
     const toast = await this.toastController.create({
@@ -311,15 +704,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   getInitial(name?: string): string {
     if (!name) return '?';
+<<<<<<< HEAD
 
     const cleaned = name.trim();
     if (!cleaned) return '?';
 
     // Take first word, then first character
+=======
+    const cleaned = name.trim();
+    if (!cleaned) return '?';
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
     const firstWord = cleaned.split(' ')[0];
     return (firstWord.charAt(0) || '?').toUpperCase();
   }
 
+<<<<<<< HEAD
 
   @ViewChild('searchbar', { static: false }) searchbar!: IonSearchbar;
 
@@ -343,4 +742,20 @@ toggleLayout() {
   this.isGrid = !this.isGrid;
 }
 
+=======
+  private base64ToBlob(base64Data: string, contentType = 'image/jpeg'): Blob {
+    const byteCharacters = atob(base64Data);
+    const byteArrays: Uint8Array[] = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+      const slice = byteCharacters.slice(offset, offset + 512);
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) byteNumbers[i] = slice.charCodeAt(i);
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+
+    return new Blob(byteArrays as BlobPart[], { type: contentType });
+  }
+>>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
 }

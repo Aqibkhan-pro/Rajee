@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "app.preowned.devices"
+    namespace "app.rajee.mart"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "app.preowned.devices"
+        applicationId "app.rajee.mart"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

@@ -6,6 +6,8 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/database';
 import { ChatRoom } from 'src/app/shared/common.interface';
 
+import { Keyboard } from '@capacitor/keyboard';
+
 interface Message {
   senderId: string;
   message: string;
@@ -27,7 +29,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   otherUserName: string = '';
   messages: Message[] = [];
   newMessage: string = '';
+
+  isKeyboardOpen = false;
+
   private messagesListener: any;
+  private kbShow: any;
+  private kbHide: any;
 
   constructor(
     private router: Router,
@@ -44,7 +51,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
 
     this.chatRoom = nav.extras.state['chatRoom'];
-    console.log("ChatRoom:", this.chatRoom);
 
     const currentUser = JSON.parse(localStorage.getItem('userData') || '{}');
     if (!currentUser?.uid) {
@@ -54,24 +60,29 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
 
     this.currentUserId = currentUser.uid;
-
-    // Get other participant's name
     this.otherUserName = this.getOtherParticipantName();
 
-    // Reset unread count for current user
-    this.resetUnreadCount();
+    // ✅ keyboard listeners: adjust padding + scroll
+    this.kbShow = Keyboard.addListener('keyboardWillShow', () => {
+      this.isKeyboardOpen = true;
+      setTimeout(() => this.scrollToBottom(), 160);
+    });
 
-    // Listen for messages
+    this.kbHide = Keyboard.addListener('keyboardWillHide', () => {
+      this.isKeyboardOpen = false;
+      setTimeout(() => this.scrollToBottom(), 160);
+    });
+
+    this.resetUnreadCount();
     this.listenMessages();
   }
 
   ngOnDestroy() {
-    if (this.messagesListener) {
-      this.messagesListener.off();
-    }
+    if (this.messagesListener) this.messagesListener.off();
+    this.kbShow?.remove?.();
+    this.kbHide?.remove?.();
   }
 
-  // Get the other participant's name
   getOtherParticipantName(): string {
     const participants = this.chatRoom.participants;
     for (const uid in participants) {
@@ -82,7 +93,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     return 'Unknown User';
   }
 
-  // Reset unread count when user opens chat
   async resetUnreadCount() {
     try {
       await this.db.database
@@ -93,7 +103,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Listen for messages in this room
   listenMessages() {
     const messagesRef = this.db.database
       .ref(`/messages/${this.chatRoom.id}`)
@@ -101,23 +110,20 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     this.messagesListener = messagesRef;
 
-    messagesRef.on('value', snapshot => {
+    messagesRef.on('value', (snapshot: firebase.database.DataSnapshot) => {
       const msgs: Message[] = [];
-      snapshot.forEach(child => {
-        msgs.push(child.val());
+
+      snapshot.forEach((child) => {
+        msgs.push(child.val() as Message);
       });
 
-      // Sort by timestamp
-      this.messages = msgs.sort((a, b) => a.timestamp - b.timestamp);
-
-      // Scroll to bottom after messages load
-      setTimeout(() => this.scrollToBottom(), 100);
+      this.messages = msgs.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+      setTimeout(() => this.scrollToBottom(), 160);
     });
   }
 
-  // Send message
   async sendMessage() {
-    const text = this.newMessage.trim();
+    const text = (this.newMessage || '').trim();
     if (!text) return;
 
     this.newMessage = '';
@@ -129,48 +135,38 @@ export class ChatComponent implements OnInit, OnDestroy {
     };
 
     try {
-      // Save message
       await this.db.database.ref(`/messages/${this.chatRoom.id}`).push(msg);
 
-      // Update last message & unread count for other participants
       const updates: any = {
         lastMessage: text,
         lastMessageTime: msg.timestamp
       };
 
-      // Increment unread count for other participants
       for (const uid of Object.keys(this.chatRoom.participants)) {
         if (uid !== this.currentUserId) {
-          updates[`participants/${uid}/unreadCount`] = firebase.database.ServerValue.increment(1);
+          updates[`participants/${uid}/unreadCount`] =
+            firebase.database.ServerValue.increment(1);
         }
       }
 
       await this.db.database.ref(`/chatRooms/${this.chatRoom.id}`).update(updates);
 
-      // Scroll to bottom after sending
-      setTimeout(() => this.scrollToBottom(), 50);
+      setTimeout(() => this.scrollToBottom(), 120);
     } catch (error) {
       console.error('Error sending message:', error);
-      // Optionally show error toast to user
     }
   }
 
   private scrollToBottom() {
     if (this.content) {
-      this.content.scrollToBottom(300);
+      this.content.scrollToBottom(250);
     }
   }
 
-  goBack() {
-    this.navCtrl.back();
-  }
-
-  // Check if message sent by current user
   isSent(message: Message): boolean {
     return message.senderId === this.currentUserId;
   }
 
-  // Format timestamp
   formatTime(timestamp: number): string {
     const date = new Date(timestamp);
     const hours = date.getHours();

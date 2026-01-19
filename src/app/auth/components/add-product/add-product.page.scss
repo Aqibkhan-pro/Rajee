@@ -1,132 +1,215 @@
-
+/* Header */
 ion-toolbar {
   --background: var(--primary-color);
 }
 
-ion-title{
+ion-title {
   color: var(--secondary-color) !important;
   font-family: system-ui;
 }
 
-ion-content , ion-list, ion-item {
---background: var(--secondary-color) !important;
-background: var(--secondary-color) !important;
-color: #f0f0f0 !important;
-}
-ion-content{
-  margin-bottom: env(safe-area-inset-bottom);
+/* Page background */
+.page-content {
+  --background: var(--secondary-color) !important;
+  background: var(--secondary-color) !important;
+  color: #f0f0f0 !important;
+
+  /* ✅ leave space for sticky submit + safe area */
+  --padding-bottom: calc(92px + env(safe-area-inset-bottom));
 }
 
-ion-list{
-  overflow-y: scroll;
-  height: 94vh;
-  padding-bottom: 20px;
-}
-
-ion-button{
-  --background: var(--primary-color);
-  color: var(--secondary-color) !important;
-  font-family: system-ui;
-  margin: 16px;
-}
-
+/* List + items background */
+.form-list,
 ion-item {
+  --background: var(--secondary-color) !important;
+  background: var(--secondary-color) !important;
+  color: #f0f0f0 !important;
+}
+
+/* ✅ Remove default item padding so your boxes align nicely */
+.no-pad {
   --padding-start: 0px;
   --inner-padding-end: 0px;
-  .select_img{
-    height: 100px;
-    width: 100px;
-    background-color: #f0f0f0;
-    align-content: center;
-    border-radius: 16px;
-  }
-
-  .sub_select{
-    display: grid; justify-items: center;
-
-    .add_icon{
-      color: var(--primary-color);
-      font-size: 28px;
-    }
-
-    ion-text{
-      font-size: smaller;
-      color: var(--primary-color);
-      font-family: system-ui;
-      font-weight: 500;
-    }
-  }
-
-  .select_location{
-    padding: 12px 0px;
-    width: 100%;
-    margin-top: 16px;
-    background-color: #f0f0f0;
-  }
-
-  .sub_select_location{
-    display: grid;
-    padding-left: 12px;
-    padding-right: 16px;
-
-    .location, .subject{
-      color: #0e0e0e;
-      font-family: system-ui;
-      font-size: smaller;
-    }
-
-    .change_location{
-        font-size: smaller;
-        margin-top: 8px;
-        font-family: system-ui;
-        color: var(--primary-color);
-    }
-
-    .change_subject{
-      font-size: smaller;
-      margin-top: 8px;
-      min-height: 25px;
-      font-family: system-ui;
-      --placeholder-color: #343434;
-      color: var(--primary-color);
-    }
-
-    ion-textarea{
-      --padding-top: 0px;
-    }
-
-    ion-item{
-      --background: #f0f0f0 !important;
-      --min-height: 26px;
-      ion-label{
-        --min-height: 26px;
-        font-family: system-ui;
-      }
-    }
-  }
 }
 
-.picked-image-container {
-  margin-top: 10px;
+/* ===================================================== */
+/* ✅ Attractive horizontal image picker + image list */
+/* ===================================================== */
+
+.images-row {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+/* picker tile */
+.pick-tile {
+  width: 110px;
+  min-width: 110px;
+  height: 110px;
+  border-radius: 16px;
+  border: 1px dashed rgba(0, 0, 0, 0.18);
+  background: #f0f0f0;
+  display: grid;
+  place-items: center;
+  gap: 6px;
+  padding: 8px;
+}
+
+.pick-tile ion-icon {
+  font-size: 30px;
+  color: var(--primary-color);
+}
+
+.pick-text {
+  font-size: 12px;
+  line-height: 1.2;
+  color: var(--primary-color);
+  font-family: system-ui;
+  font-weight: 600;
   text-align: center;
 }
 
-.picked-image {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-top: 5px;
+/* horizontal scroll list */
+.picked-x {
+  flex: 1;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 2px 2px 8px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 
+.picked-x::-webkit-scrollbar {
+  display: none;
+}
 
-.arabic{
-  justify-items: center;
-  /* text-align: start; */
+/* image card */
+.picked-card {
+  position: relative;
+  width: 120px;
+  min-width: 120px;
+  height: 120px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #eaeaea;
+  scroll-snap-align: start;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+}
+
+.picked-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* remove button (chip) */
+.remove-chip {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: none;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+}
+
+.remove-chip ion-icon {
+  color: #fff;
+  font-size: 16px;
+}
+
+/* ===================================================== */
+/* ✅ Your field blocks (same look, cleaned) */
+/* ===================================================== */
+
+.select_location {
+  padding: 12px 0px;
+  width: 100%;
+  margin-top: 16px;
+  background-color: #f0f0f0;
+  border-radius: 12px;
+}
+
+.sub_select_location {
+  display: grid;
+  padding-left: 12px;
+  padding-right: 16px;
+
+  .location,
+  .subject {
+    color: #0e0e0e;
+    font-family: system-ui;
+    font-size: smaller;
+  }
+
+  .change_subject {
+    font-size: smaller;
+    margin-top: 8px;
+    min-height: 25px;
+    font-family: system-ui;
+    --placeholder-color: #343434;
+    color: var(--primary-color);
+  }
+
+  ion-textarea {
+    --padding-top: 0px;
+  }
+}
+
+/* inner light ion-item inside location */
+.inner-light {
+  --background: #f0f0f0 !important;
+  --min-height: 26px;
+
+  ion-label {
+    color: #000 !important;
+    font-family: system-ui;
+    font-size: 12px;
+  }
+}
+
+/* select width + alignment helper */
+.arabic {
   width: 50%;
 }
 
+/* popover select style (optional) */
 ion-item.sc-ion-select-popover-md {
   --inner-border-width: 0;
   color: aliceblue;
+}
+
+/* ===================================================== */
+/* ✅ Sticky submit bar (safe area) */
+/* ===================================================== */
+
+.submit-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+
+  padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+
+  /* subtle gradient so button looks nice over content */
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.submit-btn {
+  margin: 0 !important;
+  --background: var(--primary-color);
+  color: var(--secondary-color) !important;
+  font-family: system-ui;
 }
