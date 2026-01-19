@@ -5,17 +5,44 @@
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Capacitor WebView Rules - Required for hybrid apps
+-keep class com.getcapacitor.** { *; }
+-keep class com.google.android.** { *; }
+-keep class org.apache.cordova.** { *; }
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Keep JavaScript interfaces for WebView
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Firebase
+-keep class com.google.firebase.** { *; }
+-keep class com.google.android.gms.** { *; }
+-dontwarn com.google.firebase.**
+-dontwarn com.google.android.gms.**
+
+# AndroidX
+-keep class androidx.** { *; }
+-dontwarn androidx.**
+
+# Preserve the line number information for debugging stack traces
+-keepattributes SourceFile,LineNumberTable
+
+# Hide the original source file name
+-renamesourcefileattribute SourceFile
+
+# Keep Parcelables
+-keepclassmembers class * implements android.os.Parcelable {
+    static ** CREATOR;
+}
+
+# Keep Serializable classes
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    !static !transient <fields>;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
