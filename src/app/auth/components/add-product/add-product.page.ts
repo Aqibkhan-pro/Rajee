@@ -16,6 +16,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 import { UserService } from 'src/app/services/user.service';
 import { MapComponentComponent } from './map-component/map-component.component';
+import { SaudiLocationsService, SaudiCity, SaudiDistrict } from 'src/app/services/saudi-locations.service';
 
 interface PickedImage {
   dataUrl: string;  // data:image/...;base64,...
@@ -49,9 +50,14 @@ export class AddProductPage implements OnInit {
   // ✅ Conditions shown in UI (translated)
   conditions: string[] = [];
 
+  // ✅ Saudi Arabia Cities and Districts
+  cities: SaudiCity[] = [];
+  districts: SaudiDistrict[] = [];
+  selectedCityKey: string = '';
+
   // ✅ Sub Categories Map (FULL LIST you asked)
   subCategoriesMap: Record<string, Array<{ key: string; ar: string; en: string }>> = {
-    // ===================== CARS =====================
+    //  CARS 
     cars: [
       { key: 'parts', ar: 'قطع غيار وملحقات', en: 'Parts & Accessories' },
       { key: 'trucks', ar: 'شاحنات ومعدات ثقيلة', en: 'Trucks & Heavy Equipment' },
@@ -62,7 +68,7 @@ export class AddProductPage implements OnInit {
     ],
 
 
-    // ===================== ELECTRONICS =====================
+    //  ELECTRONICS 
     electronics: [
       { key: 'mobiles', ar: 'جوالات', en: 'Mobiles' },
       { key: 'tablets', ar: 'تابلت', en: 'Tablets' },
@@ -80,7 +86,7 @@ export class AddProductPage implements OnInit {
 
 
 
-    // ===================== FURNITURE =====================
+    //  FURNITURE 
     furniture: [
       { key: 'majlis', ar: 'مجالس ومفروشات', en: 'Majlis & Upholstery' },
       { key: 'tables', ar: 'طاولات وكراسي', en: 'Tables & Chairs' },
@@ -94,7 +100,7 @@ export class AddProductPage implements OnInit {
       { key: 'carpets', ar: 'سجاد وستائر', en: 'Carpets & Curtains' },
     ],
 
-    // ===================== PERSONAL ITEMS =====================
+    //  PERSONAL ITEMS 
     personal_items: [
       { key: 'watches', ar: 'ساعات', en: 'Watches' },
       { key: 'perfumes', ar: 'عطور', en: 'Perfumes' },
@@ -109,7 +115,7 @@ export class AddProductPage implements OnInit {
       { key: 'jewelry', ar: 'ذهب ومجوهرات', en: 'Gold & Jewelry' },
     ],
 
-    // ===================== SERVICES =====================
+    //  SERVICES 
     services: [
       { key: 'construction', ar: 'بناء ومقاولات', en: 'Construction & Contracting' },
       { key: 'ac', ar: 'تكييف وتبريد', en: 'AC & Cooling' },
@@ -122,7 +128,7 @@ export class AddProductPage implements OnInit {
       { key: 'other_services', ar: 'خدمات أخرى', en: 'Other Services' },
     ],
 
-    // ===================== JOBS =====================
+    //  JOBS 
     jobs: [
       { key: 'admin', ar: 'إدارية وسكرتارية', en: 'Admin & Secretary' },
       { key: 'sales', ar: 'تسويق ومبيعات', en: 'Sales & Marketing' },
@@ -143,7 +149,7 @@ export class AddProductPage implements OnInit {
       { key: 'remote', ar: 'عمل من المنزل', en: 'Work From Home' },
     ],
 
-    // ===================== OTHER CATEGORIES (you can keep empty or add later) =====================
+    //  OTHER CATEGORIES (you can keep empty or add later) 
     games: [
       { key: 'console_games', ar: 'ألعاب بلايستيشن/إكس بوكس', en: 'Console Games' },
       { key: 'consoles', ar: 'أجهزة ألعاب', en: 'Gaming Consoles' },
@@ -164,9 +170,10 @@ export class AddProductPage implements OnInit {
     private translate: TranslateService,
     private userService: UserService,
     private geolocation: Geolocation,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private saudiLocationsService: SaudiLocationsService
   ) {
-<<<<<<< HEAD
+
     this.form = this.fb.group({
       title: ['', Validators.required],
       price: ['', Validators.required],
@@ -177,13 +184,13 @@ export class AddProductPage implements OnInit {
       images: [[]]
     });
 
-=======
+
     // ✅ Your categories
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
+
     this.category = [
-      { key: 'cars', ar: 'حراج السيارات', en: 'Cars & Vehicles' },
-      { key: 'electronics', ar: 'حراج الأجهزة', en: 'Electronics & Devices' },
-      { key: 'furniture', ar: 'حراج الأثاث', en: 'Furniture' },
+      { key: 'cars', ar: 'السيارات', en: 'Cars & Vehicles' },
+      { key: 'electronics', ar: 'الأجهزة الإلكترونية', en: 'Electronics & Devices' },
+      { key: 'furniture', ar: 'الأثاث', en: 'Furniture' },
       { key: 'personal_items', ar: 'مستلزمات شخصية', en: 'Personal Items & Accessories' },
       { key: 'services', ar: 'خدمات', en: 'Services' },
       { key: 'jobs', ar: 'وظائف', en: 'Jobs' },
@@ -194,9 +201,13 @@ export class AddProductPage implements OnInit {
     // ✅ translated conditions
     this.refreshConditions();
 
+    // ✅ Load Saudi cities
+    this.cities = this.saudiLocationsService.getCities();
+
     // ✅ DEFAULT: first option selected
     const defaultSectionKey = this.category?.[0]?.key || '';
     const defaultCondition = this.conditions?.[0] || '';
+    const defaultCityKey = this.cities?.[0]?.key || '';
 
     this.form = this.fb.group({
       title: ['', Validators.required],
@@ -208,9 +219,15 @@ export class AddProductPage implements OnInit {
       condition: [defaultCondition, Validators.required], // ✅ default condition option 1
       description: ['', Validators.required],
 
+      city: [defaultCityKey, Validators.required],        // ✅ Saudi city dropdown
+      district: ['', Validators.required],                // ✅ Saudi district dropdown
+
       address: [''],
       images: [[]],
     });
+
+    // ✅ Load districts for default city
+    this.onCityChange(defaultCityKey);
   }
 
   async ngOnInit() {
@@ -263,6 +280,39 @@ export class AddProductPage implements OnInit {
     }
 
     sc?.updateValueAndValidity();
+  }
+
+  // ✅ City/District handling
+  onCityChange(cityKey: string) {
+    this.selectedCityKey = cityKey;
+    this.districts = this.saudiLocationsService.getDistricts(cityKey);
+    const districtCtrl = this.form.get('district');
+
+    if (this.districts.length) {
+      districtCtrl?.setValue(this.districts[0].key);
+      districtCtrl?.setValidators([Validators.required]);
+    } else {
+      districtCtrl?.setValue('');
+      districtCtrl?.clearValidators();
+    }
+    districtCtrl?.updateValueAndValidity();
+  }
+
+  getCityDisplayName(cityKey: string): string {
+    return this.saudiLocationsService.getCityName(cityKey, this.selectedLanguage as 'ar' | 'en');
+  }
+
+  getDistrictDisplayName(districtKey: string): string {
+    return this.saudiLocationsService.getDistrictName(this.selectedCityKey, districtKey, this.selectedLanguage as 'ar' | 'en');
+  }
+
+  // ✅ trackBy functions for performance
+  trackByCityFn(index: number, city: SaudiCity): string {
+    return city.key;
+  }
+
+  trackByDistrictFn(index: number, district: SaudiDistrict): string {
+    return district.key;
   }
 
   async pickMultipleImages() {
@@ -432,7 +482,7 @@ export class AddProductPage implements OnInit {
       componentProps: { location: this.productLocation },
     });
 
-    modal.onDidDismiss().then(async (result) => {
+    modal.onDidDismiss().then(async (result: any) => {
       if (result?.data) {
         this.productLocation = result.data;
         await this.getAddressFromCoordinatesOSM(this.productLocation.lat, this.productLocation.lng);
@@ -442,110 +492,16 @@ export class AddProductPage implements OnInit {
     await modal.present();
   }
 
-<<<<<<< HEAD
-  async handleSubmit() {
-    if (this.form.invalid) {
-      this.showToast(this.translate.instant('please_fill_required_fields'), 'danger');
-      return;
-    }
-
-    if (!this.pickedImages.length) {
-      this.showToast(this.translate.instant('please_pick_product_image'), 'danger');
-      return;
-    }
-
-    const loading = await this.loadingCtrl.create({
-      message: this.translate.instant('posting')
-    });
-    await loading.present();
-
-    try {
-      // 1️⃣ Upload ALL images
-      const imageUrls: string[] = [];
-
-      for (const img of this.pickedImages) {
-        const fileName = `products/${Date.now()}_${Math.random()}.jpeg`;
-        const imgRef = storageRef(storage, fileName);
-
-        await uploadString(imgRef, img.dataUrl!, 'data_url');
-        const url = await getDownloadURL(imgRef);
-        imageUrls.push(url);
-      }
-
-      this.form.patchValue({ images: imageUrls });
-
-      // 2️⃣ User data
-      const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-      const idToken = userData?.idToken;
-      if (!idToken) throw new Error('User not authenticated');
-
-      const pUser: any = await this.userService.getUserById(userData.uid);
-
-      // 3️⃣ Final Product Object
-      const productData = {
-        ...this.form.value,
-        user: {
-          uid: userData.uid,
-          name: userData.name,
-          email: userData.email,
-          phone: pUser?.phone || '',
-          photoURL: userData.photoURL
-        },
-        location: this.productLocation || {},
-        createdAt: Date.now()
-      };
-
-      // 4️⃣ Save to Firebase
-      const productId = Date.now().toString();
-      await this.saveProductToDatabase(productData, productId, idToken);
-
-      this.showToast(this.translate.instant('product_posted_success'), 'success');
-
-      // Reset
-      this.form.reset();
-      this.pickedImages = [];
-      this.navCtrl.navigateRoot('/home');
-
-    } catch (err: any) {
-      console.error(err);
-      this.showToast(err.message || this.translate.instant('server_error'), 'danger');
-    } finally {
-      loading.dismiss();
-    }
-  }
-
-
-  async saveProductToDatabase(productData: any, productId: string, idToken: string): Promise<void> {
-    try {
-      const url = `${this.FIREBASE_DB_URL}/products/${productId}.json?auth=${idToken}`;
-      const res = await fetch(url, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(productData)
-      });
-
-      if (!res.ok) {
-        const errorText = await res.text();
-        throw new Error(`Failed to save product: ${errorText}`);
-      }
-
-      console.log('✅ Product saved successfully to Realtime Database');
-    } catch (err: any) {
-      this.showToast(err?.message, 'danger');
-      throw err;
-=======
   async getAddressFromCoordinatesOSM(lat: number, lng: number) {
     const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`;
-
     try {
-      const res: any = await fetch(url).then((r) => r.json());
+      const res: any = await fetch(url).then(r => r.json());
       const address = res?.display_name || '';
       this.form.patchValue({ address });
       return address;
     } catch (error) {
       console.error('OSM Geocode error', error);
       return '';
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
     }
   }
 
@@ -562,64 +518,5 @@ export class AddProductPage implements OnInit {
   goBack() {
     this.navCtrl.navigateRoot('/main');
   }
-<<<<<<< HEAD
-
-  async openMapPicker() {
-    const modal = await this.modalCtrl.create({
-      component: MapComponentComponent,
-      componentProps: { location: this.productLocation }
-    });
-
-    modal.onDidDismiss().then((result) => {
-      if (result?.data) {
-        this.productLocation = result.data; // { lat: number, lng: number }
-        console.log('Picked Location:', this.productLocation);
-      }
-    });
-
-    await modal.present();
-  }
-
-
-  async getCityFromCoordinatesOSM(lat: number, lng: number) {
-
-    const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`;
-
-    try {
-      const res: any = await fetch(url).then(r => r.json());
-      const city = res?.display_name;
-      console.log(res,'City:', city);
-      this.form.patchValue({ city });
-      return res?.display_name;
-    } catch (error) {
-      console.error('OSM Geocode error', error);
-      return '';
-    }
-  }
-
-  pickedImages: Photo[] = [];
-
-  async pickMultipleImages() {
-    try {
-      if (this.pickedImages.length >= 3) {
-        this.showToast('Maximum 3 images allowed', 'warning');
-        return;
-      }
-
-      const image = await Camera.getPhoto({
-        quality: 60,
-        allowEditing: false,
-        resultType: CameraResultType.DataUrl,
-        source: CameraSource.Prompt
-      });
-
-      this.pickedImages.push(image);
-    } catch (error) {
-      console.error('Image pick error', error);
-    }
-  }
-
-
-=======
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
 }
+

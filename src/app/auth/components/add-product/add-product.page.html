@@ -11,14 +11,14 @@
   <form [formGroup]="form" (ngSubmit)="handleSubmit()">
     <ion-list class="form-list">
 
-<<<<<<< HEAD
+
       <!-- Image Picker -->
       <!-- <ion-item lines="none">
         <div class="select_img" (click)="pickSingleImage()" *ngIf="!pickedImage?.dataUrl">
           <div class="sub_select">
             <ion-icon name="camera" style="font-size: 32px;" [slot]="selectedLanguage=='en' ? 'start':'end'" class="add_icon"></ion-icon>
             <ion-text>{{ 'add_image' | translate }}</ion-text>
-=======
+
       <!-- ✅ MULTIPLE IMAGE PICKER (MAX 3) + HORIZONTAL LIST -->
       <ion-item lines="none" class="no-pad">
         <div class="images-row">
@@ -48,7 +48,7 @@
                 <ion-icon name="close"></ion-icon>
               </button>
             </div>
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
+
           </div>
 
         </div>
@@ -98,6 +98,56 @@
               </ion-button>
             </ion-item>
 
+          </div>
+        </div>
+      </ion-item>
+
+      <!-- ✅ City Dropdown -->
+      <ion-item lines="none" class="no-pad">
+        <div class="select_location">
+          <div class="sub_select_location">
+            <ion-text class="subject" [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
+              {{ 'city' | translate }}
+            </ion-text>
+
+            <ion-select
+              formControlName="city"
+              interface="popover"
+              class="change_subject arabic"
+              [slot]="selectedLanguage=='en' ? 'end':'start'"
+              [style.text-align]="selectedLanguage=='en' ? 'start':'end'"
+              (ionChange)="onCityChange($event.detail.value)">
+
+              <ion-select-option *ngFor="let c of cities; trackBy: trackByCityFn" [value]="c.key">
+                {{ selectedLanguage === 'en' ? c.en : c.ar }}
+              </ion-select-option>
+
+            </ion-select>
+          </div>
+        </div>
+      </ion-item>
+
+      <!-- ✅ District Dropdown -->
+      <ion-item lines="none" class="no-pad">
+        <div class="select_location">
+          <div class="sub_select_location">
+            <ion-text class="subject" [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
+              {{ 'district' | translate }}
+            </ion-text>
+
+            <ion-select
+              formControlName="district"
+              interface="popover"
+              class="change_subject arabic"
+              [disabled]="!districts?.length"
+              [slot]="selectedLanguage=='en' ? 'end':'start'"
+              [style.text-align]="selectedLanguage=='en' ? 'start':'end'">
+
+              <ion-select-option *ngFor="let d of districts; trackBy: trackByDistrictFn" [value]="d.key">
+                {{ selectedLanguage === 'en' ? d.en : d.ar }}
+              </ion-select-option>
+
+            </ion-select>
           </div>
         </div>
       </ion-item>

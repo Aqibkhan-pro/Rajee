@@ -6,8 +6,9 @@ import { RAuthService } from 'src/app/services/r-auth.service';
 import { AuthModalComponent } from '../auth/auth-modal/auth-modal.component';
 import { CommonService } from '../../services/common.service';
 
-// ✅ use your existing UserService
 import { UserService } from 'src/app/services/user.service';
+import { ThemeService } from 'src/app/services/theme.service';
+
 type User = {
   uid: string;
   name?: string;
@@ -30,8 +31,9 @@ export class HomePage implements OnInit {
   userName: string = 'Guest';
   userEmail: string = '';
   isAdmin: boolean = false;
+  isDarkMode: boolean = false;
 
-  selectedTab: string = 'home'; // default selected tab
+  selectedTab: string = 'home';
 
   constructor(
     private navCtrl: NavController,
@@ -40,20 +42,23 @@ export class HomePage implements OnInit {
     private modalCtrl: ModalController,
     private translate: TranslateService,
     private commonService: CommonService,
-    private userService: UserService
+    private userService: UserService,
+    private themeService: ThemeService
   ) {}
 
   async ngOnInit() {
     const savedLang = localStorage.getItem('lang');
     if (savedLang) this.selectedLanguage = savedLang;
 
-    // ✅ load user + is_admin on app start
+    // Initialize dark mode state
+    this.isDarkMode = this.themeService.isDarkMode();
+
     await this.refreshUserFromUserService();
   }
 
-  // ==============================
+  // ==
   // Helpers
-  // ==============================
+  // ==
   private getLocalUserData(): any {
     try {
       return JSON.parse(localStorage.getItem('userData') || '{}');
@@ -74,9 +79,9 @@ export class HomePage implements OnInit {
     this.isAdmin = !!userData?.is_admin || !!userData?.isAdmin;
   }
 
-  // ==============================
+  // ==
   // Language
-  // ==============================
+  // ==
   onLanguageChange(language: string) {
     this.selectedLanguage = language;
     this.switchLanguage(language);
@@ -88,26 +93,20 @@ export class HomePage implements OnInit {
     localStorage.setItem('lang', lang);
   }
 
-<<<<<<< HEAD
-    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-    const uid = userData?.uid;
-    const token = userData?.idToken;
+  // ==
+  // Dark Mode
+  // ==
+  onDarkModeToggle(event: any) {
+    this.isDarkMode = event.detail.checked;
+    this.themeService.setTheme(this.isDarkMode ? 'dark' : 'light');
+  }
 
-    if (!uid || !token) {
-      this.openLoginModal();
-      this.menuCtrl.close('homeMenu');
-      console.error('No auth data available');
-      return;
-    }
-    this.menuCtrl.close('homeMenu');
-=======
-  // ==============================
-  // ✅ MAIN: fetch user from your UserService
-  // ==============================
+  // ==
+  // Fetch user from UserService
+  // ==
   private async refreshUserFromUserService() {
     const local = this.getLocalUserData();
     const uid = local?.uid;
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
 
     if (!uid) {
       this.resetUserState();
@@ -117,13 +116,10 @@ export class HomePage implements OnInit {
     try {
       const user: User | null = await this.userService.getUserById(uid);
 
-      // ✅ support both keys: is_admin or isAdmin
       this.isAdmin = !!(user as any)?.is_admin || !!(user as any)?.isAdmin;
-
       this.userName = user?.name || local?.name || 'User';
       this.userEmail = user?.email || local?.email || '';
 
-      // ✅ optional sync localStorage
       localStorage.setItem(
         'userData',
         JSON.stringify({
@@ -136,15 +132,13 @@ export class HomePage implements OnInit {
       console.log('Loaded user from UserService:', user, 'isAdmin:', this.isAdmin);
     } catch (err) {
       console.error('Error fetching user from UserService:', err);
-
-      // fallback to local
       this.setUserFromLocal(local);
     }
   }
 
-  // ==============================
+  // ==
   // Menu actions
-  // ==============================
+  // ==
   async onMenuItemClick(item: string) {
     const userData = this.getLocalUserData();
     const uid = userData?.uid;
@@ -160,11 +154,9 @@ export class HomePage implements OnInit {
 
     switch (item) {
       case 'profile':
-        // this.navCtrl.navigateForward(['/profile']);
         break;
 
       case 'admin-panel':
-        // ✅ block if not admin
         if (!this.isAdmin) return;
         this.navCtrl.navigateForward(['/admin-panel']);
         break;
@@ -174,35 +166,25 @@ export class HomePage implements OnInit {
         break;
 
       case 'settings':
-        // this.navCtrl.navigateForward(['/settings']);
         break;
 
       case 'about':
-        // this.navCtrl.navigateForward(['/about']);
         break;
 
       case 'help':
-        // this.navCtrl.navigateForward(['/help']);
         break;
 
       case 'logout':
         this.authService.logout();
-
-        // ✅ clear localStorage
         localStorage.removeItem('userData');
-
-        // ✅ hide admin + reset UI
         this.resetUserState();
-
-        // optional
-        // this.navCtrl.navigateRoot(['/home']);
         break;
     }
   }
 
-  // ==============================
+  // ==
   // Add button
-  // ==============================
+  // ==
   async onAddClick() {
     const userData = this.getLocalUserData();
     const uid = userData?.uid;
@@ -216,9 +198,9 @@ export class HomePage implements OnInit {
     this.navCtrl.navigateForward(['/add-product']);
   }
 
-  // ==============================
+  // ==
   // Avatar dummy color
-  // ==============================
+  // ==
   getDummyColor(name?: string): string {
     const colors = ['#f44336', '#e91e63', '#9c27b0', '#3f51b5', '#03a9f4', '#4caf50', '#ff9800', '#795548'];
     if (!name) return colors[Math.floor(Math.random() * colors.length)];
@@ -230,9 +212,9 @@ export class HomePage implements OnInit {
     return colors[Math.abs(hash) % colors.length];
   }
 
-  // ==============================
+  // ==
   // Login Modal
-  // ==============================
+  // ==
   async openLoginModal() {
     const modal = await this.modalCtrl.create({
       component: AuthModalComponent,
@@ -248,7 +230,6 @@ export class HomePage implements OnInit {
     const { role } = await modal.onDidDismiss();
 
     if (role === 'success') {
-      // ✅ after login refresh user (admin too)
       await this.refreshUserFromUserService();
       this.commonService.notifyLoginSuccess();
     } else if (role === 'close') {
@@ -256,9 +237,9 @@ export class HomePage implements OnInit {
     }
   }
 
-  // ==============================
+  // ==
   // Tabs
-  // ==============================
+  // ==
   selectTab(tab: string) {
     const userData = this.getLocalUserData();
     const uid = userData?.uid;
@@ -275,3 +256,4 @@ export class HomePage implements OnInit {
     else if (tab.includes('profile')) this.selectedTab = 'profile';
   }
 }
+

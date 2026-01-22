@@ -21,17 +21,10 @@ interface Story {
   userId: string;
   userName: string;
   userAvatar?: string;
-<<<<<<< HEAD
   image: string;
   caption?: string;
-  createdAt: number; // timestamp
-  seen?: boolean;    // local only
-=======
-  image: string;       // Firebase Storage downloadURL
-  caption?: string;
   createdAt: number;
-  seen?: boolean;      // local only
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
+  seen?: boolean;
 }
 
 @Component({
@@ -41,71 +34,43 @@ interface Story {
   standalone: false
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-<<<<<<< HEAD
   selectedLanguage: string = 'en';
   FIREBASE_DB_URL = 'https://rajee-198a5-default-rtdb.firebaseio.com';
 
-  // ✅ Current user (from localStorage)
-=======
-
-  selectedLanguage: string = 'en';
-  FIREBASE_DB_URL = 'https://rajee-198a5-default-rtdb.firebaseio.com';
-
-  // ✅ Current user
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
   currentUserId: string = '';
   currentUserName: string = '';
   currentUserAvatar: string = '';
 
-<<<<<<< HEAD
-  // ✅ Categories
-=======
-  // ✅ Products
   items: Product[] = [];
   filteredItems: Product[] = [];
   searchText: string = '';
   selectedCategoryKey: string = 'all';
-
-  // ✅ SubCategory filter
   selectedSubCategoryKey: string = 'all';
   subCategoryOptions: Array<{ key: string; ar: string; en: string }> = [];
-
-  // ✅ UI
   isGrid: boolean = false;
+  showSearch: boolean = false;
 
-  // ✅ Stories
   stories: Story[] = [];
   isAddStoryOpen = false;
   isStoryViewerOpen = false;
   activeStory: Story | null = null;
-
-  // ✅ Stories collapse/expand
   storiesCollapsed = false;
 
   newStoryCaption: string = '';
   uploadingStory: boolean = false;
-
-  // picked image (gallery)
-  pickedStoryPreview: string = '';     // base64 preview for UI
-  pickedStoryBlob: Blob | null = null; // blob for upload
+  pickedStoryPreview: string = '';
+  pickedStoryBlob: Blob | null = null;
 
   private storyRefreshTimer: any;
   private langSub?: Subscription;
 
-  // template ref (you have #searchbar in HTML)
   @ViewChild('searchbar', { static: false }) searchbar!: IonSearchbar;
 
-  // ✅ Categories (added furniture because you have furniture sub categories)
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
   categories: Category[] = [
     { key: 'all', ar: 'الكل', en: 'All', icon: 'grid-outline', selected: true },
-    { key: 'cars', ar: 'حراج السيارات', en: 'Cars & Vehicles', icon: 'car-outline', selected: false },
-    { key: 'electronics', ar: 'حراج الأجهزة', en: 'Electronics & Devices', icon: 'phone-portrait-outline', selected: false },
-<<<<<<< HEAD
-    { key: 'animals', ar: 'مواشي وحيوانات وطيور', en: 'Livestock, Animals & Birds', icon: 'paw-outline', selected: false },
-=======
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
-    { key: 'furniture', ar: 'حراج الأثاث', en: 'Furniture', icon: 'bed-outline', selected: false },
+    { key: 'cars', ar: 'السيارات', en: 'Cars & Vehicles', icon: 'car-outline', selected: false },
+    { key: 'electronics', ar: 'الأجهزة الإلكترونية', en: 'Electronics & Devices', icon: 'phone-portrait-outline', selected: false },
+    { key: 'furniture', ar: 'الأثاث', en: 'Furniture', icon: 'bed-outline', selected: false },
     { key: 'personal_items', ar: 'مستلزمات شخصية', en: 'Personal Items & Accessories', icon: 'bag-handle-outline', selected: false },
     { key: 'services', ar: 'خدمات', en: 'Services', icon: 'construct-outline', selected: false },
     { key: 'jobs', ar: 'وظائف', en: 'Jobs', icon: 'briefcase-outline', selected: false },
@@ -113,25 +78,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     { key: 'others', ar: 'قسم غير مصنف', en: 'Uncategorized / Other', icon: 'ellipsis-horizontal-outline', selected: false }
   ];
 
-<<<<<<< HEAD
-  // ✅ Products
-  items: Product[] = [];
-  filteredItems: Product[] = [];
-  searchText: string = '';
-  selectedCategoryKey: string = 'all';
-
-  // ✅ Stories
-  stories: Story[] = [];
-  isAddStoryOpen = false;
-  isStoryViewerOpen = false;
-  activeStory: Story | null = null;
-
-  newStoryImage: string = '';
-  newStoryCaption: string = '';
-
-  private storyRefreshTimer: any;
-=======
-  // ✅ Sub Categories Map (YOUR FULL LIST)
   subCategoriesMap: Record<string, Array<{ key: string; ar: string; en: string }>> = {
     cars: [
       { key: 'parts', ar: 'قطع غيار وملحقات', en: 'Parts & Accessories' },
@@ -141,7 +87,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       { key: 'damaged', ar: 'سيارات مصدومه', en: 'Damaged Cars' },
       { key: 'transfer', ar: 'سيارات للتنازل', en: 'Transfer Cars' },
     ],
-
     electronics: [
       { key: 'mobiles', ar: 'جوالات', en: 'Mobiles' },
       { key: 'tablets', ar: 'تابلت', en: 'Tablets' },
@@ -156,7 +101,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       { key: 'networking', ar: 'شبكات وراوترات', en: 'Networking & Routers' },
       { key: 'printers', ar: 'طابعات وملحقاتها', en: 'Printers & Accessories' },
     ],
-
     furniture: [
       { key: 'majlis', ar: 'مجالس ومفروشات', en: 'Majlis & Upholstery' },
       { key: 'tables', ar: 'طاولات وكراسي', en: 'Tables & Chairs' },
@@ -169,7 +113,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       { key: 'kitchen', ar: 'مطابخ', en: 'Kitchens' },
       { key: 'carpets', ar: 'سجاد وستائر', en: 'Carpets & Curtains' },
     ],
-
     personal_items: [
       { key: 'watches', ar: 'ساعات', en: 'Watches' },
       { key: 'perfumes', ar: 'عطور', en: 'Perfumes' },
@@ -183,7 +126,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       { key: 'beauty', ar: 'صحة وجمال', en: 'Health & Beauty' },
       { key: 'jewelry', ar: 'ذهب ومجوهرات', en: 'Gold & Jewelry' },
     ],
-
     services: [
       { key: 'construction', ar: 'بناء ومقاولات', en: 'Construction & Contracting' },
       { key: 'ac', ar: 'تكييف وتبريد', en: 'AC & Cooling' },
@@ -195,7 +137,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       { key: 'rentals', ar: 'تاجير', en: 'Rentals' },
       { key: 'other_services', ar: 'خدمات أخرى', en: 'Other Services' },
     ],
-
     jobs: [
       { key: 'admin', ar: 'إدارية وسكرتارية', en: 'Admin & Secretary' },
       { key: 'sales', ar: 'تسويق ومبيعات', en: 'Sales & Marketing' },
@@ -215,7 +156,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       { key: 'trades', ar: 'مهن وحرف', en: 'Trades' },
       { key: 'remote', ar: 'عمل من المنزل', en: 'Work From Home' },
     ],
-
     games: [
       { key: 'console_games', ar: 'ألعاب بلايستيشن/إكس بوكس', en: 'Console Games' },
       { key: 'consoles', ar: 'أجهزة ألعاب', en: 'Gaming Consoles' },
@@ -224,10 +164,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       { key: 'tickets', ar: 'تذاكر', en: 'Tickets' },
       { key: 'other_ent', ar: 'ترفيه أخرى', en: 'Other Entertainment' },
     ],
-
     others: [{ key: 'misc', ar: 'متنوع', en: 'Miscellaneous' }],
   };
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
 
   constructor(
     private navCtrl: NavController,
@@ -236,41 +174,25 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // ✅ Language
-<<<<<<< HEAD
-    this.translate.onLangChange.subscribe(() => {
-=======
+    // Language change subscription
     this.langSub = this.translate.onLangChange.subscribe(() => {
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
       this.selectedLanguage = this.translate.currentLang;
     });
 
     const savedLang = localStorage.getItem('lang');
     if (savedLang) this.selectedLanguage = savedLang;
 
-<<<<<<< HEAD
-    // ✅ Current user
-=======
-    // ✅ Current user from localStorage
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
+    // Current user from localStorage
     const userData = JSON.parse(localStorage.getItem('userData') || '{}');
     this.currentUserId = userData?.uid || userData?.userId || 'guest';
     this.currentUserName = userData?.name || userData?.full_name || 'You';
     this.currentUserAvatar = userData?.avatar || userData?.profile || '';
 
-<<<<<<< HEAD
-    // ✅ Load
+    // Load initial data
     this.loadItems();
     this.loadStoriesFromFirebase();
 
-    // ✅ Optional auto refresh (every 15 sec)
-=======
-    // ✅ Load initial data
-    this.loadItems();
-    this.loadStoriesFromFirebase();
-
-    // ✅ Auto refresh stories
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
+    // Auto refresh stories every 15 seconds
     this.storyRefreshTimer = setInterval(() => {
       this.loadStoriesFromFirebase();
     }, 15000);
@@ -278,10 +200,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.storyRefreshTimer) clearInterval(this.storyRefreshTimer);
-<<<<<<< HEAD
+    if (this.langSub) this.langSub.unsubscribe();
   }
 
-  // ------------------ ✅ PRODUCTS ------------------
+  // ------------------ PRODUCTS ------------------
 
   async fetchProducts(): Promise<any[]> {
     try {
@@ -323,14 +245,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.applyFilters();
   }
 
-  onCategorySelect(category: Category) {
-    this.categories.forEach(cat => (cat.selected = false));
-=======
-    if (this.langSub) this.langSub.unsubscribe();
-  }
-
-  // -------------------- ✅ UI --------------------
-
   toggleLayout() {
     this.isGrid = !this.isGrid;
   }
@@ -339,16 +253,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.storiesCollapsed = !this.storiesCollapsed;
   }
 
-  // -------------------- ✅ FILTERS --------------------
+  toggleSearch() {
+    this.showSearch = !this.showSearch;
+
+    if (this.showSearch) {
+      setTimeout(() => this.searchbar?.setFocus(), 200);
+      return;
+    }
+
+    this.searchText = '';
+    this.applyFilters();
+  }
 
   onCategorySelect(category: Category) {
     this.categories.forEach(c => (c.selected = false));
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
     category.selected = true;
-
     this.selectedCategoryKey = category.key;
 
-    // ✅ SubCategory only for real categories
     if (this.selectedCategoryKey === 'all') {
       this.subCategoryOptions = [];
       this.selectedSubCategoryKey = 'all';
@@ -373,12 +294,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   applyFilters() {
     this.filteredItems = this.items.filter((item: any) => {
-<<<<<<< HEAD
-=======
       const itemSection = (item.section || '').toLowerCase();
       const itemSub = (item.subCategory || item.sub_category || '').toLowerCase();
 
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
       const matchesCategory =
         this.selectedCategoryKey === 'all' ||
         itemSection === this.selectedCategoryKey.toLowerCase();
@@ -398,19 +316,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
-<<<<<<< HEAD
-=======
-  // -------------------- ✅ PRODUCTS --------------------
-
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
   onCardClick(product: Product) {
     const navigationExtras: NavigationExtras = { state: { product } };
     this.navCtrl.navigateForward(['/product-details'], navigationExtras);
   }
 
-<<<<<<< HEAD
-  // ------------------ ✅ STORIES (Firebase) ------------------
-=======
   private getIdTokenFromStorage(): string | null {
     try {
       const userData = JSON.parse(localStorage.getItem('userData') || '{}');
@@ -426,38 +336,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return token ? `${base}?auth=${encodeURIComponent(token)}` : base;
   }
 
-  async fetchProducts(): Promise<any[]> {
-    try {
-      const url = this.buildDbUrl('approvedProducts');
-      const res = await fetch(url);
-
-      if (!res.ok) throw new Error(await res.text());
-
-      const data = await res.json();
-      if (!data) return [];
-
-      return Object.keys(data).map(key => ({ id: key, ...data[key] }));
-    } catch (err: any) {
-      console.error('Fetch products error:', err);
-      this.showToast(err?.message || 'Error fetching products', 'danger');
-      return [];
-    }
-  }
-
-  async loadItems() {
-    const products = await this.fetchProducts();
-
-    this.items = (products || []).map((p: any) => ({
-      ...p,
-      isFavorite: false,
-      time: p.createdAt || Date.now()
-    }));
-
-    this.applyFilters();
-  }
-
-  // -------------------- ✅ STORIES --------------------
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
+  // ------------------ STORIES ------------------
 
   openAddStoryModal() {
     this.isAddStoryOpen = true;
@@ -465,29 +344,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   closeAddStoryModal() {
     this.isAddStoryOpen = false;
-<<<<<<< HEAD
-    this.newStoryImage = '';
-    this.newStoryCaption = '';
-=======
     this.newStoryCaption = '';
     this.pickedStoryPreview = '';
     this.pickedStoryBlob = null;
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
   }
 
   openStoryViewer(story: Story) {
     this.activeStory = story;
     this.isStoryViewerOpen = true;
 
-<<<<<<< HEAD
-    // ✅ mark as seen locally
+    // Mark as seen locally
     this.stories = this.stories.map(s =>
       s.id === story.id ? { ...s, seen: true } : s
     );
-=======
-    // mark as seen (local)
-    this.stories = this.stories.map(s => (s.id === story.id ? { ...s, seen: true } : s));
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
   }
 
   closeStoryViewer() {
@@ -495,29 +364,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.activeStory = null;
   }
 
-<<<<<<< HEAD
-  async addStory() {
-    if (!this.newStoryImage?.trim()) {
-      this.showToast('Please add story image URL', 'danger');
-      return;
-    }
-
-    const payload = {
-      userId: this.currentUserId,
-      userName: this.currentUserName,
-      userAvatar: this.currentUserAvatar,
-      image: this.newStoryImage.trim(),
-      caption: this.newStoryCaption?.trim() || '',
-      createdAt: Date.now(),
-    };
-
-    const ok = await this.saveStoryToFirebase(payload);
-    if (!ok) return;
-
-    this.showToast('Story posted!', 'success');
-    this.closeAddStoryModal();
-    await this.loadStoriesFromFirebase();
-=======
   async pickStoryImage() {
     try {
       const photo = await Camera.getPhoto({
@@ -555,10 +401,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
       this.uploadingStory = true;
 
-      // 1) upload to Firebase Storage
+      // 1) Upload to Firebase Storage
       const downloadURL = await this.uploadStoryImageToStorage(this.pickedStoryBlob);
 
-      // 2) save to RTDB
+      // 2) Save to RTDB
       const payload = {
         userId: this.currentUserId,
         userName: this.currentUserName,
@@ -589,23 +435,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     await uploadBytes(storageRef, blob, { contentType: 'image/jpeg' });
     return await getDownloadURL(storageRef);
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
   }
 
   async saveStoryToFirebase(payload: any): Promise<boolean> {
     try {
-<<<<<<< HEAD
-      const url = `${this.FIREBASE_DB_URL}/stories.json`;
-=======
       const url = this.buildDbUrl('stories');
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
       const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
 
-<<<<<<< HEAD
       if (!res.ok) {
         const errorText = await res.text();
         throw new Error(`Failed to save story: ${errorText}`);
@@ -613,14 +453,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       return true;
     } catch (err: any) {
       console.error('Save story error:', err);
-      this.showToast(err.message || 'Error saving story', 'danger');
-=======
-      if (!res.ok) throw new Error(await res.text());
-      return true;
-    } catch (err: any) {
-      console.error('Save story error:', err);
       this.showToast(err?.message || 'Error saving story', 'danger');
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
       return false;
     }
   }
@@ -631,66 +464,36 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   async fetchStoriesFromFirebase(): Promise<Story[]> {
     try {
-<<<<<<< HEAD
-      const url = `${this.FIREBASE_DB_URL}/stories.json`;
-      const res = await fetch(url);
-
-      if (!res.ok) {
-        const errorText = await res.text();
-        throw new Error(`Failed to fetch stories: ${errorText}`);
-      }
-=======
       const url = this.buildDbUrl('stories');
       const res = await fetch(url);
 
       if (!res.ok) throw new Error(await res.text());
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
 
       const data = await res.json();
       if (!data) return [];
 
-<<<<<<< HEAD
-      const arr: Story[] = Object.keys(data).map((key) => ({
-=======
       const arr: Story[] = Object.keys(data).map(key => ({
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
         id: key,
         ...data[key],
         seen: false
       }));
 
-<<<<<<< HEAD
-      // ✅ show only last 24 hours
+      // Only last 24 hours
       const last24h = Date.now() - 24 * 60 * 60 * 1000;
       const filtered = arr.filter(s => (s.createdAt || 0) >= last24h);
 
-      // ✅ newest first
-=======
-      // only last 24h
-      const last24h = Date.now() - 24 * 60 * 60 * 1000;
-      const filtered = arr.filter(s => (s.createdAt || 0) >= last24h);
-
-      // newest first
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
+      // Newest first
       filtered.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
       return filtered;
     } catch (err: any) {
       console.error('Fetch stories error:', err);
-<<<<<<< HEAD
-      this.showToast(err.message || 'Error fetching stories', 'danger');
-=======
       this.showToast(err?.message || 'Error fetching stories', 'danger');
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
       return [];
     }
   }
 
-<<<<<<< HEAD
-  // ------------------ ✅ UI helpers ------------------
-=======
-  // -------------------- ✅ Helpers --------------------
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
+  // ------------------ UI Helpers ------------------
 
   async showToast(message: string, color: string = 'danger') {
     const toast = await this.toastController.create({
@@ -704,45 +507,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   getInitial(name?: string): string {
     if (!name) return '?';
-<<<<<<< HEAD
 
     const cleaned = name.trim();
     if (!cleaned) return '?';
 
-    // Take first word, then first character
-=======
-    const cleaned = name.trim();
-    if (!cleaned) return '?';
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
     const firstWord = cleaned.split(' ')[0];
     return (firstWord.charAt(0) || '?').toUpperCase();
   }
 
-<<<<<<< HEAD
-
-  @ViewChild('searchbar', { static: false }) searchbar!: IonSearchbar;
-
-  showSearch = false;
-  toggleSearch() {
-    this.showSearch = !this.showSearch;
-
-    // when opening -> focus input
-    if (this.showSearch) {
-      setTimeout(() => this.searchbar?.setFocus(), 200);
-      return;
-    }
-
-    this.searchText = '';
-    this.applyFilters(); // your existing function
-  }
-
-  isGrid: boolean = false;
-
-toggleLayout() {
-  this.isGrid = !this.isGrid;
-}
-
-=======
   private base64ToBlob(base64Data: string, contentType = 'image/jpeg'): Blob {
     const byteCharacters = atob(base64Data);
     const byteArrays: Uint8Array[] = [];
@@ -757,5 +529,22 @@ toggleLayout() {
 
     return new Blob(byteArrays as BlobPart[], { type: contentType });
   }
->>>>>>> ad899d4189d07c552b0b4a8a8d20bafe4fdd5a34
+
+  // ------------------ Performance: trackBy functions ------------------
+  trackByCategory(index: number, category: Category): string {
+    return category.key;
+  }
+
+  trackByStory(index: number, story: Story): string {
+    return story.id;
+  }
+
+  trackByItem(index: number, item: Product): string | number {
+    return (item as any).id || item.title || index;
+  }
+
+  trackBySubCategory(index: number, subCat: { key: string }): string {
+    return subCat.key;
+  }
 }
+

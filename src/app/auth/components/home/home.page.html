@@ -49,7 +49,7 @@
       </ion-list>
     </ion-content>
 
-    <!-- Footer with Language and Logout -->
+    <!-- Footer with Language, Dark Mode and Logout -->
     <ion-footer style="padding-bottom: env(safe-area-inset-bottom);">
       <ion-list>
         <!-- Language Selection -->
@@ -66,6 +66,15 @@
               </ion-chip>
             </div>
           </ion-label>
+        </ion-item>
+
+        <!-- Dark Mode Toggle -->
+        <ion-item lines="none">
+          <ion-icon [name]="isDarkMode ? 'moon' : 'sunny-outline'" [slot]="selectedLanguage=='en' ? 'start': 'end'"></ion-icon>
+          <ion-label [style.text-align]="selectedLanguage=='en' ? 'start': 'end'">
+            {{ 'nightmode' | translate }}
+          </ion-label>
+          <ion-toggle [checked]="isDarkMode" (ionChange)="onDarkModeToggle($event)" [slot]="selectedLanguage=='en' ? 'end': 'start'"></ion-toggle>
         </ion-item>
 
         <!-- Logout -->

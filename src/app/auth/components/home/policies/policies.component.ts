@@ -1,15 +1,18 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+
+
+import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { NavController } from '@ionic/angular';
 
 type PolicyBlock = { type: 'p' | 'ul'; text?: string; items?: string[] };
 
 interface PolicySection {
   id: string;
-  title: string;
+  titleEn: string;
+  titleAr: string;
   icon?: string;
-  blocks: PolicyBlock[];
+  blocksEn: PolicyBlock[];
+  blocksAr: PolicyBlock[];
 }
 
 @Component({
@@ -18,239 +21,415 @@ interface PolicySection {
   templateUrl: './policies.component.html',
   styleUrls: ['./policies.component.scss'],
 })
-export class PoliciesComponent {
-  // ====== EDIT THESE ======
+export class PoliciesComponent implements OnInit {
   appName = 'Rajee';
-  companyName = 'Rajee Marketplace';
-  supportEmail = 'support@rajeemarketplace.com';
-  supportPhone = '+92-3XX-XXXXXXX';
-  websiteUrl = 'https://rajeemarketplace.com';
-  address = 'Pakistan';
-  lastUpdated = '18 Jan 2026';
+  companyNameEn = 'Rajee Marketplace';
+  companyNameAr = 'سوق راجي';
+  supportEmail = 'support@rajee.sa';
+  supportPhone = '+966-XX-XXX-XXXX';
+  websiteUrl = 'https://rajee.sa';
+  addressEn = 'Saudi Arabia';
+  addressAr = 'المملكة العربية السعودية';
+  lastUpdatedEn = 'January 22, 2026';
+  lastUpdatedAr = '22 يناير 2026';
 
+  selectedLanguage = 'en';
   query = '';
 
   sections: PolicySection[] = [
+    // ================= OVERVIEW =================
     {
       id: 'intro',
-      title: 'Overview',
+      titleEn: 'Overview',
+      titleAr: 'نظرة عامة',
       icon: 'information-circle-outline',
-      blocks: [
+      blocksEn: [
         {
           type: 'p',
-          text:
-            `${this.appName} aik marketplace app hai jahan users ads/listings post karte hain aur buyers/sellers aapas me deal karte hain. ` +
-            `Hum transaction ka direct hissa nahi hotay, lekin platform rules enforce karte hain.`,
+          text: `${this.appName} is a marketplace app where users post ads/listings and buyers/sellers deal with each other directly. We are not a direct party to transactions, but we enforce platform rules.`,
         },
         {
           type: 'ul',
           items: [
-            'Platform use karne se aap in policies aur terms se agree karte hain.',
-            'Hum policies ko update kar sakte hain; “Last Updated” date check karte rahen.',
-            'Agar aap agree nahi, to app use na karein / account delete kar dein.',
+            'By using the platform, you agree to these policies and terms.',
+            'We may update policies; please check the "Last Updated" date.',
+            'If you do not agree, please do not use the app / delete your account.',
+          ],
+        },
+      ],
+      blocksAr: [
+        {
+          type: 'p',
+          text: `${this.appName} هو تطبيق سوق إلكتروني يقوم فيه المستخدمون بنشر الإعلانات ويتعامل البائعون والمشترون مع بعضهم البعض مباشرة. نحن لسنا طرفاً مباشراً في المعاملات، ولكننا نطبق قواعد المنصة.`,
+        },
+        {
+          type: 'ul',
+          items: [
+            'باستخدام المنصة، فإنك توافق على هذه السياسات والشروط.',
+            'قد نقوم بتحديث السياسات؛ يرجى التحقق من تاريخ "آخر تحديث".',
+            'إذا كنت لا توافق، يرجى عدم استخدام التطبيق / حذف حسابك.',
           ],
         },
       ],
     },
 
-    // ================= PRIVACY =================
+    // ================= PRIVACY POLICY =================
     {
       id: 'privacy',
-      title: 'Privacy Policy',
+      titleEn: 'Privacy Policy',
+      titleAr: 'سياسة الخصوصية',
       icon: 'shield-checkmark-outline',
-      blocks: [
-        { type: 'p', text: 'Hum aap ki privacy ko serious lete hain. Neeche bataya gaya hai ke hum kya data lete hain aur kyun.' },
+      blocksEn: [
+        { type: 'p', text: 'We take your privacy seriously. Below is what data we collect and why.' },
         {
           type: 'ul',
           items: [
-            'Account info: name, phone/email, profile photo (agar aap add karein).',
-            'Listings/Ads info: title, description, price, images, location (agar aap share karein).',
-            'Usage data: app performance logs, crash reports, basic analytics (behtari ke liye).',
-            'Device info: device model, OS version, unique identifiers (security/anti-fraud).',
+            'Account info: name, phone/email, profile photo (if you add one).',
+            'Listings/Ads info: title, description, price, images, location (if you share).',
+            'Usage data: app performance logs, crash reports, basic analytics (for improvement).',
+            'Device info: device model, OS version, unique identifiers (for security/anti-fraud).',
           ],
         },
-        { type: 'p', text: 'Data use kaisay hota hai:' },
+        { type: 'p', text: 'How we use data:' },
         {
           type: 'ul',
           items: [
-            'Account chalana, login/security, spam/fraud control.',
-            'Listings dikhana, search/filter, recommendations improve karna.',
-            'Support aur dispute handling (jab aap report/contact karein).',
-            'Legal compliance aur policy enforcement.',
+            'Account management, login/security, spam/fraud control.',
+            'Displaying listings, search/filter, improving recommendations.',
+            'Support and dispute handling (when you report/contact us).',
+            'Legal compliance and policy enforcement.',
           ],
         },
         { type: 'p', text: 'Data sharing:' },
         {
           type: 'ul',
           items: [
-            'Hum aap ka personal data “sell” nahi karte.',
-            'Third-party services (example: hosting, analytics, push notifications) sirf service dene ke liye data process kar sakti hain.',
-            'Legal request / fraud investigation me data share ho sakta hai.',
+            'We do not "sell" your personal data.',
+            'Third-party services (e.g., hosting, analytics, push notifications) may process data only to provide services.',
+            'Data may be shared in legal requests / fraud investigations.',
           ],
         },
         { type: 'p', text: 'Security:' },
         {
           type: 'ul',
           items: [
-            'Hum reasonable security measures use karte hain, lekin 100% guarantee possible nahi.',
-            'Aap apna password/OTP kisi ko share na karein.',
+            'We use reasonable security measures, but 100% guarantee is not possible.',
+            'Do not share your password/OTP with anyone.',
           ],
         },
-        { type: 'p', text: 'Aap ke rights:' },
+        { type: 'p', text: 'Your rights:' },
         {
           type: 'ul',
           items: [
-            'Aap data update/rectify kar sakte hain.',
-            'Aap account delete aur data removal request kar sakte hain (kuch logs legal/security reasons ki wajah se retain ho sakte hain).',
+            'You can update/rectify your data.',
+            'You can request account deletion and data removal (some logs may be retained for legal/security reasons).',
+          ],
+        },
+      ],
+      blocksAr: [
+        { type: 'p', text: 'نحن نأخذ خصوصيتك على محمل الجد. فيما يلي البيانات التي نجمعها ولماذا.' },
+        {
+          type: 'ul',
+          items: [
+            'معلومات الحساب: الاسم، الهاتف/البريد الإلكتروني، صورة الملف الشخصي (إذا أضفتها).',
+            'معلومات الإعلانات: العنوان، الوصف، السعر، الصور، الموقع (إذا شاركته).',
+            'بيانات الاستخدام: سجلات أداء التطبيق، تقارير الأعطال، التحليلات الأساسية (للتحسين).',
+            'معلومات الجهاز: طراز الجهاز، إصدار نظام التشغيل، المعرفات الفريدة (للأمان/مكافحة الاحتيال).',
+          ],
+        },
+        { type: 'p', text: 'كيف نستخدم البيانات:' },
+        {
+          type: 'ul',
+          items: [
+            'إدارة الحساب، تسجيل الدخول/الأمان، التحكم في البريد العشوائي/الاحتيال.',
+            'عرض الإعلانات، البحث/التصفية، تحسين التوصيات.',
+            'الدعم ومعالجة النزاعات (عند الإبلاغ/الاتصال بنا).',
+            'الامتثال القانوني وتطبيق السياسات.',
+          ],
+        },
+        { type: 'p', text: 'مشاركة البيانات:' },
+        {
+          type: 'ul',
+          items: [
+            'نحن لا "نبيع" بياناتك الشخصية.',
+            'قد تقوم خدمات الطرف الثالث (مثل الاستضافة، التحليلات، الإشعارات) بمعالجة البيانات فقط لتقديم الخدمات.',
+            'قد تتم مشاركة البيانات في الطلبات القانونية / تحقيقات الاحتيال.',
+          ],
+        },
+        { type: 'p', text: 'الأمان:' },
+        {
+          type: 'ul',
+          items: [
+            'نستخدم تدابير أمنية معقولة، ولكن الضمان بنسبة 100٪ غير ممكن.',
+            'لا تشارك كلمة المرور/رمز التحقق مع أي شخص.',
+          ],
+        },
+        { type: 'p', text: 'حقوقك:' },
+        {
+          type: 'ul',
+          items: [
+            'يمكنك تحديث/تصحيح بياناتك.',
+            'يمكنك طلب حذف الحساب وإزالة البيانات (قد يتم الاحتفاظ ببعض السجلات لأسباب قانونية/أمنية).',
           ],
         },
       ],
     },
 
-    // ================= TERMS =================
+    // ================= TERMS OF USE =================
     {
       id: 'terms',
-      title: 'Terms of Use',
+      titleEn: 'Terms of Use',
+      titleAr: 'شروط الاستخدام',
       icon: 'document-text-outline',
-      blocks: [
+      blocksEn: [
         {
           type: 'ul',
           items: [
-            'Aap sirf lawful aur honest purpose ke liye app use karenge.',
-            'Aap apni listing ki accuracy (price, condition, photos) ke zimmedar hain.',
-            'Buyer/Seller apni deal khud karte hain; platform third-party intermediary hai.',
-            'Hum kisi deal/transaction ke loss, fraud, ya dispute ke liable nahi (maximum extent allowed by law).',
-            'Hum kisi bhi user ya ad ko suspend/remove kar sakte hain agar policy violate ho.',
+            'You will use the app only for lawful and honest purposes.',
+            'You are responsible for the accuracy of your listing (price, condition, photos).',
+            'Buyer/Seller make their own deals; the platform is a third-party intermediary.',
+            'We are not liable for any deal/transaction loss, fraud, or dispute (to the maximum extent allowed by law).',
+            'We can suspend/remove any user or ad if policy is violated.',
+          ],
+        },
+      ],
+      blocksAr: [
+        {
+          type: 'ul',
+          items: [
+            'ستستخدم التطبيق فقط لأغراض قانونية وصادقة.',
+            'أنت مسؤول عن دقة إعلانك (السعر، الحالة، الصور).',
+            'المشتري/البائع يبرمان صفقاتهما بأنفسهما؛ المنصة وسيط من طرف ثالث.',
+            'لسنا مسؤولين عن أي خسارة أو احتيال أو نزاع في الصفقة/المعاملة (إلى أقصى حد يسمح به القانون).',
+            'يمكننا تعليق/إزالة أي مستخدم أو إعلان في حالة انتهاك السياسة.',
           ],
         },
       ],
     },
 
-    // ================= ADS / POSTING RULES =================
+    // ================= ADS / LISTING RULES =================
     {
       id: 'posting',
-      title: 'Ads / Listing Rules',
+      titleEn: 'Ads / Listing Rules',
+      titleAr: 'قواعد الإعلانات',
       icon: 'megaphone-outline',
-      blocks: [
-        { type: 'p', text: 'Ads post karte hue ye rules follow karein:' },
+      blocksEn: [
+        { type: 'p', text: 'Follow these rules when posting ads:' },
         {
           type: 'ul',
           items: [
-            'Real product/service ki real photos upload karein (fake/stock images avoid).',
-            'Title aur description clear aur honest rakhein.',
-            'Misleading pricing, hidden charges, ya fake discount nahi.',
-            'Contact info ko spam style me repeat na karein.',
-            'Same item ki duplicate ads avoid karein.',
+            'Upload real photos of real product/service (avoid fake/stock images).',
+            'Keep title and description clear and honest.',
+            'No misleading pricing, hidden charges, or fake discounts.',
+            'Do not repeat contact info in spam style.',
+            'Avoid duplicate ads for the same item.',
+          ],
+        },
+      ],
+      blocksAr: [
+        { type: 'p', text: 'اتبع هذه القواعد عند نشر الإعلانات:' },
+        {
+          type: 'ul',
+          items: [
+            'ارفع صوراً حقيقية للمنتج/الخدمة الحقيقية (تجنب الصور المزيفة/الجاهزة).',
+            'اجعل العنوان والوصف واضحين وصادقين.',
+            'لا أسعار مضللة أو رسوم مخفية أو خصومات وهمية.',
+            'لا تكرر معلومات الاتصال بأسلوب البريد العشوائي.',
+            'تجنب الإعلانات المكررة لنفس المنتج.',
           ],
         },
       ],
     },
 
-    // ================= PROHIBITED =================
+    // ================= PROHIBITED ITEMS =================
     {
       id: 'prohibited',
-      title: 'Prohibited Items & Content',
+      titleEn: 'Prohibited Items & Content',
+      titleAr: 'العناصر والمحتوى المحظور',
       icon: 'ban-outline',
-      blocks: [
-        { type: 'p', text: 'Niche cheezen sakht mana hain (listing remove + account action ho sakta hai):' },
+      blocksEn: [
+        { type: 'p', text: 'The following are strictly prohibited (listing removal + account action may apply):' },
         {
           type: 'ul',
           items: [
             'Illegal items, stolen goods, counterfeit products.',
-            'Weapons/ammunition/explosives (local law ke mutabiq).',
+            'Weapons/ammunition/explosives (according to local law).',
             'Drugs, controlled substances, intoxication items.',
             'Adult/explicit content, harassment, hate speech.',
             'Scams: advance payment fraud, phishing links, fake escrow.',
-            'Personal data selling (CNIC, bank data, etc.).',
+            'Selling personal data (ID, bank data, etc.).',
+          ],
+        },
+      ],
+      blocksAr: [
+        { type: 'p', text: 'الآتي ممنوع منعاً باتاً (قد يتم إزالة الإعلان + اتخاذ إجراء بحق الحساب):' },
+        {
+          type: 'ul',
+          items: [
+            'العناصر غير القانونية، البضائع المسروقة، المنتجات المقلدة.',
+            'الأسلحة/الذخيرة/المتفجرات (وفقاً للقانون المحلي).',
+            'المخدرات، المواد الخاضعة للرقابة، مواد الإسكار.',
+            'محتوى للبالغين/صريح، المضايقات، خطاب الكراهية.',
+            'الاحتيال: احتيال الدفع المسبق، روابط التصيد، الضمان الوهمي.',
+            'بيع البيانات الشخصية (الهوية، البيانات البنكية، إلخ).',
           ],
         },
       ],
     },
 
-    // ================= REPORTING & REMOVAL =================
+    // ================= REPORTING =================
     {
       id: 'reporting',
-      title: 'Reporting & Removal of Violating Ads',
+      titleEn: 'Reporting & Removal of Violating Ads',
+      titleAr: 'الإبلاغ وإزالة الإعلانات المخالفة',
       icon: 'flag-outline',
-      blocks: [
+      blocksEn: [
         {
           type: 'p',
-          text:
-            'Agar aap ko koi ad/user suspicious ya policy-violating lagay to “Report” feature se report karein. ' +
-            'Hum review karke action lete hain.',
+          text: 'If you find any ad/user suspicious or policy-violating, use the "Report" feature. We will review and take action.',
         },
         {
           type: 'ul',
           items: [
-            'Review ke baad ad remove/suspend ho sakti hai.',
-            'Repeat violation par account suspend/ban ho sakta hai.',
-            'Fraud/illegal activity me law enforcement ko cooperate kar sakte hain.',
-            'False reporting ka misuse bhi violation ho sakta hai.',
+            'After review, the ad may be removed/suspended.',
+            'Repeat violations may result in account suspension/ban.',
+            'In fraud/illegal activity, we may cooperate with law enforcement.',
+            'Misuse of false reporting is also a violation.',
+          ],
+        },
+      ],
+      blocksAr: [
+        {
+          type: 'p',
+          text: 'إذا وجدت أي إعلان/مستخدم مشبوه أو مخالف للسياسة، استخدم ميزة "الإبلاغ". سنقوم بالمراجعة واتخاذ الإجراء المناسب.',
+        },
+        {
+          type: 'ul',
+          items: [
+            'بعد المراجعة، قد يتم إزالة/تعليق الإعلان.',
+            'الانتهاكات المتكررة قد تؤدي إلى تعليق/حظر الحساب.',
+            'في حالات الاحتيال/النشاط غير القانوني، قد نتعاون مع جهات إنفاذ القانون.',
+            'إساءة استخدام الإبلاغ الكاذب تعتبر أيضاً انتهاكاً.',
           ],
         },
       ],
     },
 
-    // ================= SAFETY =================
+    // ================= SAFETY TIPS =================
     {
       id: 'safety',
-      title: 'Safety Tips (Buyer/Seller)',
+      titleEn: 'Safety Tips (Buyer/Seller)',
+      titleAr: 'نصائح السلامة (للبائع/المشتري)',
       icon: 'alert-circle-outline',
-      blocks: [
+      blocksEn: [
         {
           type: 'ul',
           items: [
-            'Meetup public place me karein; akelay na jayen.',
-            'Advance payment/OTP/share screen ka demand ho to avoid karein.',
-            'Product check kar ke hi payment karein.',
-            'Suspicious links/WhatsApp “verify” requests par click na karein.',
+            'Meet in a public place; do not go alone.',
+            'Avoid requests for advance payment/OTP/screen sharing.',
+            'Check the product before making payment.',
+            'Do not click on suspicious links/WhatsApp "verify" requests.',
+          ],
+        },
+      ],
+      blocksAr: [
+        {
+          type: 'ul',
+          items: [
+            'قابل في مكان عام؛ لا تذهب بمفردك.',
+            'تجنب طلبات الدفع المسبق/رمز التحقق/مشاركة الشاشة.',
+            'افحص المنتج قبل الدفع.',
+            'لا تنقر على الروابط المشبوهة/طلبات "التحقق" عبر واتساب.',
           ],
         },
       ],
     },
 
-    // ================= REFUND / PAYMENTS (OPTIONAL) =================
+    // ================= PAYMENTS/REFUNDS =================
     {
       id: 'payments',
-      title: 'Payments / Refunds (Agar app me payment feature ho)',
+      titleEn: 'Payments / Refunds (If applicable)',
+      titleAr: 'المدفوعات / الاسترداد (إن وجدت)',
       icon: 'card-outline',
-      blocks: [
-        { type: 'p', text: 'Agar aap ki app me in-app payments/featured ads hain to yahan apni policy define karein.' },
+      blocksEn: [
+        { type: 'p', text: 'If the app has in-app payments/featured ads, the following applies:' },
         {
           type: 'ul',
           items: [
-            'Featured/Boosted ads ki fees non-refundable ho sakti hai (policy aap set karein).',
-            'Chargeback/fraud cases me investigation ke baad decision hoga.',
-            'Tax/fees local rules ke mutabiq apply ho sakti hain.',
+            'Featured/Boosted ads fees may be non-refundable (as per our policy).',
+            'Chargeback/fraud cases will be investigated before decision.',
+            'Taxes/fees may apply according to local regulations.',
+          ],
+        },
+      ],
+      blocksAr: [
+        { type: 'p', text: 'إذا كان التطبيق يحتوي على مدفوعات داخلية/إعلانات مميزة، ينطبق ما يلي:' },
+        {
+          type: 'ul',
+          items: [
+            'قد تكون رسوم الإعلانات المميزة/المعززة غير قابلة للاسترداد (حسب سياستنا).',
+            'سيتم التحقيق في حالات الاسترداد/الاحتيال قبل اتخاذ القرار.',
+            'قد تنطبق الضرائب/الرسوم وفقاً للوائح المحلية.',
           ],
         },
       ],
     },
 
-    // ================= CONTACT =================
+    // ================= CONTACT US =================
     {
       id: 'contact',
-      title: 'Contact Us',
+      titleEn: 'Contact Us',
+      titleAr: 'اتصل بنا',
       icon: 'mail-outline',
-      blocks: [
+      blocksEn: [
         {
           type: 'p',
-          text:
-            `Support ke liye: ${this.supportEmail} | ${this.supportPhone}\n` +
-            `Website: ${this.websiteUrl}\n` +
-            `Address/Region: ${this.address}`,
+          text: `For support: ${this.supportEmail} | ${this.supportPhone}\nWebsite: ${this.websiteUrl}\nRegion: Saudi Arabia`,
+        },
+      ],
+      blocksAr: [
+        {
+          type: 'p',
+          text: `للدعم: ${this.supportEmail} | ${this.supportPhone}\nالموقع: ${this.websiteUrl}\nالمنطقة: المملكة العربية السعودية`,
         },
       ],
     },
   ];
+
+  constructor(
+    private translate: TranslateService,
+    private navCtrl: NavController
+  ) {}
+
+  ngOnInit() {
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang) this.selectedLanguage = savedLang;
+
+    this.translate.onLangChange.subscribe(() => {
+      this.selectedLanguage = this.translate.currentLang;
+    });
+  }
+
+  get displayTitle(): string {
+    return this.selectedLanguage === 'ar' ? `سياسات ${this.appName}` : `${this.appName} Policies`;
+  }
+
+  get displayLastUpdated(): string {
+    return this.selectedLanguage === 'ar'
+      ? `آخر تحديث: ${this.lastUpdatedAr}`
+      : `Last Updated: ${this.lastUpdatedEn}`;
+  }
 
   get filteredSections(): PolicySection[] {
     const q = (this.query || '').trim().toLowerCase();
     if (!q) return this.sections;
 
     return this.sections.filter((s) => {
-      if (s.title.toLowerCase().includes(q)) return true;
-      return s.blocks.some((b) => {
+      const title = this.selectedLanguage === 'ar' ? s.titleAr : s.titleEn;
+      if (title.toLowerCase().includes(q)) return true;
+
+      const blocks = this.selectedLanguage === 'ar' ? s.blocksAr : s.blocksEn;
+      return blocks.some((b) => {
         if (b.type === 'p' && (b.text || '').toLowerCase().includes(q)) return true;
         if (b.type === 'ul' && (b.items || []).some((x) => x.toLowerCase().includes(q))) return true;
         return false;
@@ -258,7 +437,23 @@ export class PoliciesComponent {
     });
   }
 
+  getSectionTitle(section: PolicySection): string {
+    return this.selectedLanguage === 'ar' ? section.titleAr : section.titleEn;
+  }
+
+  getSectionBlocks(section: PolicySection): PolicyBlock[] {
+    return this.selectedLanguage === 'ar' ? section.blocksAr : section.blocksEn;
+  }
+
   mailToSupport() {
     window.location.href = `mailto:${this.supportEmail}?subject=${encodeURIComponent(this.appName + ' Support')}`;
+  }
+
+  goBack() {
+    this.navCtrl.back();
+  }
+
+  trackByFn(index: number, section: PolicySection): string {
+    return section.id;
   }
 }

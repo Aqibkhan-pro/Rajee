@@ -1,49 +1,58 @@
 <ion-header>
   <ion-toolbar class="pol-toolbar">
-    <ion-title class="pol-title">Policies</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="pol-title">{{ selectedLanguage === 'ar' ? 'السياسات' : 'Policies' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="selectedLanguage = selectedLanguage === 'ar' ? 'en' : 'ar'" fill="clear" class="lang-toggle-btn">
+        <ion-icon name="language-outline" slot="start"></ion-icon>
+        {{ selectedLanguage === 'ar' ? 'EN' : 'عربي' }}
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="pol-content ion-padding" style="background: #fafafa !important;--background:#fafafa !important">
+<ion-content class="pol-content ion-padding" [attr.dir]="selectedLanguage === 'ar' ? 'rtl' : 'ltr'">
 
   <ion-card class="pol-hero">
     <ion-card-header>
-      <ion-card-title>{{ appName }} Policies</ion-card-title>
-      <ion-card-subtitle>Last Updated: {{ lastUpdated }}</ion-card-subtitle>
+      <ion-card-title>{{ displayTitle }}</ion-card-title>
+      <ion-card-subtitle>{{ displayLastUpdated }}</ion-card-subtitle>
     </ion-card-header>
 
     <ion-card-content>
       <ion-searchbar
         class="pol-search"
         [(ngModel)]="query"
-        placeholder="Search policy..."
+        [placeholder]="selectedLanguage === 'ar' ? 'ابحث في السياسات...' : 'Search policies...'"
         debounce="150">
       </ion-searchbar>
 
       <div class="top-actions">
         <ion-button class="pol-btn" fill="outline" size="small" (click)="mailToSupport()" style="--padding-top:10px">
           <ion-icon name="mail-outline" slot="start" style="margin-bottom: 6px;"></ion-icon>
-          Email Support
+          {{ selectedLanguage === 'ar' ? 'راسل الدعم' : 'Email Support' }}
         </ion-button>
       </div>
     </ion-card-content>
   </ion-card>
 
   <ion-accordion-group class="pol-acc-group" value="privacy">
-    <ion-accordion class="pol-acc" *ngFor="let s of filteredSections" [value]="s.id" style="background-color: #ffffff;">
+    <ion-accordion class="pol-acc" *ngFor="let s of filteredSections; trackBy: trackByFn" [value]="s.id">
 
       <ion-item class="pol-acc-header" slot="header">
-        <ion-icon class="pol-acc-icon" [name]="s.icon || 'document-outline'" slot="start" style="color: #fafafa;--color:#fafafa"></ion-icon>
+        <ion-icon class="pol-acc-icon" [name]="s.icon || 'document-outline'" slot="start"></ion-icon>
         <ion-label class="pol-acc-label">
-          <h2>{{ s.title }}</h2>
+          <h2>{{ getSectionTitle(s) }}</h2>
         </ion-label>
       </ion-item>
 
       <div class="ion-padding pol-body" slot="content">
-        <ng-container *ngFor="let b of s.blocks">
-          <p *ngIf="b.type === 'p'">{{ b.text }}</p>
+        <ng-container *ngFor="let b of getSectionBlocks(s)">
+          <p *ngIf="b.type === 'p'" style="white-space: pre-line;">{{ b.text }}</p>
 
-          <ul *ngIf="b.type === 'ul'">
+          <ul *ngIf="b.type === 'ul'" [style.padding-inline-start]="'20px'">
             <li *ngFor="let it of b.items">{{ it }}</li>
           </ul>
         </ng-container>
@@ -52,5 +61,5 @@
     </ion-accordion>
   </ion-accordion-group>
 
-  <div style="width: 100%; height:200px"></div>
+  <div style="width: 100%; height:100px"></div>
 </ion-content>
